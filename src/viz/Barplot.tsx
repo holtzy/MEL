@@ -25,7 +25,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
 
   // Y axis
   const yScale = useMemo(() => {
-    const [min, max] = d3.extent(data.map((d) => d.value));
+    const max = d3.max(data.map((d) => d.value));
     return d3
       .scaleLinear()
       .domain([0, max || 10])
