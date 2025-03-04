@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import * as d3 from "d3";
-import { Tooltip } from "./Tooltip";
+import { InteractionData, Tooltip } from "./Tooltip";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
 const BAR_PADDING = 0.3;
@@ -107,15 +107,34 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
       </g>
     ));
 
-  const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-
-    const closest = getClosestPoint(mouseX);
-
-    setCursorPosition(xScale(closest.x));
+  const getClosestCategory = (cursorPixelPosition: number) => {
+    const index = Math.floor(cursorPixelPosition / xScale.step());
+    if (index >= 0 && index < data.length) {
+      return data[index].name;
+    }
+    return null;
   };
 
+  const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left - MARGIN.left;
+
+    const closestCategory = getClosestCategory(mouseX);
+
+    const yValue = data.find((d) => d.name === closestCategory)?.value;
+
+    if (closestCategory) {
+      setInteractionData({
+        category: closestCategory,
+        xPos: xScale(closestCategory) || 4,
+        yPos: yScale(yValue),
+        title: closestCategory + " " + "2024",
+        text: yValue + " mm de recharge",
+      });
+    }
+  };
+
+  console.log("interactionData", interactionData);
   return (
     <div>
       <svg width={width} height={height}>
@@ -135,7 +154,20 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
             onMouseLeave={() => setInteractionData(null)}
             visibility={"hidden"}
             pointerEvents={"all"}
+            cursor={"pointer"}
           />
+          {interactionData && (
+            <>
+              <line
+                x1={interactionData.xPos + xScale.bandwidth() / 2}
+                x2={interactionData.xPos + xScale.bandwidth() / 2}
+                y1={yScale(0)}
+                y2={interactionData.yPos}
+                stroke="black"
+                opacity={1}
+              />
+            </>
+          )}
         </g>
       </svg>
 

@@ -6,6 +6,7 @@ export type InteractionData = {
   yPos: number;
   title: string;
   text: string;
+  category: string;
 };
 
 type TooltipProps = {
@@ -19,14 +20,14 @@ export const Tooltip = ({ interactionData }: TooltipProps) => {
 
   return (
     <div
-      className={styles.tooltip}
+      className="absolute bg-button-background px-4 py-3 rounded-2xl border border-black/60"
       style={{
         left: interactionData.xPos,
         top: interactionData.yPos,
       }}
     >
-      {interactionData.title}
-      {interactionData.text}
+      <span className="text-bold block">{interactionData.title}</span>
+      <span className="text-normal block">{interactionData.text}</span>
     </div>
   );
 };
