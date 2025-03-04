@@ -29,7 +29,7 @@ function App() {
         <span>Selectionnez l'année: </span>
         <Select onValueChange={(v) => setYear(Number(v))}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Theme" />
+            <SelectValue placeholder="Theme">{year}</SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="light">Light</SelectItem>

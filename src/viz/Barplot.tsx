@@ -28,6 +28,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
   // X axis
   const xScale = useMemo(() => {
     const [min, max] = d3.extent(data.map((d) => d.value));
+    console.log("min", min);
     return d3
       .scaleLinear()
       .domain([0, max || 10])
