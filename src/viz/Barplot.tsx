@@ -48,8 +48,8 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         <rect
           x={x}
           width={xScale.bandwidth()}
-          y={boundsHeight - yScale(d.value)}
-          height={yScale(d.value)}
+          y={yScale(d.value)}
+          height={yScale(0) - yScale(d.value)}
           stroke="#009EE0"
           fill="#009EE0"
           fillOpacity={1}
@@ -121,8 +121,11 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
 
     const closestCategory = getClosestCategory(mouseX);
 
-    const yValue = data.find((d) => d.name === closestCategory)?.value;
+    console.log("data", data);
+    console.log("closest cat", closestCategory);
 
+    const yValue = data.find((d) => d.name === closestCategory)?.value;
+    console.log("yValue", yValue);
     if (closestCategory) {
       setInteractionData({
         category: closestCategory,
@@ -161,10 +164,19 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
               <line
                 x1={interactionData.xPos + xScale.bandwidth() / 2}
                 x2={interactionData.xPos + xScale.bandwidth() / 2}
-                y1={yScale(0)}
+                y1={boundsHeight / 2}
                 y2={interactionData.yPos}
                 stroke="black"
                 opacity={1}
+                pointerEvents={"none"}
+              />
+              <circle
+                cx={interactionData.xPos + xScale.bandwidth() / 2}
+                cy={boundsHeight / 2}
+                r={5}
+                stroke="black"
+                fill="white"
+                pointerEvents={"none"}
               />
             </>
           )}
