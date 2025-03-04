@@ -35,6 +35,10 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
   const allShapes = data.map((d, i) => {
     const x = xScale(d.name);
 
+    if (!x) {
+      return null;
+    }
+
     return (
       <g key={i}>
         <rect
@@ -49,14 +53,26 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
           rx={0}
         />
         <text
-          x={x + xScale.bandwidth()}
-          y={yScale(0) + 7}
+          x={x + xScale.bandwidth() / 2}
+          y={yScale(0) + 18}
           textAnchor="middle"
           alignmentBaseline="central"
           fontSize={12}
         >
           {d.name}
         </text>
+        <line
+          y1={yScale(0) + 10}
+          y2={yScale(0) + 26}
+          x1={
+            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
+          }
+          x2={
+            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
+          }
+          stroke="#212121"
+          strokeWidth={0.2}
+        />
       </g>
     );
   });

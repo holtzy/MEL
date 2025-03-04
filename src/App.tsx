@@ -10,6 +10,8 @@ import {
 } from "./components/ui/select";
 import { Button } from "./components/ui/button";
 
+const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+
 function App() {
   const [year, setYear] = useState(2024);
   const [zone, setZone] = useState("Craie");
@@ -24,15 +26,20 @@ function App() {
       <div className="flex items-center gap-2 my-2">
         <span>Selectionnez l'année: </span>
         <Select onValueChange={(v) => setYear(Number(v))}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Theme">{year}</SelectValue>
+          <SelectTrigger>
+            <SelectValue>{year}</SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {YEARS.map((year, i) => {
+              return (
+                <SelectItem key={i} value={String(year)}>
+                  {year}
+                </SelectItem>
+              );
+            })}
           </SelectContent>
         </Select>
+        <span className="text-sm text-slate-600">Année humide</span>
       </div>
 
       <div className="flex items-center gap-2 my-2">
