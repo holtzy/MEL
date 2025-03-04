@@ -1,13 +1,9 @@
-import { useState } from "react";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Barplot } from "./viz/Barplot";
 import { data } from "./data/data";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  console.log("set count is ok");
   return (
     <>
       <div>
