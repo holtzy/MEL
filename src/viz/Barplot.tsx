@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import * as d3 from "d3";
+import { Tooltip } from "./Tooltip";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
 const BAR_PADDING = 0.3;
@@ -11,6 +12,9 @@ type BarplotProps = {
 };
 
 export const Barplot = ({ width, height, data }: BarplotProps) => {
+  const [interactionData, setInteractionData] =
+    useState<InteractionData | null>(null);
+
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
@@ -103,6 +107,15 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
       </g>
     ));
 
+  const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const closest = getClosestPoint(mouseX);
+
+    setCursorPosition(xScale(closest.x));
+  };
+
   return (
     <div>
       <svg width={width} height={height}>
@@ -113,8 +126,20 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         >
           {grid}
           {allShapes}
+          <rect
+            x={0}
+            y={0}
+            width={boundsWidth}
+            height={boundsHeight}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => setInteractionData(null)}
+            visibility={"hidden"}
+            pointerEvents={"all"}
+          />
         </g>
       </svg>
+
+      <Tooltip interactionData={interactionData} />
     </div>
   );
 };
