@@ -1,5 +1,3 @@
-import viteLogo from "/vite.svg";
-import "./App.css";
 import { Barplot } from "./viz/Barplot";
 import { data } from "./data/data";
 import { useState } from "react";
@@ -10,22 +8,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
+import { Button } from "./components/ui/button";
 
 function App() {
   const [year, setYear] = useState(2024);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-      </div>
-
       <h2>Quel cumul de recharge ?</h2>
-      <p>L'évolution des recharges sur les 12 derniers mois</p>
+      <span className="subtitle">
+        L'évolution des recharges sur les 12 derniers mois
+      </span>
 
-      <div className="flex">
+      <div className="flex items-center gap-2 my-2">
         <span>Selectionnez l'année: </span>
         <Select onValueChange={(v) => setYear(Number(v))}>
           <SelectTrigger className="w-[180px]">
@@ -38,6 +33,14 @@ function App() {
           </SelectContent>
         </Select>
       </div>
+
+      <div className="flex items-center gap-2 my-2">
+        <span>Selectionnez la source: </span>
+        <Button>Lys</Button>
+        <Button>Craie</Button>
+        <Button>Carbonifère</Button>
+      </div>
+
       <Barplot data={data} width={700} height={400} />
     </>
   );
