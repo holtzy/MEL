@@ -12,6 +12,7 @@ import { Button } from "./components/ui/button";
 
 function App() {
   const [year, setYear] = useState(2024);
+  const [zone, setZone] = useState("Craie");
 
   return (
     <>
@@ -36,9 +37,30 @@ function App() {
 
       <div className="flex items-center gap-2 my-2">
         <span>Selectionnez la source: </span>
-        <Button>Lys</Button>
-        <Button>Craie</Button>
-        <Button>Carbonifère</Button>
+        <Button
+          onClick={() => {
+            setZone("Lys");
+          }}
+          variant={zone === "Lys" ? "default" : "outline"}
+        >
+          Lys
+        </Button>
+        <Button
+          onClick={() => {
+            setZone("Craie");
+          }}
+          variant={zone === "Craie" ? "default" : "outline"}
+        >
+          Craie
+        </Button>
+        <Button
+          onClick={() => {
+            setZone("Carbonifère");
+          }}
+          variant={zone === "Carbonifère" ? "default" : "outline"}
+        >
+          Carbonifère
+        </Button>
       </div>
 
       <Barplot data={data} width={700} height={400} />
