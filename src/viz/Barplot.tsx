@@ -121,16 +121,13 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
 
     const closestCategory = getClosestCategory(mouseX);
 
-    console.log("data", data);
-    console.log("closest cat", closestCategory);
-
     const yValue = data.find((d) => d.name === closestCategory)?.value;
-    console.log("yValue", yValue);
+
     if (closestCategory) {
       setInteractionData({
         category: closestCategory,
         xPos: xScale(closestCategory) || 4,
-        yPos: yScale(yValue),
+        yPos: yScale(yValue || 0),
         title: closestCategory + " " + "2024",
         text: yValue + " mm de recharge",
       });
