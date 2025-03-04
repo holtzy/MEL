@@ -11,4 +11,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: '/MEL/', // Ensure this matches your repository name
+  build: {
+    outDir: 'docs' // Change output directory to "docs"
+  }
 })
