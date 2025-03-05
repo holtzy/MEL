@@ -22,7 +22,8 @@ export const Tooltip = ({ interactionData }: TooltipProps) => {
       className="absolute bg-button-background px-4 py-3 rounded-2xl border border-black/60"
       style={{
         left: interactionData.xPos,
-        top: interactionData.yPos,
+        top: 300,
+        pointerEvents: "none",
       }}
     >
       <span className="text-bold block">{interactionData.title}</span>

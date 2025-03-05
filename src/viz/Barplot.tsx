@@ -128,11 +128,13 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
     const closestDataItem = getClosestDataItem(mouseX);
 
     if (closestDataItem) {
+      const { MESURE, DATE_OBSERVATION } = closestDataItem;
+
       setInteractionData({
-        xPos: xScale(String(closestDataItem.DATE_OBSERVATION)) ?? 0,
-        yPos: yScale(closestDataItem.MESURE ?? 0),
-        title: getMonthAndYearInFrench(closestDataItem.DATE_OBSERVATION),
-        text: closestDataItem.MESURE + " mm de recharge",
+        xPos: xScale(String(DATE_OBSERVATION)) ?? 0,
+        yPos: yScale(MESURE ?? 0),
+        title: getMonthAndYearInFrench(DATE_OBSERVATION),
+        text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
       });
     }
   };
@@ -171,7 +173,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
               />
               <circle
                 cx={interactionData.xPos + xScale.bandwidth() / 2}
-                cy={boundsHeight / 2}
+                cy={interactionData.yPos}
                 r={5}
                 stroke="black"
                 fill="white"
