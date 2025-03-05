@@ -58,7 +58,25 @@ export const NiveauxSection = () => {
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Craie")}
         width={700}
-        height={400}
+        height={300}
+        min={15}
+        max={20}
+      />
+      <span>Rivière Lys</span>
+      <AreaChart
+        data={filteredData.filter((d) => d.ENDROIT === "Lys")}
+        width={700}
+        height={300}
+        min={0}
+        max={40} // TODO
+      />
+      <span>Nappe du Carbonifère</span>
+      <AreaChart
+        data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
+        width={700}
+        height={300}
+        min={-70}
+        max={-50}
       />
     </>
   );

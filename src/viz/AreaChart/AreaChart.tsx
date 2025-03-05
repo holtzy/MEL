@@ -8,9 +8,17 @@ type AreaChartProps = {
   width: number;
   height: number;
   data: NiveauxObservation[];
+  min: number;
+  max: number;
 };
 
-export const AreaChart = ({ width, height, data }: AreaChartProps) => {
+export const AreaChart = ({
+  width,
+  height,
+  data,
+  min,
+  max,
+}: AreaChartProps) => {
   console.log("data", data);
   // bounds = area inside the graph axis = calculated by substracting the margins
   const axesRef = useRef(null);
@@ -18,23 +26,15 @@ export const AreaChart = ({ width, height, data }: AreaChartProps) => {
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   // Y axis
-  const max = d3.max(data, (d) => d.MESURE);
   const yScale = useMemo(() => {
-    return d3
-      .scaleLinear()
-      .domain([0, max || 0])
-      .range([boundsHeight, 0]);
+    return d3.scaleLinear().domain([0, max]).range([boundsHeight, 0]);
   }, [data, height]);
-
-  console.log("test Y axuis", yScale(data[4].MESURE));
 
   // X axis
   const dates = data.map((d) => String(d.DATE_OBSERVATION));
   const xScale = useMemo(() => {
     return d3.scaleBand().domain(dates).range([0, boundsWidth]);
   }, [data, width]);
-
-  console.log("tes", xScale(String(data[4].DATE_OBSERVATION)));
 
   // Build the line
   const areaBuilder = d3
@@ -43,7 +43,6 @@ export const AreaChart = ({ width, height, data }: AreaChartProps) => {
     .y1((d) => yScale(d.MESURE))
     .y0(yScale(0));
   const areaPath = areaBuilder(data);
-  console.log("areaPath", areaPath);
 
   // Build the line
   const lineBuilder = d3
@@ -68,13 +67,13 @@ export const AreaChart = ({ width, height, data }: AreaChartProps) => {
             d={areaPath}
             opacity={1}
             stroke="none"
-            fill="#9a6fb0"
+            fill="#009EE0"
             fillOpacity={0.4}
           />
           <path
             d={linePath}
             opacity={1}
-            stroke="#9a6fb0"
+            stroke="#009EE0"
             fill="none"
             strokeWidth={2}
           />
