@@ -1,3 +1,5 @@
+// Data from https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/7/query?where=1%3D1&outFields=*&returnGeometry=false&f=json
+
 export type RechargeObservation = {
   ID_RECHARGE: number;
   ENDROIT: "Craie" | "Carbonifère" | "Lys";

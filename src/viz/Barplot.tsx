@@ -15,7 +15,6 @@ type BarplotProps = {
 };
 
 export const Barplot = ({ width, height, data }: BarplotProps) => {
-  console.log("data", data);
   const [interactionData, setInteractionData] =
     useState<InteractionData | null>(null);
 
