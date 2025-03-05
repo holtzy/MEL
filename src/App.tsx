@@ -1,5 +1,6 @@
 import { MeteoSection } from "./sections/meteo/MeteoSection";
 import { NiveauxSection } from "./sections/niveaux/NiveauxSection";
+import { PrelevementSection } from "./sections/prelevement/PrelevementSection";
 import { RechargeSection } from "./sections/recharge/RechargeSection";
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
       <div className="my-40" />
 
       <NiveauxSection />
+
+      <div className="my-40" />
+
+      <PrelevementSection />
     </div>
   );
 }
