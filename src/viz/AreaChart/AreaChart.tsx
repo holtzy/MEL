@@ -1,9 +1,9 @@
 import * as d3 from "d3";
-import { NiveauxObservation } from "@/data/niveaux";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
 import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
+import { NiveauxObservation } from "@/data/types";
 
 const MARGIN = { top: 0, right: 0, bottom: 50, left: 50 };
 

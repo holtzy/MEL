@@ -59,6 +59,9 @@ export const RechargeSection = () => {
 
   const yearType = filteredData[0]?.TYPE_ANNEE;
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <>
       <h2>Quel cumul de recharge ?</h2>

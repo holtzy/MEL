@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import * as d3 from "d3";
 import { InteractionData, Tooltip } from "./Tooltip";
-import { RechargeObservation } from "@/data/recharge";
 import {
   getMonthAndYearInFrench,
   getMonthInFrench,
@@ -9,6 +8,7 @@ import {
 } from "@/lib/utils";
 import { BarItem } from "./BarItem";
 import { MonthXAxis } from "../MonthXAxis";
+import { RechargeObservation } from "@/data/types";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
 const BAR_PADDING = 0.3;

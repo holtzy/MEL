@@ -62,6 +62,9 @@ export const NiveauxSection = () => {
 
   const yearType = filteredData[0]?.TYPE_ANNEE;
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <>
       <h2>Tendance des niveaux des eaux</h2>
