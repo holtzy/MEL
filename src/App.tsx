@@ -4,7 +4,7 @@ import { RechargeSection } from "./sections/recharge/RechargeSection";
 
 function App() {
   return (
-    <>
+    <div className="pl-6">
       <RechargeSection />
 
       <div className="my-40" />
@@ -14,7 +14,7 @@ function App() {
       <div className="my-40" />
 
       <NiveauxSection />
-    </>
+    </div>
   );
 }
 

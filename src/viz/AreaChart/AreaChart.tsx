@@ -5,7 +5,7 @@ import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
 import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
 
-const MARGIN = { top: 0, right: 30, bottom: 50, left: 50 };
+const MARGIN = { top: 0, right: 0, bottom: 50, left: 50 };
 
 type AreaChartProps = {
   width: number;
@@ -24,10 +24,10 @@ export const AreaChart = ({
   min,
   max,
 }: AreaChartProps) => {
-  console.log("previousYearData", previousYearData);
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
+  console.log(data, previousYearData);
   // Y axis
   const yScale = useMemo(() => {
     return d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
@@ -41,12 +41,18 @@ export const AreaChart = ({
   // Builders
   const areaBuilder = d3
     .area<NiveauxObservation>()
-    .x((d) => xScale(getMonthInFrench(d.DATE_OBSERVATION)))
+    .x(
+      (d) =>
+        xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+    )
     .y1((d) => yScale(d.MESURE))
     .y0(yScale(min));
   const lineBuilder = d3
     .line<NiveauxObservation>()
-    .x((d) => xScale(getMonthInFrench(d.DATE_OBSERVATION)))
+    .x(
+      (d) =>
+        xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+    )
     .y((d) => yScale(d.MESURE));
 
   // Current year
@@ -64,7 +70,7 @@ export const AreaChart = ({
   const xLabels = data.map((d, i) => {
     const x = xScale(getMonthInFrench(d.DATE_OBSERVATION));
 
-    if (!x) {
+    if (typeof x === "undefined") {
       return null;
     }
 
@@ -95,6 +101,33 @@ export const AreaChart = ({
     );
   });
 
+  // Create the Y axis
+  const yAxis = yScale
+    .ticks(5)
+    .slice(1)
+    .map((value, i) => (
+      <g key={i}>
+        <line
+          x1={-20}
+          x2={0}
+          y1={yScale(value)}
+          y2={yScale(value)}
+          stroke="#808080"
+          opacity={0.2}
+        />
+        <text
+          x={-10}
+          y={yScale(value) - 10}
+          textAnchor="middle"
+          alignmentBaseline="central"
+          fontSize={15}
+          fill="black"
+        >
+          {value}
+        </text>
+      </g>
+    ));
+
   return (
     <div>
       <svg width={width} height={height}>
@@ -119,6 +152,7 @@ export const AreaChart = ({
           <LineItem path={previousYearLinePath} color="#B3E2F6" />
 
           {xLabels}
+          {yAxis}
         </g>
       </svg>
     </div>
