@@ -2,8 +2,10 @@ import { useMemo } from "react";
 import * as d3 from "d3";
 import { NiveauxObservation } from "@/data/niveaux";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
+import { AreaItem } from "./AreaItem";
+import { LineItem } from "./LineItem";
 
-const MARGIN = { top: 30, right: 30, bottom: 50, left: 50 };
+const MARGIN = { top: 0, right: 30, bottom: 50, left: 50 };
 
 type AreaChartProps = {
   width: number;
@@ -41,7 +43,7 @@ export const AreaChart = ({
     .area<NiveauxObservation>()
     .x((d) => xScale(getMonthInFrench(d.DATE_OBSERVATION)))
     .y1((d) => yScale(d.MESURE))
-    .y0(yScale(0));
+    .y0(yScale(min));
   const lineBuilder = d3
     .line<NiveauxObservation>()
     .x((d) => xScale(getMonthInFrench(d.DATE_OBSERVATION)))
@@ -54,10 +56,44 @@ export const AreaChart = ({
   const previousYearAreaPath = areaBuilder(previousYearData);
   const previousYearLinePath = lineBuilder(previousYearData);
 
-  console.log("previousYearLinePath", previousYearLinePath);
   if (!currentYearAreaPath || !previousYearAreaPath || !previousYearLinePath) {
     return null;
   }
+
+  // Create X axis labels
+  const xLabels = data.map((d, i) => {
+    const x = xScale(getMonthInFrench(d.DATE_OBSERVATION));
+
+    if (!x) {
+      return null;
+    }
+
+    return (
+      <g key={i}>
+        <text
+          x={x + xScale.bandwidth() / 2}
+          y={boundsHeight + 18}
+          textAnchor="middle"
+          alignmentBaseline="central"
+          fontSize={12}
+        >
+          {getMonthInFrench(d.DATE_OBSERVATION)}
+        </text>
+        <line
+          y1={boundsHeight + 10}
+          y2={boundsHeight + 26}
+          x1={
+            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
+          }
+          x2={
+            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
+          }
+          stroke="#212121"
+          strokeWidth={0.2}
+        />
+      </g>
+    );
+  });
 
   return (
     <div>
@@ -68,27 +104,21 @@ export const AreaChart = ({
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
           {/* Bottom = current year */}
-          <path
-            d={currentYearAreaPath}
-            opacity={1}
-            stroke="none"
-            fill="#009EE0"
+          <AreaItem
+            path={currentYearAreaPath}
+            areaOpacity={1}
+            areaColor="#009EE0"
           />
 
           {/* Then previous year on top */}
-          <path
-            d={previousYearAreaPath}
-            opacity={1}
-            stroke="none"
-            fill="#B3E2F6"
-            fillOpacity={0.18}
+          <AreaItem
+            path={previousYearAreaPath}
+            areaOpacity={0.18}
+            areaColor="#B3E2F6"
           />
-          <path
-            d={previousYearLinePath}
-            stroke="#B3E2F6"
-            fill="none"
-            strokeWidth={2}
-          />
+          <LineItem path={previousYearLinePath} color="#B3E2F6" />
+
+          {xLabels}
         </g>
       </svg>
     </div>

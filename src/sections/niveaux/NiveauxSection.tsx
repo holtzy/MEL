@@ -58,7 +58,13 @@ export const NiveauxSection = () => {
 
       <div className="flex items-center gap-2 my-2">
         <span>Clé de lecture</span>
-        <p>TODO</p>
+        <div className="w-8 h-6 bg-[#009EE0]" />
+        <span>Année sélectionnée</span>
+        <div
+          className="w-8 h-6  border border-[#B3E2F6]"
+          style={{ backgroundColor: "rgba(179, 226, 246, 0.18)" }}
+        />
+        <span>Année précédente</span>
       </div>
 
       <span>Nappe de la Craie</span>
@@ -72,6 +78,7 @@ export const NiveauxSection = () => {
         min={15}
         max={20}
       />
+
       <span>Rivière Lys</span>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Lys")}
