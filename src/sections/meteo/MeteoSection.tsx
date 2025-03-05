@@ -9,6 +9,7 @@ import {
 } from "../..//components/ui/select";
 import { MeteoObservation } from "@/data/types";
 import { LineChart } from "@/viz/LineChart/LineChart";
+import { BandChart } from "@/viz/BandChart/BandChart";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
@@ -142,7 +143,7 @@ export const MeteoSection = () => {
       <LineChart
         data={filteredDataPrecipitation}
         width={700}
-        height={200}
+        height={160}
         min={0}
         max={120}
         title={"Précipitation"}
@@ -150,7 +151,7 @@ export const MeteoSection = () => {
       <LineChart
         data={filteredDataTemperature}
         width={700}
-        height={200}
+        height={160}
         min={0}
         max={38}
         title={"Température"}
@@ -158,10 +159,18 @@ export const MeteoSection = () => {
       <LineChart
         data={filteredDataEvapotranspiration}
         width={700}
-        height={200}
+        height={160}
         min={0}
         max={160}
         title={"Evapotranspiration"}
+      />
+      <BandChart
+        data={filteredDataHumidity}
+        width={700}
+        height={160}
+        min={0}
+        max={1.4}
+        title={"Humidité"}
       />
     </>
   );
