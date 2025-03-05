@@ -7,15 +7,10 @@ type BarItemProps = {
   y: number;
 };
 
-type AnimatedProps = {
-  y: number;
-  height: number;
-};
-
 export const BarItem = (props: BarItemProps) => {
   const { height, width, x, y } = props;
 
-  const springProps = useSpring<AnimatedProps>({
+  const springProps = useSpring({
     to: {
       y,
       height,
@@ -23,19 +18,18 @@ export const BarItem = (props: BarItemProps) => {
   });
 
   return (
-    <g>
-      <animated.rect
-        x={x}
-        y={springProps.y}
-        width={width}
-        height={springProps.height}
-        opacity={1}
-        stroke="#009EE0"
-        fill="#009EE0"
-        fillOpacity={1}
-        strokeWidth={1}
-        rx={1}
-      />
-    </g>
+    <animated.rect
+      // @ts-expect-error
+      x={x}
+      y={springProps.y}
+      width={width}
+      height={springProps.height}
+      stroke="#009EE0"
+      fill="#009EE0"
+      fillOpacity={1}
+      opacity={1}
+      strokeWidth={1}
+      rx={1}
+    />
   );
 };

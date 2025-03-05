@@ -23,6 +23,8 @@ function App() {
     })
     .map((d) => ({ ...d.attributes }));
 
+  const yearType = filteredData[0].TYPE_ANNEE;
+
   return (
     <>
       <h2>Quel cumul de recharge ?</h2>
@@ -46,7 +48,7 @@ function App() {
             })}
           </SelectContent>
         </Select>
-        <span className="text-sm text-slate-600">Année humide</span>
+        <span className="text-sm text-slate-600">{"Année " + yearType}</span>
       </div>
 
       <div className="flex items-center gap-2 my-2">
