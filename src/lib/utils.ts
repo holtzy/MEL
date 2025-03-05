@@ -5,12 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function getMonthInFrench(epochDate: number): string {
-  const monthsInFrench = [
-    'JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUI',
-    'JUIL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'
-  ];
+export const monthsInFrench = [
+  'JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUI',
+  'JUIL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'
+];
 
+export function getMonthInFrench(epochDate: number): string {
   const date = new Date(epochDate);
   const monthIndex = date.getMonth(); // Get month index (0-11)
 

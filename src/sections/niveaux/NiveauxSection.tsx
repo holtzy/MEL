@@ -21,6 +21,13 @@ export const NiveauxSection = () => {
     })
     .map((d) => ({ ...d.attributes }));
 
+  const filteredDataPreviousYear = niveauxData.features
+    .filter((d) => {
+      const date = new Date(d.attributes.DATE_OBSERVATION);
+      return date.getFullYear() === year - 1;
+    })
+    .map((d) => ({ ...d.attributes }));
+
   const yearType = filteredData[0].TYPE_ANNEE;
 
   return (
@@ -57,6 +64,9 @@ export const NiveauxSection = () => {
       <span>Nappe de la Craie</span>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Craie")}
+        previousYearData={filteredDataPreviousYear.filter(
+          (d) => d.ENDROIT === "Craie"
+        )}
         width={700}
         height={300}
         min={15}
@@ -65,6 +75,9 @@ export const NiveauxSection = () => {
       <span>Rivière Lys</span>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Lys")}
+        previousYearData={filteredDataPreviousYear.filter(
+          (d) => d.ENDROIT === "Craie"
+        )}
         width={700}
         height={300}
         min={0}
@@ -73,6 +86,9 @@ export const NiveauxSection = () => {
       <span>Nappe du Carbonifère</span>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
+        previousYearData={filteredDataPreviousYear.filter(
+          (d) => d.ENDROIT === "Craie"
+        )}
         width={700}
         height={300}
         min={-70}
