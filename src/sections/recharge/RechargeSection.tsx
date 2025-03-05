@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,23 +7,57 @@ import {
   SelectValue,
 } from "../..//components/ui/select";
 import { Button } from "../..//components/ui/button";
-import { dataRecharge } from "../..//data/recharge";
 import { Barplot } from "@/viz/BarChart/Barplot";
+import { RechargeObservation } from "@/data/types";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+const URL =
+  "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/7/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
 export const RechargeSection = () => {
   const [year, setYear] = useState(2024);
   const [zone, setZone] = useState("Craie");
 
-  const filteredData = dataRecharge.features
-    .filter((d) => {
-      const date = new Date(d.attributes.DATE_OBSERVATION);
-      return date.getFullYear() === year && d.attributes.ENDROIT === zone;
-    })
-    .map((d) => ({ ...d.attributes }));
+  const [data, setData] = useState<RechargeObservation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const yearType = filteredData[0].TYPE_ANNEE;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // Fetch only the temperature dataset
+        const response = await fetch(URL);
+
+        if (!response.ok) throw new Error("Failed to fetch data");
+
+        // Convert response to JSON
+        const json = await response.json();
+
+        // Extract and clean data
+        setData(
+          json.features.map(
+            (f: { attributes: RechargeObservation }) => f.attributes
+          )
+        );
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredData = data.filter((d) => {
+    const date = new Date(d.DATE_OBSERVATION);
+    return date.getFullYear() === year && d.ENDROIT === zone;
+  });
+
+  const yearType = filteredData[0]?.TYPE_ANNEE;
 
   return (
     <>
