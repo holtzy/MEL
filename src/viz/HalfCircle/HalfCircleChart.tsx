@@ -1,9 +1,4 @@
-import { useMemo } from "react";
 import * as d3 from "d3";
-import { NiveauxObservation } from "@/data/niveaux";
-import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
-import { AreaItem } from "./AreaItem";
-import { LineItem } from "./LineItem";
 
 type HalfCircleChartProps = {
   width: number;
@@ -14,14 +9,7 @@ type HalfCircleChartProps = {
   color: string;
 };
 
-export const HalfCircleChart = ({
-  width,
-  height,
-  value,
-  color,
-  min,
-  max,
-}: HalfCircleChartProps) => {
+export const HalfCircleChart = ({ width, height }: HalfCircleChartProps) => {
   const radius = width / 2;
 
   const arcGenerator = d3
@@ -31,6 +19,7 @@ export const HalfCircleChart = ({
     .startAngle(Math.PI) // Start from 0 radians (right side)
     .endAngle(0); // End at π radians (left side)
 
+  // @ts-expect-error
   const arcPath = arcGenerator(width / 2);
 
   return (

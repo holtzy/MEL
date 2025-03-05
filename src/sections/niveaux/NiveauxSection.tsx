@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -6,27 +6,58 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import { niveauxData } from "@/data/niveaux";
 import { AreaChart } from "@/viz/AreaChart/AreaChart";
+import { NiveauxObservation } from "@/data/types";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+const URL =
+  "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/5/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
 export const NiveauxSection = () => {
   const [year, setYear] = useState(2024);
 
-  const filteredData = niveauxData.features
-    .filter((d) => {
-      const date = new Date(d.attributes.DATE_OBSERVATION);
-      return date.getFullYear() === year;
-    })
-    .map((d) => ({ ...d.attributes }));
+  const [data, setData] = useState<NiveauxObservation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredDataPreviousYear = niveauxData.features
-    .filter((d) => {
-      const date = new Date(d.attributes.DATE_OBSERVATION);
-      return date.getFullYear() === year - 1;
-    })
-    .map((d) => ({ ...d.attributes }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // Fetch only the temperature dataset
+        const response = await fetch(URL);
+        if (!response.ok) throw new Error("Failed to fetch data");
+
+        // Convert response to JSON
+        const json = await response.json();
+
+        // Extract and clean data
+        setData(
+          json.features.map(
+            (f: { attributes: NiveauxObservation }) => f.attributes
+          )
+        );
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredData = data.filter((d) => {
+    const date = new Date(d.DATE_OBSERVATION);
+    return date.getFullYear() === year;
+  });
+
+  const filteredDataPreviousYear = data.filter((d) => {
+    const date = new Date(d.DATE_OBSERVATION);
+    return date.getFullYear() === year - 1;
+  });
 
   const yearType = filteredData[0].TYPE_ANNEE;
 
@@ -105,7 +136,7 @@ export const NiveauxSection = () => {
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
         previousYearData={filteredDataPreviousYear.filter(
-          (d) => d.ENDROIT === "Craie"
+          (d) => d.ENDROIT === "Carbonifère"
         )}
         width={700}
         height={300}

@@ -42,7 +42,8 @@ export const LineChart = ({
     .line<MeteoObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
+        0 + xScale.bandwidth() / 2
     )
     .y((d) => yScale(d.MESURE));
   const linePath = lineBuilder(data);
@@ -53,7 +54,8 @@ export const LineChart = ({
       <CircleItem
         key={i}
         cx={
-          xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+          xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
+          0 + xScale.bandwidth() / 2
         }
         cy={yScale(d.MESURE)}
       />

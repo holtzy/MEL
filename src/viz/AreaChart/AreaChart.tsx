@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import * as d3 from "d3";
 import { NiveauxObservation } from "@/data/niveaux";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
@@ -29,21 +28,18 @@ export const AreaChart = ({
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   // Y axis
-  const yScale = useMemo(() => {
-    return d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
-  }, [data, height]);
+  const yScale = d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
 
   // X axis
-  const xScale = useMemo(() => {
-    return d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
-  }, [data, width]);
+  const xScale = d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
 
   // Builders
   const areaBuilder = d3
     .area<NiveauxObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
+        0 + xScale.bandwidth() / 2
     )
     .y1((d) => yScale(d.MESURE))
     .y0(yScale(min));
@@ -51,7 +47,8 @@ export const AreaChart = ({
     .line<NiveauxObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth() / 2
+        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
+        0 + xScale.bandwidth() / 2
     )
     .y((d) => yScale(d.MESURE));
 

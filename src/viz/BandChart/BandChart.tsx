@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import * as d3 from "d3";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
 import { MeteoObservation } from "@/data/types";
@@ -29,21 +28,17 @@ export const BandChart = ({
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   // Y axis
-  const yScale = useMemo(() => {
-    return d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
-  }, [data, height]);
+  const yScale = d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
 
   // X axis
-  const xScale = useMemo(() => {
-    return d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
-  }, [data, width]);
+  const xScale = d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
 
   // Rectangles
   const allRectangles = data.map((d, i) => {
     return (
       <RectangleItem
         key={i}
-        x={xScale(getMonthInFrench(d.DATE_OBSERVATION))}
+        x={xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0}
         y={yScale(d.MESURE) - BAND_HEIGHT / 2}
         width={xScale.bandwidth()}
         height={BAND_HEIGHT}
@@ -57,7 +52,9 @@ export const BandChart = ({
       <line
         key={i}
         x1={xScale(getMonthInFrench(d.DATE_OBSERVATION))}
-        x2={xScale(getMonthInFrench(d.DATE_OBSERVATION)) + xScale.bandwidth()}
+        x2={
+          xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0 + xScale.bandwidth()
+        }
         y1={yScale(d.NORMALE)}
         y2={yScale(d.NORMALE)}
         width={xScale.bandwidth()}

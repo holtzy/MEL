@@ -1,4 +1,3 @@
-import { Barplot } from "../..//viz/Barplot";
 import { useEffect, useState } from "react";
 import {
   Select,

@@ -19,6 +19,7 @@ export const RectangleItem = (props: CircleItemProps) => {
 
   return (
     <animated.rect
+      // @ts-expect-error
       x={springProps.x}
       y={springProps.y}
       width={width}

@@ -17,6 +17,7 @@ export const AreaItem = (props: AreaItemProps) => {
 
   return (
     <animated.path
+      // @ts-expect-error
       d={springProps.path}
       opacity={areaOpacity}
       fill={areaColor}

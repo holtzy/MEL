@@ -17,6 +17,7 @@ export const CircleItem = (props: CircleItemProps) => {
 
   return (
     <animated.circle
+      // @ts-expect-error
       cx={springProps.cx}
       cy={springProps.cy}
       r={6}

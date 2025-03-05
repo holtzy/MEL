@@ -16,6 +16,7 @@ export const LineItem = (props: LineItemProps) => {
 
   return (
     <animated.path
+      // @ts-expect-error
       d={springProps.path}
       fill={"none"}
       stroke={color}
