@@ -28,6 +28,7 @@ export const NiveauxSection = () => {
 
         // Fetch only the temperature dataset
         const response = await fetch(URL);
+
         if (!response.ok) throw new Error("Failed to fetch data");
 
         // Convert response to JSON
@@ -59,7 +60,7 @@ export const NiveauxSection = () => {
     return date.getFullYear() === year - 1;
   });
 
-  const yearType = filteredData[0].TYPE_ANNEE;
+  const yearType = filteredData[0]?.TYPE_ANNEE;
 
   return (
     <>
