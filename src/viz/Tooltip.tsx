@@ -6,7 +6,6 @@ export type InteractionData = {
   yPos: number;
   title: string;
   text: string;
-  category: string;
 };
 
 type TooltipProps = {

@@ -1,5 +1,4 @@
 import { Barplot } from "./viz/Barplot";
-import { data } from "./data/data";
 import { useState } from "react";
 import {
   Select,
@@ -9,12 +8,20 @@ import {
   SelectValue,
 } from "./components/ui/select";
 import { Button } from "./components/ui/button";
+import { dataRecharge } from "./data/recharge";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
 function App() {
   const [year, setYear] = useState(2024);
   const [zone, setZone] = useState("Craie");
+
+  const filteredData = dataRecharge.features
+    .filter((d) => {
+      const date = new Date(d.attributes.DATE_OBSERVATION);
+      return date.getFullYear() === year && d.attributes.ENDROIT === zone;
+    })
+    .map((d) => ({ ...d.attributes }));
 
   return (
     <>
@@ -70,7 +77,7 @@ function App() {
         </Button>
       </div>
 
-      <Barplot data={data} width={700} height={400} />
+      <Barplot data={filteredData} width={700} height={400} />
     </>
   );
 }
