@@ -10,7 +10,7 @@ import {
 import { Button } from "./components/ui/button";
 import { dataRecharge } from "./data/recharge";
 
-const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
 function App() {
   const [year, setYear] = useState(2024);
@@ -32,7 +32,7 @@ function App() {
 
       <div className="flex items-center gap-2 my-2">
         <span>Selectionnez l'année: </span>
-        <Select onValueChange={(v) => setYear(Number(v))}>
+        <Select onValueChange={(v) => setYear(Number(v))} value={String(year)}>
           <SelectTrigger>
             <SelectValue>{year}</SelectValue>
           </SelectTrigger>

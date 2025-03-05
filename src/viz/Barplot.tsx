@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { InteractionData, Tooltip } from "./Tooltip";
 import { RechargeObservation } from "@/data/recharge";
 import { getMonthAndYearInFrench, getMonthInFrench } from "@/lib/utils";
+import { BarItem } from "./BarItem";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
 const BAR_PADDING = 0.3;
@@ -14,6 +15,7 @@ type BarplotProps = {
 };
 
 export const Barplot = ({ width, height, data }: BarplotProps) => {
+  console.log("data", data);
   const [interactionData, setInteractionData] =
     useState<InteractionData | null>(null);
 
@@ -32,34 +34,46 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
 
   // Y axis
   const yScale = useMemo(() => {
-    const max = d3.max(data.map((d) => d.MESURE ?? -Infinity)); // Default to -Infinity for null or undefined values
-    return d3
-      .scaleLinear()
-      .domain([0, max ?? 0])
-      .range([boundsHeight, 0]);
+    const max = d3.max(data.map((d) => d.MESURE ?? 0));
+
+    let validMax = max;
+    if (!validMax) {
+      validMax = 5;
+    }
+    if (validMax < 5) {
+      validMax = 5;
+    }
+
+    return d3.scaleLinear().domain([0, validMax]).range([boundsHeight, 0]);
   }, [data, height]);
 
-  // Create bars + x axis Labels
+  // Create bars
   const allShapes = data.map((d, i) => {
     const x = xScale(String(d.DATE_OBSERVATION));
+    if (!x) {
+      return null;
+    }
+    return (
+      <BarItem
+        x={x}
+        width={xScale.bandwidth()}
+        y={yScale(d.MESURE || 0)}
+        height={yScale(0) - yScale(d.MESURE || 0)}
+        key={i}
+      />
+    );
+  });
 
-    if (!x || !d.MESURE) {
+  // Create X axis labels
+  const xLabels = data.map((d, i) => {
+    const x = xScale(String(d.DATE_OBSERVATION));
+
+    if (!x) {
       return null;
     }
 
     return (
       <g key={i}>
-        <rect
-          x={x}
-          width={xScale.bandwidth()}
-          y={yScale(d.MESURE)}
-          height={yScale(0) - yScale(d.MESURE)}
-          stroke="#009EE0"
-          fill="#009EE0"
-          fillOpacity={1}
-          strokeWidth={0}
-          rx={0}
-        />
         <text
           x={x + xScale.bandwidth() / 2}
           y={yScale(0) + 18}
@@ -149,6 +163,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         >
           {yAxis}
           {allShapes}
+          {xLabels}
           <rect
             x={0}
             y={0}
