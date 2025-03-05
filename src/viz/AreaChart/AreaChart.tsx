@@ -4,6 +4,7 @@ import { NiveauxObservation } from "@/data/niveaux";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
 import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
+import { MonthXAxis } from "../MonthXAxis";
 
 const MARGIN = { top: 0, right: 0, bottom: 50, left: 50 };
 
@@ -27,7 +28,6 @@ export const AreaChart = ({
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
-  console.log(data, previousYearData);
   // Y axis
   const yScale = useMemo(() => {
     return d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
@@ -65,41 +65,6 @@ export const AreaChart = ({
   if (!currentYearAreaPath || !previousYearAreaPath || !previousYearLinePath) {
     return null;
   }
-
-  // Create X axis labels
-  const xLabels = data.map((d, i) => {
-    const x = xScale(getMonthInFrench(d.DATE_OBSERVATION));
-
-    if (typeof x === "undefined") {
-      return null;
-    }
-
-    return (
-      <g key={i}>
-        <text
-          x={x + xScale.bandwidth() / 2}
-          y={boundsHeight + 18}
-          textAnchor="middle"
-          alignmentBaseline="central"
-          fontSize={12}
-        >
-          {getMonthInFrench(d.DATE_OBSERVATION)}
-        </text>
-        <line
-          y1={boundsHeight + 10}
-          y2={boundsHeight + 26}
-          x1={
-            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
-          }
-          x2={
-            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
-          }
-          stroke="#212121"
-          strokeWidth={0.2}
-        />
-      </g>
-    );
-  });
 
   // Create the Y axis
   const yAxis = yScale
@@ -151,7 +116,8 @@ export const AreaChart = ({
           />
           <LineItem path={previousYearLinePath} color="#B3E2F6" />
 
-          {xLabels}
+          <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
+
           {yAxis}
         </g>
       </svg>

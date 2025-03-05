@@ -1,4 +1,3 @@
-import { Barplot } from "../..//viz/Barplot";
 import { useState } from "react";
 import {
   Select,
@@ -9,6 +8,7 @@ import {
 } from "../..//components/ui/select";
 import { Button } from "../..//components/ui/button";
 import { dataRecharge } from "../..//data/recharge";
+import { Barplot } from "@/viz/BarChart/Barplot";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 

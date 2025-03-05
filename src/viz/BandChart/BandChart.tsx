@@ -3,8 +3,9 @@ import * as d3 from "d3";
 import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
 import { MeteoObservation } from "@/data/types";
 import { RectangleItem } from "./RectangleItem";
+import { MonthXAxis } from "../MonthXAxis";
 
-const MARGIN = { top: 80, right: 0, bottom: 0, left: 50 };
+const MARGIN = { top: 80, right: 0, bottom: 40, left: 50 };
 const BAND_HEIGHT = 10;
 
 type BandChartProps = {
@@ -104,7 +105,7 @@ export const BandChart = ({
         x1={xPos}
         x2={xPos}
         y1={0}
-        y2={height}
+        y2={boundsHeight}
         stroke="lightgray"
         strokeDasharray="4 4"
       />
@@ -129,6 +130,7 @@ export const BandChart = ({
             y2={boundsHeight}
             stroke="black"
           />
+          <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
           {xGrid}
           {allRectangles}
           {allSegments}

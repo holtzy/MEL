@@ -167,7 +167,7 @@ export const MeteoSection = () => {
       <BandChart
         data={filteredDataHumidity}
         width={700}
-        height={160}
+        height={200} // 40 more than other charts because it has 40 px dedicated to the axis labels
         min={0}
         max={1.4}
         title={"Humidité"}

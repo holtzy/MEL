@@ -2,8 +2,13 @@ import { useMemo, useState } from "react";
 import * as d3 from "d3";
 import { InteractionData, Tooltip } from "./Tooltip";
 import { RechargeObservation } from "@/data/recharge";
-import { getMonthAndYearInFrench, getMonthInFrench } from "@/lib/utils";
+import {
+  getMonthAndYearInFrench,
+  getMonthInFrench,
+  monthsInFrench,
+} from "@/lib/utils";
 import { BarItem } from "./BarItem";
+import { MonthXAxis } from "../MonthXAxis";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
 const BAR_PADDING = 0.3;
@@ -22,11 +27,11 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
   // X axis
-  const dates = data.map((d) => String(d.DATE_OBSERVATION));
+  // X axis
   const xScale = useMemo(() => {
     return d3
       .scaleBand()
-      .domain(dates)
+      .domain(monthsInFrench)
       .range([0, boundsWidth])
       .padding(BAR_PADDING);
   }, [data, width]);
@@ -48,7 +53,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
 
   // Create bars
   const allShapes = data.map((d, i) => {
-    const x = xScale(String(d.DATE_OBSERVATION));
+    const x = xScale(getMonthInFrench(d.DATE_OBSERVATION));
     if (!x) {
       return null;
     }
@@ -60,41 +65,6 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         height={yScale(0) - yScale(d.MESURE || 0)}
         key={i}
       />
-    );
-  });
-
-  // Create X axis labels
-  const xLabels = data.map((d, i) => {
-    const x = xScale(String(d.DATE_OBSERVATION));
-
-    if (!x) {
-      return null;
-    }
-
-    return (
-      <g key={i}>
-        <text
-          x={x + xScale.bandwidth() / 2}
-          y={yScale(0) + 18}
-          textAnchor="middle"
-          alignmentBaseline="central"
-          fontSize={12}
-        >
-          {getMonthInFrench(d.DATE_OBSERVATION)}
-        </text>
-        <line
-          y1={yScale(0) + 10}
-          y2={yScale(0) + 26}
-          x1={
-            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
-          }
-          x2={
-            x + xScale.bandwidth() + (xScale.padding() * xScale.bandwidth()) / 2
-          }
-          stroke="#212121"
-          strokeWidth={0.2}
-        />
-      </g>
     );
   });
 
@@ -144,7 +114,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
       const { MESURE, DATE_OBSERVATION } = closestDataItem;
 
       setInteractionData({
-        xPos: xScale(String(DATE_OBSERVATION)) ?? 0,
+        xPos: xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0,
         yPos: yScale(MESURE ?? 0),
         title: getMonthAndYearInFrench(DATE_OBSERVATION),
         text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
@@ -162,7 +132,9 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
         >
           {yAxis}
           {allShapes}
-          {xLabels}
+
+          <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
+
           <rect
             x={0}
             y={0}
