@@ -59,3 +59,17 @@ export type MeteoObservation = {
     USER_MODIF: string | null;
     DATE_MODIF_SYS: number | null;
 }
+
+export type PrelevementObservation = {
+    ID_PRELEVEMENT: number;
+    PRODUCTEUR: string;
+    DATE_OBSERVATION: number;
+    VOLUME_PRELEVE: number;
+    UNITE: string;
+    SOURCE_EAU: string;
+    DATE_CREATION: number;
+    USER_CREATION: string;
+    DATE_MODIF: number | null;
+    USER_MODIF: string | null;
+    DATE_MODIF_SYS: number | null;
+};
