@@ -1,4 +1,5 @@
 import { PrelevementObservation } from "@/data/types";
+import { hexToRgba } from "@/lib/utils";
 import { HalfCircleChart } from "@/viz/HalfCircle/HalfCircleChart";
 import { useEffect, useState } from "react";
 
@@ -87,7 +88,7 @@ export const PrelevementSection = () => {
           value={lastDataPoint?.VOLUME_PRELEVE}
           min={0}
           max={200000}
-          style={{ fill: "#009EE0", stroke: "black" }}
+          style={{ fill: "#009EE0", stroke: "#009EE0" }}
           date={lastDataPoint?.DATE_OBSERVATION}
         />
         <HalfCircleChart
@@ -96,7 +97,7 @@ export const PrelevementSection = () => {
           value={lastYearDataPoint[0]?.VOLUME_PRELEVE}
           min={0}
           max={200000}
-          style={{ fill: "#B3E2F6", stroke: "black" }}
+          style={{ fill: hexToRgba("#B3E2F6", 0.18), stroke: "#B3E2F6" }}
           date={lastYearDataPoint[0]?.DATE_OBSERVATION}
         />
       </div>
