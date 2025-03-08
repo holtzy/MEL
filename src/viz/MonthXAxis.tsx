@@ -10,7 +10,7 @@ export const MonthXAxis = ({ xScale, y }: MonthXAxisProps) => {
     return (
       <g key={i}>
         <text
-          x={xScale(bandValue) ?? 0 + xScale.bandwidth() / 2}
+          x={(xScale(bandValue) ?? 0) + xScale.bandwidth() / 2}
           y={y}
           textAnchor="middle"
           alignmentBaseline="central"

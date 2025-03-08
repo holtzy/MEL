@@ -150,6 +150,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
             pointerEvents={"all"}
             cursor={"pointer"}
           />
+          {/* Hover effect */}
           {interactionData && (
             <>
               <line
