@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import * as d3 from "d3";
 import { InteractionData, Tooltip } from "./Tooltip";
 import {
@@ -17,9 +17,10 @@ type BarplotProps = {
   width: number;
   height: number;
   data: RechargeObservation[];
+  annotation?: ReactNode | undefined;
 };
 
-export const Barplot = ({ width, height, data }: BarplotProps) => {
+export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
   const [interactionData, setInteractionData] =
     useState<InteractionData | null>(null);
 
@@ -123,18 +124,21 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
   };
 
   return (
-    <div>
+    <div className="relative" style={{ width, height }}>
+      {annotation && (
+        <div className="absolute inset-0 w-full h-full flex justify-center items-center">
+          <p className="max-w-72">{annotation}</p>
+        </div>
+      )}
       <svg width={width} height={height}>
         <g
           width={boundsWidth}
           height={boundsHeight}
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
-          {yAxis}
+          {!annotation && yAxis}
           {allShapes}
-
           <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
-
           <rect
             x={0}
             y={0}
@@ -167,6 +171,7 @@ export const Barplot = ({ width, height, data }: BarplotProps) => {
               />
             </>
           )}
+          // Add annotation here
         </g>
       </svg>
 

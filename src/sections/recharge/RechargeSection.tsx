@@ -116,7 +116,19 @@ export const RechargeSection = () => {
         </Button>
       </div>
 
-      <Barplot data={filteredData} width={700} height={400} />
+      <Barplot
+        data={filteredData}
+        width={700}
+        height={400}
+        annotation={
+          zone === "Carbonifère" ? (
+            <p>
+              Pour la nappe du Carbonifère, la recharge via les pluies est nulle
+              sur le territoire français.
+            </p>
+          ) : undefined
+        }
+      />
     </>
   );
 };
