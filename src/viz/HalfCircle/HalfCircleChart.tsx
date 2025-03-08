@@ -1,9 +1,4 @@
 import { InformationPopover } from "@/components/InformationPopover";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import * as d3 from "d3";
 
 type HalfCircleChartProps = {
