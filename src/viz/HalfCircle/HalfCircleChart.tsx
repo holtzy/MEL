@@ -1,3 +1,9 @@
+import { InformationPopover } from "@/components/InformationPopover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import * as d3 from "d3";
 
 type HalfCircleChartProps = {
@@ -42,7 +48,10 @@ export const HalfCircleChart = ({
   return (
     <div className="flex flex-col items-center gap-2">
       <span className="font-bold text-md">{formattedDate}</span>
-      <span className="">{Math.round(value) + "m3/j"}</span>
+      <div className="flex items-center gap-1">
+        <span className="">{Math.round(value) + "m3/j"} </span>
+        <InformationPopover content={<p>TODO</p>} />
+      </div>
       <svg width={width} height={height}>
         {/* <rect width={width} height={height} fill="lightblue" /> */}
         <path
