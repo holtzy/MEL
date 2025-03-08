@@ -6,7 +6,8 @@ type HalfCircleChartProps = {
   value: number;
   min: number;
   max: number;
-  color: string;
+  style: Object;
+  date: number;
 };
 
 export const HalfCircleChart = ({
@@ -14,28 +15,41 @@ export const HalfCircleChart = ({
   height,
   max,
   value,
+  date,
+  style,
 }: HalfCircleChartProps) => {
   const scaleArea = d3
     .scaleSqrt()
-    .domain([0, height / 2]) // Input values
-    .range([0, max]); // corresponding radius
-  console.log("scaleArea(value)", scaleArea(value));
+    .domain([0, max]) // Input values
+    .range([0, height]); // corresponding radius
 
   const arcGenerator = d3
     .arc()
     .innerRadius(0) // Full pie slice (no hole in the middle)
     .outerRadius(scaleArea(value)) // Set the outer radius
-    .startAngle(Math.PI) // Start from 0 radians (right side)
-    .endAngle(0); // End at π radians (left side)
+    .startAngle(-Math.PI / 2) // Start from 0 radians (right side)
+    .endAngle(Math.PI / 2); // End at π radians (left side)
 
   // @ts-expect-error
   const arcPath = arcGenerator(width / 2);
-  console.log("arcPath", arcPath);
+
+  const dateInDateFormat = new Date(date);
+  const formattedDate = new Intl.DateTimeFormat("fr-FR", {
+    month: "short",
+    year: "numeric",
+  }).format(dateInDateFormat);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-2">
+      <span className="font-bold text-md">{formattedDate}</span>
+      <span className="">{Math.round(value) + "m3/j"}</span>
       <svg width={width} height={height}>
-        <path d={arcPath} fill="blue" />
+        {/* <rect width={width} height={height} fill="lightblue" /> */}
+        <path
+          d={arcPath}
+          transform={`translate(${width / 2},${height})`}
+          style={style}
+        />
       </svg>
     </div>
   );

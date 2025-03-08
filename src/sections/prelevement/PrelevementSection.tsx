@@ -40,26 +40,23 @@ export const PrelevementSection = () => {
     fetchData();
   }, []);
 
-  const currentDataPoint = data.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    const now = new Date();
-    return (
-      date.getFullYear() === now.getFullYear() &&
-      date.getMonth() === now.getMonth()
-    );
-  });
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  const lastDataPoint = data.sort(
+    (a, b) => a.DATE_OBSERVATION - b.DATE_OBSERVATION
+  )[data.length - 1];
+  console.log("lastDataPoint", lastDataPoint);
+
+  const lastDataPointDate = new Date(lastDataPoint.DATE_OBSERVATION);
 
   const lastYearDataPoint = data.filter((d) => {
     const date = new Date(d.DATE_OBSERVATION);
-    const now = new Date();
     return (
-      date.getFullYear() === now.getFullYear() - 1 &&
-      date.getMonth() === now.getMonth()
+      date.getFullYear() === lastDataPointDate.getFullYear() - 1 &&
+      date.getMonth() === lastDataPointDate.getMonth()
     );
   });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   console.log("lastYearDataPoint", lastYearDataPoint);
 
@@ -85,20 +82,22 @@ export const PrelevementSection = () => {
 
       <div className="flex gap-8">
         <HalfCircleChart
-          width={400}
-          height={200}
-          value={currentDataPoint[0].VOLUME_PRELEVE}
+          width={300}
+          height={150}
+          value={lastDataPoint?.VOLUME_PRELEVE}
           min={0}
           max={200000}
-          color="blue"
+          style={{ fill: "#009EE0", stroke: "black" }}
+          date={lastDataPoint?.DATE_OBSERVATION}
         />
         <HalfCircleChart
-          width={400}
-          height={200}
-          value={lastYearDataPoint[0].VOLUME_PRELEVE}
+          width={300}
+          height={150}
+          value={lastYearDataPoint[0]?.VOLUME_PRELEVE}
           min={0}
           max={200000}
-          color="blue"
+          style={{ fill: "#B3E2F6", stroke: "black" }}
+          date={lastYearDataPoint[0]?.DATE_OBSERVATION}
         />
       </div>
     </>
