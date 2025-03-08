@@ -4,23 +4,13 @@ import { PrelevementSection } from "./sections/prelevement/PrelevementSection";
 import { RechargeSection } from "./sections/recharge/RechargeSection";
 
 function App() {
-  return (
-    <div className="pl-6">
-      <RechargeSection />
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("section");
 
-      <div className="my-40" />
-
-      <MeteoSection />
-
-      <div className="my-40" />
-
-      <NiveauxSection />
-
-      <div className="my-40" />
-
-      <PrelevementSection />
-    </div>
-  );
+  if (name === "recharge") return <RechargeSection />; // http://localhost:5173/MEL/?section=recharge
+  if (name === "meteo") return <MeteoSection />;
+  if (name === "niveaux") return <NiveauxSection />;
+  if (name === "prelevement") return <PrelevementSection />;
 }
 
 export default App;
