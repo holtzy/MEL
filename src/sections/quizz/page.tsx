@@ -9,13 +9,6 @@ export const QuizzSection = () => {
 
   return (
     <div className="m-2 max-w-[600px]">
-      <h2>A vous de jouer</h2>
-      <p>
-        Maintenant que vous connaissez le grand voyage de l'eau dans la
-        métropole, testez vos connaissances avec notre quiz interactif.
-        Glissez-déposez les cartes dans les cases "VRAI" ou "FAUX".
-      </p>
-
       <div className="flex gap-2 mt-10">
         {questions.map((_, i) => {
           return (
