@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
+import { geologicalMonthsInFrench, getMonthInFrench } from "@/lib/utils";
 import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
@@ -31,7 +31,10 @@ export const AreaChart = ({
   const yScale = d3.scaleLinear().domain([min, max]).range([boundsHeight, 0]);
 
   // X axis
-  const xScale = d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
+  const xScale = d3
+    .scaleBand()
+    .domain(geologicalMonthsInFrench)
+    .range([0, boundsWidth]);
 
   // Builders
   const areaBuilder = d3

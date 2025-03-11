@@ -5,7 +5,6 @@ import {
   geologicalMonthsInFrench,
   getMonthAndYearInFrench,
   getMonthInFrench,
-  monthsInFrench,
 } from "@/lib/utils";
 import { BarItem } from "./BarItem";
 import { MonthXAxis } from "../MonthXAxis";
@@ -168,11 +167,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
         </g>
       </svg>
 
-      <Tooltip
-        interactionData={interactionData}
-        height={boundsHeight}
-        width={boundsWidth}
-      />
+      <Tooltip interactionData={interactionData} height={boundsHeight} />
     </div>
   );
 };

@@ -11,14 +11,13 @@ export type InteractionData = {
 type TooltipProps = {
   interactionData: InteractionData | null;
   height: number;
-  width: number;
 };
 
 // Tooltip can be oriented to the top or to the bottom depending on its position
 const Y_THRESHOLD_TOOLTIP = 100;
 const TOOLTIP_TO_BORDER_PADDING = 100;
 
-export const Tooltip = ({ interactionData, width, height }: TooltipProps) => {
+export const Tooltip = ({ interactionData, height }: TooltipProps) => {
   if (!interactionData) {
     return null;
   }

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
-import { getMonthInFrench, monthsInFrench } from "@/lib/utils";
+import { geologicalMonthsInFrench, getMonthInFrench } from "@/lib/utils";
 import { LineItem } from "./LineItem";
 import { MeteoObservation } from "@/data/types";
 import { CircleItem } from "./CircleItem";
@@ -34,7 +34,10 @@ export const LineChart = ({
 
   // X axis
   const xScale = useMemo(() => {
-    return d3.scaleBand().domain(monthsInFrench).range([0, boundsWidth]);
+    return d3
+      .scaleBand()
+      .domain(geologicalMonthsInFrench)
+      .range([0, boundsWidth]);
   }, [data, width]);
 
   // Line
