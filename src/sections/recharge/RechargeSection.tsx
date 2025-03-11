@@ -54,9 +54,13 @@ export const RechargeSection = () => {
     fetchData();
   }, []);
 
+  // We need to use "geological years" here: from sept to August
   const filteredData = data.filter((d) => {
     const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year && d.ENDROIT === zone;
+    const isCurrentYear = date.getFullYear() === year && date.getMonth() <= 7;
+    const isEndOfPreviousYear =
+      date.getFullYear() === year - 1 && date.getMonth() > 7;
+    return (isCurrentYear || isEndOfPreviousYear) && d.ENDROIT === zone;
   });
 
   const yearType = filteredData[0]?.TYPE_ANNEE;

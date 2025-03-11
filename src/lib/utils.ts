@@ -5,12 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const monthsInFrench = [
-  'JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUI',
-  'JUIL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'
+// Start in september, used for X axis
+export const geologicalMonthsInFrench = [
+  'SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUI',
+  'JUIL', 'AOU'
 ];
 
 export function getMonthInFrench(epochDate: number): string {
+  const monthsInFrench = [
+    'JAN', 'FEV', 'MAR', 'AVR', 'MAI', 'JUI',
+    'JUIL', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC'
+  ];
+
   const date = new Date(epochDate);
   const monthIndex = date.getMonth(); // Get month index (0-11)
 

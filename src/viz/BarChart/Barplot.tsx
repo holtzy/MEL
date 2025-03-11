@@ -1,7 +1,8 @@
 import { ReactNode, useMemo, useState } from "react";
 import * as d3 from "d3";
-import { InteractionData, Tooltip } from "./Tooltip";
+import { InteractionData, Tooltip, TooltipConnectionLine } from "./Tooltip";
 import {
+  geologicalMonthsInFrench,
   getMonthAndYearInFrench,
   getMonthInFrench,
   monthsInFrench,
@@ -32,24 +33,17 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
   const xScale = useMemo(() => {
     return d3
       .scaleBand()
-      .domain(monthsInFrench)
+      .domain(geologicalMonthsInFrench)
       .range([0, boundsWidth])
       .padding(BAR_PADDING);
   }, [data, width]);
 
-  // Y axis
+  // Y axis.
   const yScale = useMemo(() => {
-    const max = d3.max(data.map((d) => d.MESURE ?? 0));
-
-    let validMax = max;
-    if (!validMax) {
-      validMax = 5;
-    }
-    if (validMax < 5) {
-      validMax = 5;
-    }
-
-    return d3.scaleLinear().domain([0, validMax]).range([boundsHeight, 0]);
+    const maxValue = Math.max(
+      ...data.map((d) => Math.max(d.MESURE || 0, d.NORMALE || 0))
+    );
+    return d3.scaleLinear().domain([0, maxValue]).range([boundsHeight, 0]);
   }, [data, height]);
 
   // Create bars
@@ -121,7 +115,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
 
   const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - MARGIN.left;
+    const mouseX = e.clientX - rect.left;
 
     const closestDataItem = getClosestDataItem(mouseX);
 
@@ -129,8 +123,10 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
       const { MESURE, DATE_OBSERVATION } = closestDataItem;
 
       setInteractionData({
-        xPos: xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0,
-        yPos: yScale(MESURE ?? 0),
+        xPos:
+          (xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0) +
+          xScale.bandwidth() / 2,
+        yPos: yScale(MESURE ?? 0), // top of the blue bar
         title: getMonthAndYearInFrench(DATE_OBSERVATION),
         text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
       });
@@ -165,33 +161,18 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
             pointerEvents={"all"}
             cursor={"pointer"}
           />
-          {/* Hover effect */}
-          {interactionData && (
-            <>
-              <line
-                x1={interactionData.xPos + xScale.bandwidth() / 2}
-                x2={interactionData.xPos + xScale.bandwidth() / 2}
-                y1={boundsHeight / 2}
-                y2={interactionData.yPos}
-                stroke="black"
-                opacity={1}
-                pointerEvents={"none"}
-              />
-              <circle
-                cx={interactionData.xPos + xScale.bandwidth() / 2}
-                cy={interactionData.yPos}
-                r={5}
-                stroke="black"
-                fill="white"
-                pointerEvents={"none"}
-              />
-            </>
-          )}
-          // Add annotation here
+          <TooltipConnectionLine
+            interactionData={interactionData}
+            height={boundsHeight}
+          />
         </g>
       </svg>
 
-      <Tooltip interactionData={interactionData} />
+      <Tooltip
+        interactionData={interactionData}
+        height={boundsHeight}
+        width={boundsWidth}
+      />
     </div>
   );
 };
