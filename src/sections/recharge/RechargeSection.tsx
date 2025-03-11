@@ -9,6 +9,8 @@ import {
 import { Button } from "../..//components/ui/button";
 import { Barplot } from "@/viz/BarChart/Barplot";
 import { RechargeObservation } from "@/data/types";
+import { Pattern } from "./Pattern";
+import { InformationPopover } from "@/components/InformationPopover";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
@@ -69,7 +71,7 @@ export const RechargeSection = () => {
         L'évolution des recharges sur les 12 derniers mois
       </span>
 
-      <div className="flex items-center gap-2 my-2">
+      <div className="flex items-center gap-2 mt-6">
         <span>Selectionnez l'année: </span>
         <Select onValueChange={(v) => setYear(Number(v))} value={String(year)}>
           <SelectTrigger>
@@ -88,7 +90,7 @@ export const RechargeSection = () => {
         <span className="text-sm text-slate-600">{"Année " + yearType}</span>
       </div>
 
-      <div className="flex items-center gap-2 my-2">
+      <div className="flex items-center gap-2 mt-4">
         <span>Selectionnez la source: </span>
         <Button
           onClick={() => {
@@ -114,6 +116,25 @@ export const RechargeSection = () => {
         >
           Carbonifère
         </Button>
+      </div>
+
+      <div className="flex items-center gap-2 mt-6">
+        <span>Clé de lecture:</span>
+        <div className="w-8 h-6 bg-[#009EE0]" />
+        <span className="mr-4">Année sélectionnée</span>
+        <div className="w-8 h-6 border border-black">
+          <svg>
+            <Pattern />
+            <rect
+              x={0}
+              width={31}
+              y={0}
+              height={23}
+              fill="url(#diagonalLines)"
+            />
+          </svg>
+        </div>
+        <span>Normale</span> <InformationPopover content={<p>TODO</p>} />
       </div>
 
       <Barplot

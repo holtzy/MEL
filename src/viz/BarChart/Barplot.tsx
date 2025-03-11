@@ -9,8 +9,9 @@ import {
 import { BarItem } from "./BarItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { RechargeObservation } from "@/data/types";
+import { Pattern } from "@/sections/recharge/Pattern";
 
-const MARGIN = { top: 30, right: 30, bottom: 30, left: 30 };
+const MARGIN = { top: 30, right: 30, bottom: 30, left: 40 };
 const BAR_PADDING = 0.3;
 
 type BarplotProps = {
@@ -27,7 +28,6 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
-  // X axis
   // X axis
   const xScale = useMemo(() => {
     return d3
@@ -59,21 +59,34 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
       return null;
     }
     return (
-      <BarItem
-        x={x}
-        width={xScale.bandwidth()}
-        y={yScale(d.MESURE || 0)}
-        height={yScale(0) - yScale(d.MESURE || 0)}
-        key={i}
-      />
+      <g key={i}>
+        <BarItem
+          x={x}
+          width={xScale.bandwidth()}
+          y={yScale(d.MESURE || 0)}
+          height={yScale(0) - yScale(d.MESURE || 0)}
+        />
+        <rect
+          x={x}
+          width={xScale.bandwidth()}
+          y={yScale(d.NORMALE || 0)}
+          height={yScale(0) - yScale(d.NORMALE || 0)}
+          stroke="black"
+          fill="url(#diagonalLines)"
+          fillOpacity={1}
+          opacity={1}
+          strokeWidth={0.5}
+          rx={1}
+        />
+      </g>
     );
   });
 
   // Create the Y axis
-  const yAxis = yScale
-    .ticks(5)
-    .slice(1)
-    .map((value, i) => (
+  const ticks = yScale.ticks(5);
+  const yAxis = ticks.map((value, i) => {
+    const hasUnit = i === ticks.length - 1;
+    return (
       <g key={i}>
         <line
           x1={-20}
@@ -84,17 +97,18 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
           opacity={0.2}
         />
         <text
-          x={-10}
+          x={0 - 20}
           y={yScale(value) - 10}
-          textAnchor="middle"
+          textAnchor="start"
           alignmentBaseline="central"
           fontSize={15}
           fill="black"
         >
-          {value}
+          {value + (hasUnit ? " mm" : "")}
         </text>
       </g>
-    ));
+    );
+  });
 
   // From the mouse position, find which item of the dataset should be highlighted
   const getClosestDataItem = (cursorPixelPosition: number) => {
@@ -131,6 +145,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
         </div>
       )}
       <svg width={width} height={height}>
+        <Pattern />
         <g
           width={boundsWidth}
           height={boundsHeight}

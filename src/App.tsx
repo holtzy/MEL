@@ -7,6 +7,20 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const name = params.get("section");
 
+  if (!name) {
+    return (
+      <>
+        <a href="http://localhost:5173/MEL/?section=recharge">recharge</a>
+        <br />
+        <a href="http://localhost:5173/MEL/?section=meteo">meteo</a>
+        <br />
+        <a href="http://localhost:5173/MEL/?section=niveaux">niveaux</a>
+        <br />
+        <a href="http://localhost:5173/MEL/?section=prelevement">prelevement</a>
+      </>
+    );
+  }
+
   if (name === "recharge") return <RechargeSection />; // http://localhost:5173/MEL/?section=recharge
   if (name === "meteo") return <MeteoSection />;
   if (name === "niveaux") return <NiveauxSection />;
