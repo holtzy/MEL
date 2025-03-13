@@ -8,6 +8,8 @@ import {
 } from "../../components/ui/select";
 import { AreaChart } from "@/viz/AreaChart/AreaChart";
 import { NiveauxObservation } from "@/data/types";
+import { Pattern } from "@/components/Pattern";
+import { InformationPopover } from "@/components/InformationPopover";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
@@ -108,6 +110,19 @@ export const NiveauxSection = () => {
             style={{ backgroundColor: "rgba(179, 226, 246, 0.18)" }}
           />
           <span>Année précédente</span>
+          <div className="w-8 h-6 border border-black">
+            <svg>
+              <Pattern />
+              <rect
+                x={0}
+                width={31}
+                y={0}
+                height={23}
+                fill="url(#diagonalLines)"
+              />
+            </svg>
+          </div>
+          <span>Normale</span> <InformationPopover content={<p>TODO</p>} />
         </div>
       </div>
 

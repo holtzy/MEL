@@ -9,7 +9,7 @@ import {
 import { Button } from "../..//components/ui/button";
 import { Barplot } from "@/viz/BarChart/Barplot";
 import { RechargeObservation } from "@/data/types";
-import { Pattern } from "./Pattern";
+import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];

@@ -9,7 +9,7 @@ import {
 import { BarItem } from "./BarItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { RechargeObservation } from "@/data/types";
-import { Pattern } from "@/sections/recharge/Pattern";
+import { Pattern } from "@/components/Pattern";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 40 };
 const BAR_PADDING = 0.3;

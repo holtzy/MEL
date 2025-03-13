@@ -4,6 +4,7 @@ import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { NiveauxObservation } from "@/data/types";
+import { Pattern } from "@/components/Pattern";
 
 const MARGIN = { top: 30, right: 0, bottom: 26, left: 40 };
 
@@ -65,7 +66,24 @@ export const AreaChart = ({
   const previousYearAreaPath = areaBuilder(previousYearData);
   const previousYearLinePath = lineBuilder(previousYearData);
 
-  if (!currentYearAreaPath || !previousYearAreaPath || !previousYearLinePath) {
+  // Normal
+  const areaBuilderNormal = d3
+    .area<NiveauxObservation>()
+    .x(
+      (d) =>
+        (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2
+    )
+    .y1((d) => yScale(d.NORMALE))
+    .y0(yScale(min));
+  const normalAreaPath = areaBuilderNormal(previousYearData);
+
+  if (
+    !currentYearAreaPath ||
+    !previousYearAreaPath ||
+    !previousYearLinePath ||
+    !normalAreaPath
+  ) {
     return null;
   }
 
@@ -115,6 +133,7 @@ export const AreaChart = ({
   return (
     <div>
       <svg width={width} height={height}>
+        <Pattern />
         <g
           width={boundsWidth}
           height={boundsHeight}
@@ -135,6 +154,15 @@ export const AreaChart = ({
             areaColor="#B3E2F6"
           />
           <LineItem path={previousYearLinePath} color="#B3E2F6" />
+
+          {/* Then the normal year */}
+          <path
+            d={normalAreaPath}
+            fill="url(#diagonalLines)"
+            stroke="black"
+            fillOpacity={0.8}
+            strokeOpacity={0.4}
+          />
 
           <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
 
