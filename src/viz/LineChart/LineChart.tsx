@@ -175,13 +175,11 @@ export const LineChart = ({
           xScale.bandwidth() / 2,
         yPos: yScale(MESURE ?? 0),
         title: getMonthAndYearInFrench(DATE_OBSERVATION),
-        text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
-        tooltipYPos: 20,
+        text: MESURE ? Math.round(MESURE * 100) / 100 + unit : "-",
+        tooltipYPos: -15,
       });
     }
   };
-
-  console.log("interactionDaa", interactionData);
 
   return (
     <div className="relative overflow-visible">

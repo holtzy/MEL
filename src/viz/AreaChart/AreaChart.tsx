@@ -5,7 +5,7 @@ import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { NiveauxObservation } from "@/data/types";
 
-const MARGIN = { top: 0, right: 0, bottom: 50, left: 50 };
+const MARGIN = { top: 40, right: 0, bottom: 50, left: 40 };
 
 type AreaChartProps = {
   width: number;
@@ -14,6 +14,7 @@ type AreaChartProps = {
   previousYearData: NiveauxObservation[];
   min: number;
   max: number;
+  unit: string;
 };
 
 export const AreaChart = ({
@@ -23,6 +24,7 @@ export const AreaChart = ({
   previousYearData,
   min,
   max,
+  unit,
 }: AreaChartProps) => {
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
@@ -41,17 +43,18 @@ export const AreaChart = ({
     .area<NiveauxObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
-        0 + xScale.bandwidth() / 2
+        (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2
     )
     .y1((d) => yScale(d.MESURE))
     .y0(yScale(min));
+
   const lineBuilder = d3
     .line<NiveauxObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
-        0 + xScale.bandwidth() / 2
+        (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2
     )
     .y((d) => yScale(d.MESURE));
 
@@ -67,13 +70,13 @@ export const AreaChart = ({
   }
 
   // Create the Y axis
-  const yAxis = yScale
-    .ticks(5)
-    .slice(1)
-    .map((value, i) => (
+  const ticks = yScale.ticks(4);
+  const yAxis = ticks.map((value, i) => {
+    const hasUnit = i === ticks.length - 1;
+    return (
       <g key={i}>
         <line
-          x1={-20}
+          x1={-MARGIN.left}
           x2={0}
           y1={yScale(value)}
           y2={yScale(value)}
@@ -81,17 +84,18 @@ export const AreaChart = ({
           opacity={0.2}
         />
         <text
-          x={-10}
+          x={-MARGIN.left}
           y={yScale(value) - 10}
-          textAnchor="middle"
+          textAnchor="start"
           alignmentBaseline="central"
           fontSize={15}
           fill="black"
         >
-          {value}
+          {value + (hasUnit ? unit : "")}
         </text>
       </g>
-    ));
+    );
+  });
 
   return (
     <div>

@@ -14,6 +14,16 @@ const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/5/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
+const filterData = (data: NiveauxObservation[], year: number) => {
+  return data.filter((d) => {
+    const date = new Date(d.DATE_OBSERVATION);
+    const isSelectedYear = date.getFullYear() === year && date.getMonth() <= 7;
+    const isEndOfPreviousYear =
+      date.getFullYear() === year - 1 && date.getMonth() > 7;
+    return isSelectedYear || isEndOfPreviousYear;
+  });
+};
+
 export const NiveauxSection = () => {
   const [year, setYear] = useState(2024);
 
@@ -50,15 +60,9 @@ export const NiveauxSection = () => {
     fetchData();
   }, []);
 
-  const filteredData = data.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year;
-  });
+  const filteredData = filterData(data, year);
 
-  const filteredDataPreviousYear = data.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year - 1;
-  });
+  const filteredDataPreviousYear = filterData(data, year - 1);
 
   const yearType = filteredData[0]?.TYPE_ANNEE;
 
@@ -118,7 +122,8 @@ export const NiveauxSection = () => {
         width={700}
         height={300}
         min={15}
-        max={20}
+        max={18}
+        unit={"mNGF"}
       />
 
       <span className="font-bold bricolageFont" style={{ fontSize: 19 }}>
@@ -133,6 +138,7 @@ export const NiveauxSection = () => {
         height={300}
         min={0}
         max={40} // TODO
+        unit="m3/s"
       />
       <span className="font-bold bricolageFont" style={{ fontSize: 19 }}>
         Nappe du Carbonifère
@@ -146,6 +152,7 @@ export const NiveauxSection = () => {
         height={300}
         min={-70}
         max={-50}
+        unit={"mNGF"}
       />
     </>
   );

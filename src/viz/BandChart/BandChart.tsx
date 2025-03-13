@@ -144,7 +144,7 @@ export const BandChart = ({
           fontSize={15}
           fill="black"
         >
-          très humide
+          humide
         </text>
       </g>
       <g>
@@ -164,7 +164,7 @@ export const BandChart = ({
           fontSize={15}
           fill="black"
         >
-          très sec
+          sec
         </text>
       </g>
     </>
