@@ -111,9 +111,12 @@ export const NiveauxSection = () => {
         </div>
       </div>
 
-      <span className="font-bold bricolageFont" style={{ fontSize: 19 }}>
+      <p
+        className="font-bold bricolageFont"
+        style={{ fontSize: 19, marginTop: 30 }}
+      >
         Nappe de la Craie
-      </span>
+      </p>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Craie")}
         previousYearData={filteredDataPreviousYear.filter(
@@ -126,9 +129,12 @@ export const NiveauxSection = () => {
         unit={"mNGF"}
       />
 
-      <span className="font-bold bricolageFont" style={{ fontSize: 19 }}>
+      <p
+        className="font-bold bricolageFont"
+        style={{ fontSize: 19, marginTop: 30 }}
+      >
         Rivière Lys
-      </span>
+      </p>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Lys")}
         previousYearData={filteredDataPreviousYear.filter(
@@ -137,12 +143,15 @@ export const NiveauxSection = () => {
         width={700}
         height={300}
         min={0}
-        max={40} // TODO
+        max={10}
         unit="m3/s"
       />
-      <span className="font-bold bricolageFont" style={{ fontSize: 19 }}>
+      <p
+        className="font-bold bricolageFont"
+        style={{ fontSize: 19, marginTop: 30 }}
+      >
         Nappe du Carbonifère
-      </span>
+      </p>
       <AreaChart
         data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
         previousYearData={filteredDataPreviousYear.filter(

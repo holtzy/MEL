@@ -5,7 +5,7 @@ import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { NiveauxObservation } from "@/data/types";
 
-const MARGIN = { top: 40, right: 0, bottom: 50, left: 40 };
+const MARGIN = { top: 30, right: 0, bottom: 26, left: 40 };
 
 type AreaChartProps = {
   width: number;
@@ -97,6 +97,21 @@ export const AreaChart = ({
     );
   });
 
+  const xGrid = xScale.domain().map((d) => {
+    const xPos = xScale(d)! + xScale.bandwidth();
+    return (
+      <line
+        key={d}
+        x1={xPos}
+        x2={xPos}
+        y1={0}
+        y2={height}
+        stroke="lightgray"
+        strokeDasharray="4 4"
+      />
+    );
+  });
+
   return (
     <div>
       <svg width={width} height={height}>
@@ -105,6 +120,7 @@ export const AreaChart = ({
           height={boundsHeight}
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
+          {xGrid}
           {/* Bottom = current year */}
           <AreaItem
             path={currentYearAreaPath}
