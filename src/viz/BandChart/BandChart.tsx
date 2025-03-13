@@ -4,7 +4,7 @@ import { MeteoObservation } from "@/data/types";
 import { RectangleItem } from "./RectangleItem";
 import { MonthXAxis } from "../MonthXAxis";
 
-const MARGIN = { top: 80, right: 0, bottom: 40, left: 50 };
+const MARGIN = { top: 70, right: 0, bottom: 40, left: 40 };
 const BAND_HEIGHT = 10;
 
 type BandChartProps = {
@@ -90,6 +90,40 @@ export const BandChart = ({
     return null;
   }
 
+  const pattern = (
+    <defs>
+      <pattern
+        id="bgPattern"
+        patternUnits="userSpaceOnUse"
+        width={xScale.bandwidth()}
+        height={boundsHeight}
+      >
+        <image
+          href="gradient.svg"
+          x="0"
+          y="0"
+          width={xScale.bandwidth()}
+          height={boundsHeight}
+        />
+      </pattern>
+    </defs>
+  );
+
+  const allBackgroundRectangles = data.map((d) => {
+    return (
+      <>
+        {pattern}
+        <rect
+          x={xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0}
+          y={0}
+          width={xScale.bandwidth()}
+          height={boundsHeight}
+          fill="url(#bgPattern)"
+        />
+      </>
+    );
+  });
+
   // Create the Y axis
   const yAxis = (
     <>
@@ -153,8 +187,13 @@ export const BandChart = ({
 
   return (
     <div className="relative">
-      <div className="absolute left-0 top-10">
-        <span className="font-bold bricolageFont text-xl">{title}</span>
+      <div className="absolute inset-0 translate-y-6">
+        <span
+          className="bricolageFont"
+          style={{ fontSize: 19, fontWeight: 800 }}
+        >
+          {title}
+        </span>
       </div>
       <svg width={width} height={height}>
         <g
@@ -162,6 +201,7 @@ export const BandChart = ({
           height={boundsHeight}
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
+          {allBackgroundRectangles}
           <line
             x1={0}
             x2={boundsWidth}

@@ -1,9 +1,18 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import * as d3 from "d3";
-import { geologicalMonthsInFrench, getMonthInFrench } from "@/lib/utils";
+import {
+  geologicalMonthsInFrench,
+  getMonthAndYearInFrench,
+  getMonthInFrench,
+} from "@/lib/utils";
 import { LineItem } from "./LineItem";
 import { MeteoObservation } from "@/data/types";
 import { CircleItem } from "./CircleItem";
+import {
+  InteractionData,
+  Tooltip,
+  TooltipConnectionLine,
+} from "../Tooltip/Tooltip";
 
 const MARGIN = { top: 70, right: 0, bottom: 0, left: 40 };
 
@@ -26,6 +35,9 @@ export const LineChart = ({
   title,
   unit,
 }: LineChartProps) => {
+  const [interactionData, setInteractionData] =
+    useState<InteractionData | null>(null);
+
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
@@ -139,10 +151,47 @@ export const LineChart = ({
     );
   });
 
+  // From the mouse position, find which item of the dataset should be highlighted
+  const getClosestDataItem = (cursorPixelPosition: number) => {
+    const index = Math.floor(cursorPixelPosition / xScale.step());
+    if (index >= 0 && index < data.length) {
+      return data[index];
+    }
+    return null;
+  };
+
+  const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const closestDataItem = getClosestDataItem(mouseX);
+
+    if (closestDataItem) {
+      const { MESURE, DATE_OBSERVATION } = closestDataItem;
+
+      setInteractionData({
+        xPos:
+          (xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0) +
+          xScale.bandwidth() / 2,
+        yPos: yScale(MESURE ?? 0),
+        title: getMonthAndYearInFrench(DATE_OBSERVATION),
+        text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
+        tooltipYPos: 20,
+      });
+    }
+  };
+
+  console.log("interactionDaa", interactionData);
+
   return (
-    <div className="relative">
-      <div className="absolute inset-0 translate-y-6">
-        <span className="font-bold bricolageFont text-xl">{title}</span>
+    <div className="relative overflow-visible">
+      <div className="absolute inset-0 translate-y-6  pointer-events-none">
+        <span
+          className="bricolageFont"
+          style={{ fontSize: 19, fontWeight: 800 }}
+        >
+          {title}
+        </span>
       </div>
       <svg width={width} height={height}>
         <g
@@ -162,8 +211,22 @@ export const LineChart = ({
           <LineItem path={linePath} color="#B3E2F6" />
           {allCircles}
           {yAxis}
+          <TooltipConnectionLine interactionData={interactionData} />
+          <rect
+            x={0}
+            y={0}
+            width={boundsWidth}
+            height={boundsHeight}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => setInteractionData(null)}
+            visibility={"hidden"}
+            pointerEvents={"all"}
+            cursor={"pointer"}
+          />
         </g>
       </svg>
+
+      <Tooltip interactionData={interactionData} />
     </div>
   );
 };
