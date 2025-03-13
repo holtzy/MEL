@@ -21,6 +21,16 @@ const HUMIDITE_URL =
 const EVAPOTRANSPIRATION_URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/M%C3%A9t%C3%A9o_des_nappes/FeatureServer/4/query?where=INDICATEUR%3D%27%C3%89vapotranspiration%27&outFields=*&returnGeometry=false&f=json";
 
+const filterData = (data: MeteoObservation[], year: number) => {
+  return data.filter((d) => {
+    const date = new Date(d.DATE_OBSERVATION);
+    const isSelectedYear = date.getFullYear() === year && date.getMonth() <= 7;
+    const isEndOfPreviousYear =
+      date.getFullYear() === year - 1 && date.getMonth() > 7;
+    return isSelectedYear || isEndOfPreviousYear;
+  });
+};
+
 export const MeteoSection = () => {
   const [year, setYear] = useState(2024);
 
@@ -93,22 +103,13 @@ export const MeteoSection = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const filteredDataTemperature = dataTemperature.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year;
-  });
-  const filteredDataEvapotranspiration = dataEvapotranspiration.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year;
-  });
-  const filteredDataHumidity = dataHumidite.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year;
-  });
-  const filteredDataPrecipitation = dataPrecipitation.filter((d) => {
-    const date = new Date(d.DATE_OBSERVATION);
-    return date.getFullYear() === year;
-  });
+  const filteredDataTemperature = filterData(dataTemperature, year);
+  const filteredDataHumidity = filterData(dataHumidite, year);
+  const filteredDataEvapotranspiration = filterData(
+    dataEvapotranspiration,
+    year
+  );
+  const filteredDataPrecipitation = filterData(dataPrecipitation, year);
 
   const yearType = filteredDataTemperature[0].TYPE_ANNEE;
 

@@ -22,3 +22,15 @@ https://holtzy.github.io/MEL/
 
 Design:
 https://www.figma.com/design/zhHt8VHDxZhKSXCnUECIvl/Grand-cycle-de-l'eau-%7C-Final-design?node-id=1-5&p=f&t=ew0loWKbNrwSTr84-0
+
+Iframe example:
+Do not forget to tick the box: "autoriser l'utilisateur a interagir directement..."
+Height = météo: 900
+Do not forget to remove the legend
+
+<iframe
+    src="https://holtzy.github.io/MEL/?section=meteo"
+    width="100%"
+    height="900"
+    style="border:none;">
+</iframe>
