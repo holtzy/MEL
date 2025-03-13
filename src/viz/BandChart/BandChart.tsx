@@ -91,31 +91,50 @@ export const BandChart = ({
   }
 
   // Create the Y axis
-  const yAxis = yScale
-    .ticks(3)
-    .slice(1)
-    .map((value, i) => (
-      <g key={i}>
+  const yAxis = (
+    <>
+      <g>
         <line
-          x1={-20}
+          x1={-MARGIN.left}
           x2={0}
-          y1={yScale(value)}
-          y2={yScale(value)}
+          y1={0}
+          y2={0}
           stroke="#808080"
           opacity={0.2}
         />
         <text
-          x={-10}
-          y={yScale(value) - 10}
-          textAnchor="middle"
+          x={-MARGIN.left}
+          y={0 + 13}
+          textAnchor="start"
           alignmentBaseline="central"
           fontSize={15}
           fill="black"
         >
-          {value}
+          très humide
         </text>
       </g>
-    ));
+      <g>
+        <line
+          x1={-MARGIN.left}
+          x2={0}
+          y1={boundsHeight}
+          y2={boundsHeight}
+          stroke="#808080"
+          opacity={0.2}
+        />
+        <text
+          x={-MARGIN.left}
+          y={boundsHeight - 10}
+          textAnchor="start"
+          alignmentBaseline="central"
+          fontSize={15}
+          fill="black"
+        >
+          très sec
+        </text>
+      </g>
+    </>
+  );
 
   const xGrid = xScale.domain().map((d) => {
     const xPos = xScale(d)! + xScale.bandwidth();
