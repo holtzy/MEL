@@ -84,13 +84,13 @@ export const NiveauxSection = () => {
             value={String(year)}
           >
             <SelectTrigger>
-              <SelectValue>{year}</SelectValue>
+              <SelectValue>{year - 1 + " - " + year}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               {YEARS.map((year, i) => {
                 return (
                   <SelectItem key={i} value={String(year)}>
-                    {year}
+                    {year - 1 + " - " + year}
                   </SelectItem>
                 );
               })}
