@@ -49,6 +49,26 @@ export const BandChart = ({
     );
   });
 
+  // "Normale" values dash lines
+  const allNormalValuesLines = data.map((d, i) => {
+    return (
+      <line
+        key={i}
+        x1={xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0}
+        x2={
+          (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+          xScale.bandwidth()
+        }
+        y1={yScale(d.NORMALE)}
+        y2={yScale(d.NORMALE)}
+        fill={"none"}
+        stroke={"#A1A1A1"}
+        strokeWidth={1}
+        strokeDasharray="2, 2"
+      />
+    );
+  });
+
   // Dashed segments
   const allSegments = data.map((d, i) => {
     return (
@@ -134,6 +154,7 @@ export const BandChart = ({
           {xGrid}
           {allRectangles}
           {allSegments}
+          {allNormalValuesLines}
           {yAxis}
         </g>
       </svg>

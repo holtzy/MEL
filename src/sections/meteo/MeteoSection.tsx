@@ -143,31 +143,34 @@ export const MeteoSection = () => {
       <LineChart
         data={filteredDataPrecipitation}
         width={700}
-        height={160}
+        height={180}
         min={0}
         max={120}
-        title={"Précipitation"}
+        title={"Précipitations"}
+        unit="mm"
       />
       <LineChart
         data={filteredDataTemperature}
         width={700}
-        height={160}
+        height={180}
         min={0}
         max={38}
         title={"Température"}
+        unit="°C"
       />
       <LineChart
         data={filteredDataEvapotranspiration}
         width={700}
-        height={160}
+        height={180}
         min={0}
         max={160}
         title={"Evapotranspiration"}
+        unit="mm"
       />
       <BandChart
         data={filteredDataHumidity}
         width={700}
-        height={200} // 40 more than other charts because it has 40 px dedicated to the axis labels
+        height={220} // 40 more than other charts because it has 40 px dedicated to the axis labels
         min={0}
         max={1.4}
         title={"Humidité"}

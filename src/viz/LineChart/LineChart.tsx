@@ -5,7 +5,7 @@ import { LineItem } from "./LineItem";
 import { MeteoObservation } from "@/data/types";
 import { CircleItem } from "./CircleItem";
 
-const MARGIN = { top: 80, right: 0, bottom: 0, left: 50 };
+const MARGIN = { top: 70, right: 0, bottom: 0, left: 40 };
 
 type LineChartProps = {
   width: number;
@@ -14,6 +14,7 @@ type LineChartProps = {
   min: number;
   max: number;
   title: string;
+  unit: string;
 };
 
 export const LineChart = ({
@@ -23,6 +24,7 @@ export const LineChart = ({
   min,
   max,
   title,
+  unit,
 }: LineChartProps) => {
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
@@ -40,16 +42,41 @@ export const LineChart = ({
       .range([0, boundsWidth]);
   }, [data, width]);
 
-  // Line
+  //
+  // Line for the year's value
+  //
   const lineBuilder = d3
     .line<MeteoObservation>()
     .x(
       (d) =>
-        xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
-        0 + xScale.bandwidth() / 2
+        (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2
     )
     .y((d) => yScale(d.MESURE));
   const linePath = lineBuilder(data);
+
+  //
+  // Line for the "normal"
+  //
+  const lineBuilderNormal = d3
+    .line<MeteoObservation>()
+    .x(
+      (d) =>
+        (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2
+    )
+    .y((d) => yScale(d.NORMALE));
+  const normalValuesPath = lineBuilderNormal(data);
+  const normalValuesLine = (
+    <path
+      // @ts-expect-error
+      d={normalValuesPath}
+      fill={"none"}
+      stroke={"#A1A1A1"}
+      strokeWidth={1}
+      strokeDasharray="2, 2"
+    />
+  );
 
   // Circles
   const allCircles = data.map((d, i) => {
@@ -57,8 +84,8 @@ export const LineChart = ({
       <CircleItem
         key={i}
         cx={
-          xScale(getMonthInFrench(d.DATE_OBSERVATION)) ??
-          0 + xScale.bandwidth() / 2
+          (xScale(getMonthInFrench(d.DATE_OBSERVATION)) ?? 0) +
+          xScale.bandwidth() / 2
         }
         cy={yScale(d.MESURE)}
       />
@@ -70,13 +97,13 @@ export const LineChart = ({
   }
 
   // Create the Y axis
-  const yAxis = yScale
-    .ticks(3)
-    .slice(1)
-    .map((value, i) => (
+  const ticks = yScale.ticks(3);
+  const yAxis = ticks.map((value, i) => {
+    const hasUnit = i === ticks.length - 1;
+    return (
       <g key={i}>
         <line
-          x1={-20}
+          x1={-MARGIN.left}
           x2={0}
           y1={yScale(value)}
           y2={yScale(value)}
@@ -84,17 +111,18 @@ export const LineChart = ({
           opacity={0.2}
         />
         <text
-          x={-10}
+          x={-MARGIN.left}
           y={yScale(value) - 10}
-          textAnchor="middle"
+          textAnchor="start"
           alignmentBaseline="central"
           fontSize={15}
           fill="black"
         >
-          {value}
+          {value + (hasUnit ? unit : "")}
         </text>
       </g>
-    ));
+    );
+  });
 
   const xGrid = xScale.domain().map((d) => {
     const xPos = xScale(d)! + xScale.bandwidth();
@@ -113,7 +141,7 @@ export const LineChart = ({
 
   return (
     <div className="relative">
-      <div className="absolute left-0 top-10">
+      <div className="absolute inset-0 translate-y-6">
         <span className="font-bold bricolageFont text-xl">{title}</span>
       </div>
       <svg width={width} height={height}>
@@ -130,6 +158,7 @@ export const LineChart = ({
             stroke="black"
           />
           {xGrid}
+          {normalValuesLine}
           <LineItem path={linePath} color="#B3E2F6" />
           {allCircles}
           {yAxis}
