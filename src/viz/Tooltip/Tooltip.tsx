@@ -26,7 +26,7 @@ export const Tooltip = ({ interactionData }: TooltipProps) => {
         left: interactionData.xPos,
         top: interactionData.tooltipYPos,
         pointerEvents: "none",
-        transform: "translateY(-100%)",
+        // transform: "translateY(-100%)",
       }}
     >
       <span className="text-bold block">{interactionData.title}</span>
