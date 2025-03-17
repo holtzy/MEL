@@ -132,9 +132,16 @@ LEGEND
       -
       -
        */}
-      <div className="mt-60" />
+      <div className="relative w-full mt-10">
+        <img src="map-bg.svg" />
+        <svg className="absolute inset-0">
+          <Circle cx={100} cy={100} r={40} alert="Vigilance" level="Bas" />
+        </svg>
+      </div>
 
-      <TimeLegend width={600} />
+      <div className="mt-10">
+        <TimeLegend width={600} />
+      </div>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { scaleTime, timeMonth, timeYear } from "d3";
-import { Play, Square, StopCircleIcon } from "lucide-react";
+import { Play, Square } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 const SLIDER_HEIGHT = 8;
@@ -71,7 +71,7 @@ export const TimeLegend = ({ width }: TimeLegendProps) => {
   // Handle the play button functionality
   // Handle the play button functionality
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: NodeJS.Timeout | undefined = undefined;
 
     if (isPlaying) {
       interval = setInterval(() => {
@@ -151,7 +151,7 @@ export const TimeLegend = ({ width }: TimeLegendProps) => {
           })}
           {yearTicks
             .filter((t) => t.getFullYear() % 10 === 0)
-            .map((t, i) => {
+            .map((t) => {
               return (
                 <line
                   x1={scale(t)}
