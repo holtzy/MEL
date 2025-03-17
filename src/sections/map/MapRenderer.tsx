@@ -30,11 +30,11 @@ const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
 
 const xScale = scaleOrdinal()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-  .range([0.3, 0.8, 0.4, 0.6, 0.9]);
+  .range([0.61, 0.62, 0.57, 0.51, 0.25]);
 
 const yScale = scaleOrdinal()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-  .range([0.3, 0.8, 0.4, 0.6, 0.9]);
+  .range([0.52, 0.68, 0.61, 0.65, 0.6]);
 
 export const MapRenderer = ({ data }: MapProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -55,7 +55,7 @@ export const MapRenderer = ({ data }: MapProps) => {
               key={i}
               cx={xScale(d.CHAMP_CAPTANT) * chartSize.width}
               cy={yScale(d.CHAMP_CAPTANT) * height}
-              r={30}
+              r={20}
               level={levelScale(d.CARACT)}
               alert={alertScale(d.SEUIL)}
             />
