@@ -134,7 +134,7 @@ LEGEND
        */}
       <div className="mt-60" />
 
-      <TimeLegend />
+      <TimeLegend width={800} />
     </>
   );
 };
