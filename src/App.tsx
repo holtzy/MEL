@@ -1,3 +1,4 @@
+import { MapSection } from "./sections/map/Map";
 import { MeteoSection } from "./sections/meteo/MeteoSection";
 import { NiveauxSection } from "./sections/niveaux/NiveauxSection";
 import { PrelevementSection } from "./sections/prelevement/PrelevementSection";
@@ -20,6 +21,8 @@ function App() {
         <a href="http://localhost:5173/MEL/?section=prelevement">prelevement</a>
         <br />
         <a href="http://localhost:5173/MEL/?section=quizz">quizz</a>
+        <br />
+        <a href="http://localhost:5173/MEL/?section=map">map</a>
       </>
     );
   }
@@ -29,6 +32,7 @@ function App() {
   if (name === "niveaux") return <NiveauxSection />;
   if (name === "prelevement") return <PrelevementSection />;
   if (name === "quizz") return <QuizzSection />;
+  if (name === "map") return <MapSection />;
 }
 
 export default App;
