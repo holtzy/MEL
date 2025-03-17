@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
 // react-graph-gallery.com
-export const useDimensions = (targetRef: React.RefObject<HTMLDivElement>) => {
+export const useDimensions = (targetRef: React.RefObject<HTMLDivElement | null>) => {
 
     const getDimensions = () => {
         return {

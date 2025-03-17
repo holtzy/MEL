@@ -78,8 +78,8 @@ export const TimeLegend = ({
 
     if (isPlaying) {
       interval = setInterval(() => {
-        setSelectedDate((prevDate) => {
-          const nextDate = new Date(prevDate);
+        setSelectedDate((prevDate: Date) => {
+          const nextDate = prevDate;
           nextDate.setMonth(prevDate.getMonth() + 1); // Increment month
           if (nextDate > new Date(2024, 11, 31)) {
             clearInterval(interval); // Stop the interval when the end is reached
@@ -100,7 +100,7 @@ export const TimeLegend = ({
   return (
     <div className="flex items-center gap-4">
       <div
-        className="h-7 w-7 border rounded-full text-sm flex items-center justify-center cursor-pointer"
+        className="h-7 w-7 border rounded-full text-sm flex items-center justify-center cursor-pointer flex-shrink-0"
         style={{ backgroundColor: "#F7F5F0" }}
         onClick={isPlaying ? stopPlaying : startPlaying} // Start the play animation when clicked
       >

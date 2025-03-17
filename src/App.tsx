@@ -6,9 +6,10 @@ import { PrelevementSection } from "./sections/prelevement/PrelevementSection";
 import { QuizzSection } from "./sections/quizz/page";
 import { RechargeSection } from "./sections/recharge/RechargeSection";
 import { useDimensions } from "./lib/use-dimensions";
+import { LegendSection } from "./sections/legend/LegendSection";
 
 function App() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const params = new URLSearchParams(window.location.search);
   const name = params.get("section");
@@ -29,6 +30,8 @@ function App() {
         <a href="http://localhost:5173/MEL/?section=quizz">quizz</a>
         <br />
         <a href="http://localhost:5173/MEL/?section=map">map</a>
+        <br />
+        <a href="http://localhost:5173/MEL/?section=legend">legend</a>
       </>
     );
   }
@@ -43,6 +46,7 @@ function App() {
       )}
       {name === "quizz" && <QuizzSection width={sectionSize.width} />}
       {name === "map" && <MapSection width={sectionSize.width} />}
+      {name === "legend" && <LegendSection />}
     </div>
   );
 }
