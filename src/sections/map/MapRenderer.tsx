@@ -28,11 +28,11 @@ const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
   .domain([1, 2])
   .range(["Non", "Vigilance"]);
 
-const xScale = scaleOrdinal()
+const xScale = scaleOrdinal<string, number>()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
   .range([0.61, 0.62, 0.57, 0.51, 0.25]);
 
-const yScale = scaleOrdinal()
+const yScale = scaleOrdinal<string, number>()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
   .range([0.52, 0.68, 0.61, 0.65, 0.6]);
 
