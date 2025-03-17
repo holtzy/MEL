@@ -71,31 +71,28 @@ export const TimeLegend = ({
     };
   }, [isDragging]);
 
-  // Handle the play button functionality
-  // Handle the play button functionality
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined = undefined;
 
     if (isPlaying) {
       interval = setInterval(() => {
-        setSelectedDate((prevDate: Date) => {
-          const nextDate = prevDate;
-          nextDate.setMonth(prevDate.getMonth() + 1); // Increment month
-          if (nextDate > new Date(2024, 11, 31)) {
-            clearInterval(interval); // Stop the interval when the end is reached
-            setIsPlaying(false); // Stop playing
-          }
-          return nextDate;
-        });
-      }, TIME_INTERVAL); // 0.5 seconds interval
+        const nextDate = new Date(selectedDate);
+        nextDate.setMonth(selectedDate.getMonth() + 1); // Increment month
+        if (nextDate > new Date(2024, 11, 31)) {
+          clearInterval(interval); // Stop the interval when the end is reached
+          setIsPlaying(false); // Stop playing
+        } else {
+          setSelectedDate(nextDate); // Update date
+        }
+      }, TIME_INTERVAL);
     } else {
-      clearInterval(interval); // Clear the interval when not playing
+      clearInterval(interval);
     }
 
     return () => {
-      clearInterval(interval); // Clean up the interval on component unmount
+      clearInterval(interval);
     };
-  }, [isPlaying]);
+  }, [isPlaying, selectedDate]); // Add `selectedDate` to dependencies
 
   return (
     <div className="flex items-center gap-4">

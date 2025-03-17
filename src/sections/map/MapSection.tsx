@@ -16,7 +16,7 @@ const filterData = (data: MapObservation[], date: Date) => {
   });
 };
 
-export const MapSection = ({ width }: { width: number }) => {
+export const MapSection = () => {
   const [data, setData] = useState<MapObservation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

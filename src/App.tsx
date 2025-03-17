@@ -45,7 +45,7 @@ function App() {
         <PrelevementSection width={sectionSize.width} />
       )}
       {name === "quizz" && <QuizzSection width={sectionSize.width} />}
-      {name === "map" && <MapSection width={sectionSize.width} />}
+      {name === "map" && <MapSection />}
       {name === "legend" && <LegendSection />}
     </div>
   );
