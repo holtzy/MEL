@@ -17,7 +17,7 @@ const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/7/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
-export const RechargeSection = () => {
+export const RechargeSection = ({ width }: { width: number }) => {
   const [year, setYear] = useState(2024);
   const [zone, setZone] = useState("Craie");
 
@@ -143,7 +143,7 @@ export const RechargeSection = () => {
 
       <Barplot
         data={filteredData}
-        width={700}
+        width={width}
         height={400}
         annotation={
           zone === "Carbonifère" ? (

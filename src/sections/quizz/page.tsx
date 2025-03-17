@@ -2,13 +2,13 @@ import { useState } from "react";
 import { questions } from "./questions";
 import { cn } from "@/lib/utils";
 
-export const QuizzSection = () => {
+export const QuizzSection = ({ width }: { width: number }) => {
   const [questionId, setQuestionId] = useState(0);
   const [isAnswerShown, setIsAnswerShown] = useState(false);
   const [isGoodAnswer, setIsGoodAnswer] = useState<null | boolean>(null);
 
   return (
-    <div className="m-2 max-w-[600px]">
+    <div className="m-2" style={{ width }}>
       <div className="flex gap-2 mt-10">
         {questions.map((_, i) => {
           return (

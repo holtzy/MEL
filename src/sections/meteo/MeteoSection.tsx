@@ -31,7 +31,7 @@ const filterData = (data: MeteoObservation[], year: number) => {
   });
 };
 
-export const MeteoSection = () => {
+export const MeteoSection = ({ width }: { width: number }) => {
   const [year, setYear] = useState(2024);
 
   const [dataTemperature, setDataTemperature] = useState<MeteoObservation[]>(
@@ -142,7 +142,7 @@ export const MeteoSection = () => {
 
       <LineChart
         data={filteredDataPrecipitation}
-        width={700}
+        width={width}
         height={180}
         min={0}
         max={120}
@@ -152,7 +152,7 @@ export const MeteoSection = () => {
       />
       <LineChart
         data={filteredDataTemperature}
-        width={700}
+        width={width}
         height={180}
         min={0}
         max={38}
@@ -161,7 +161,7 @@ export const MeteoSection = () => {
       />
       <LineChart
         data={filteredDataEvapotranspiration}
-        width={700}
+        width={width}
         height={180}
         min={0}
         max={160}
@@ -170,7 +170,7 @@ export const MeteoSection = () => {
       />
       <BandChart
         data={filteredDataHumidity}
-        width={700}
+        width={width}
         height={220} // 40 more than other charts because it has 40 px dedicated to the axis labels
         min={0}
         max={1.4}

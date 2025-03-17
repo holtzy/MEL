@@ -6,12 +6,11 @@ import { useEffect, useState } from "react";
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/6/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
-export const PrelevementSection = () => {
+export const PrelevementSection = ({ width }: { width: number }) => {
   const [data, setData] = useState<PrelevementObservation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log("data", data);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,8 +58,6 @@ export const PrelevementSection = () => {
     );
   });
 
-  console.log("lastYearDataPoint", lastYearDataPoint);
-
   return (
     <>
       <h2>Et les prélèvements dans tout ça ?</h2>
@@ -83,7 +80,7 @@ export const PrelevementSection = () => {
 
       <div className="flex gap-8">
         <HalfCircleChart
-          width={300}
+          width={width / 2}
           height={150}
           value={lastDataPoint?.VOLUME_PRELEVE}
           min={0}
@@ -92,7 +89,7 @@ export const PrelevementSection = () => {
           date={lastDataPoint?.DATE_OBSERVATION}
         />
         <HalfCircleChart
-          width={300}
+          width={width / 2}
           height={150}
           value={lastYearDataPoint[0]?.VOLUME_PRELEVE}
           min={0}

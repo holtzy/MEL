@@ -1,8 +1,65 @@
+import { useEffect, useState } from "react";
 import { Circle } from "./Circle";
 import { TimeLegend } from "./TimeLegend";
 import { CHANGE_LEVELS, LEVELS, changeScale, colorScale } from "./utils";
+import { MapObservation } from "@/data/types";
+import { MapRenderer } from "./MapRenderer";
 
-export const MapSection = () => {
+const URL =
+  "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/2/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
+
+const filterData = (data: MapObservation[], date: Date) => {
+  return data.filter((d) => {
+    const observationDate = new Date(d.DATE_OBSERVATION);
+    return (
+      observationDate.getFullYear() === date.getFullYear() &&
+      observationDate.getMonth() === date.getMonth()
+    );
+  });
+};
+
+export const MapSection = ({ width }: { width: number }) => {
+  const [data, setData] = useState<MapObservation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [selectedDate, setSelectedDate] = useState<Date>(
+    new Date(2024, 11, 31)
+  );
+
+  const filteredData = filterData(data, selectedDate);
+  console.log("filteredData", filteredData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // Fetch only the temperature dataset
+        const response = await fetch(URL);
+
+        if (!response.ok) throw new Error("Failed to fetch data");
+
+        // Convert response to JSON
+        const json = await response.json();
+
+        // Extract and clean data
+        setData(
+          json.features.map((f: { attributes: MapObservation }) => f.attributes)
+        );
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <>
       <h2>L'état des lieux</h2>
@@ -132,15 +189,16 @@ LEGEND
       -
       -
        */}
-      <div className="relative w-full mt-10">
-        <img src="map-bg.svg" />
-        <svg className="absolute inset-0">
-          <Circle cx={100} cy={100} r={40} alert="Vigilance" level="Bas" />
-        </svg>
+      <div className="w-full">
+        <MapRenderer data={filteredData} />
       </div>
 
       <div className="mt-10">
-        <TimeLegend width={600} />
+        <TimeLegend
+          width={600}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
       </div>
     </>
   );

@@ -7,9 +7,15 @@ const TIME_INTERVAL = 100;
 
 type TimeLegendProps = {
   width: number;
+  selectedDate: Date;
+  setSelectedDate: (d: Date) => void;
 };
 
-export const TimeLegend = ({ width }: TimeLegendProps) => {
+export const TimeLegend = ({
+  width,
+  selectedDate,
+  setSelectedDate,
+}: TimeLegendProps) => {
   const scale = scaleTime()
     .domain([new Date(1995, 0, 1), new Date(2024, 11, 31)])
     .range([0, width]);
@@ -17,9 +23,6 @@ export const TimeLegend = ({ width }: TimeLegendProps) => {
   const monthTicks = scale.ticks(timeMonth);
   const yearTicks = scale.ticks(timeYear);
 
-  const [selectedDate, setSelectedDate] = useState<Date>(
-    new Date(2024, 11, 31)
-  );
   const [isDragging, setIsDragging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null); // Reference to the slider div

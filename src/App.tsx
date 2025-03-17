@@ -1,13 +1,19 @@
-import { MapSection } from "./sections/map/Map";
+import { useRef } from "react";
+import { MapSection } from "./sections/map/MapSection";
 import { MeteoSection } from "./sections/meteo/MeteoSection";
 import { NiveauxSection } from "./sections/niveaux/NiveauxSection";
 import { PrelevementSection } from "./sections/prelevement/PrelevementSection";
 import { QuizzSection } from "./sections/quizz/page";
 import { RechargeSection } from "./sections/recharge/RechargeSection";
+import { useDimensions } from "./lib/use-dimensions";
 
 function App() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const params = new URLSearchParams(window.location.search);
   const name = params.get("section");
+
+  const sectionSize = useDimensions(sectionRef);
 
   if (!name) {
     return (
@@ -27,12 +33,18 @@ function App() {
     );
   }
 
-  if (name === "recharge") return <RechargeSection />; // http://localhost:5173/MEL/?section=recharge
-  if (name === "meteo") return <MeteoSection />;
-  if (name === "niveaux") return <NiveauxSection />;
-  if (name === "prelevement") return <PrelevementSection />;
-  if (name === "quizz") return <QuizzSection />;
-  if (name === "map") return <MapSection />;
+  return (
+    <div className="w-full" ref={sectionRef}>
+      {name === "recharge" && <RechargeSection width={sectionSize.width} />}
+      {name === "meteo" && <MeteoSection width={sectionSize.width} />}
+      {name === "niveaux" && <NiveauxSection width={sectionSize.width} />}
+      {name === "prelevement" && (
+        <PrelevementSection width={sectionSize.width} />
+      )}
+      {name === "quizz" && <QuizzSection width={sectionSize.width} />}
+      {name === "map" && <MapSection width={sectionSize.width} />}
+    </div>
+  );
 }
 
 export default App;

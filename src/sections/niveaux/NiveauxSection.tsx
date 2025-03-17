@@ -26,7 +26,7 @@ const filterData = (data: NiveauxObservation[], year: number) => {
   });
 };
 
-export const NiveauxSection = () => {
+export const NiveauxSection = ({ width }: { width: number }) => {
   const [year, setYear] = useState(2024);
 
   const [data, setData] = useState<NiveauxObservation[]>([]);
@@ -137,7 +137,7 @@ export const NiveauxSection = () => {
         previousYearData={filteredDataPreviousYear.filter(
           (d) => d.ENDROIT === "Craie"
         )}
-        width={700}
+        width={width}
         height={300}
         min={15}
         max={18}
@@ -155,7 +155,7 @@ export const NiveauxSection = () => {
         previousYearData={filteredDataPreviousYear.filter(
           (d) => d.ENDROIT === "Lys"
         )}
-        width={700}
+        width={width}
         height={300}
         min={0}
         max={10}
@@ -172,7 +172,7 @@ export const NiveauxSection = () => {
         previousYearData={filteredDataPreviousYear.filter(
           (d) => d.ENDROIT === "Carbonifère"
         )}
-        width={700}
+        width={width}
         height={300}
         min={-70}
         max={-50}

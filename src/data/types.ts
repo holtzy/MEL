@@ -73,3 +73,23 @@ export type PrelevementObservation = {
     USER_MODIF: string | null;
     DATE_MODIF_SYS: number | null;
 };
+
+export type MapObservation = {
+    ARRETE: number;
+    CARACT: number;
+    CHAMP_CAPTANT: string;
+    COORD_X: string;
+    COORD_Y: string;
+    DATE_CREATION: number;
+    DATE_MODIF: number;
+    DATE_MODIF_SYS: number;
+    DATE_OBSERVATION: number;
+    EVOLUTION: string;
+    ID_CARTE: string;
+    OBJECTID: string;
+    SEUIL: number;
+    SEUIL_ARRETE: string;
+    SE_ANNO_CAD_DATA: string;
+    USER_CREATION: number;
+    USER_MODIF: string;
+}
