@@ -148,6 +148,7 @@ export const MeteoSection = () => {
         max={120}
         title={"Précipitations"}
         unit="mm"
+        isNormalLabelEnabled
       />
       <LineChart
         data={filteredDataTemperature}

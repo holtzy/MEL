@@ -24,6 +24,7 @@ type LineChartProps = {
   max: number;
   title: string;
   unit: string;
+  isNormalLabelEnabled?: boolean;
 };
 
 export const LineChart = ({
@@ -34,6 +35,7 @@ export const LineChart = ({
   max,
   title,
   unit,
+  isNormalLabelEnabled = false,
 }: LineChartProps) => {
   const [interactionData, setInteractionData] =
     useState<InteractionData | null>(null);
@@ -90,6 +92,33 @@ export const LineChart = ({
     />
   );
 
+  const lastDataPoint = data[data.length - 1];
+  const xLabel = xScale(getMonthInFrench(lastDataPoint.DATE_OBSERVATION)) || 0;
+  const yLabel = yScale(lastDataPoint.NORMALE);
+  const normalValuesLabel = (
+    <>
+      <text
+        x={xLabel + xScale.bandwidth() / 2 + 9}
+        y={yLabel - 7}
+        fill={"#A1A1A1"}
+        fontSize={12}
+        alignmentBaseline="middle"
+        textAnchor="left"
+      >
+        Valeur
+      </text>
+      <text
+        x={xLabel + xScale.bandwidth() / 2 + 9}
+        y={yLabel + 7}
+        fill={"#A1A1A1"}
+        fontSize={12}
+        alignmentBaseline="middle"
+        textAnchor="left"
+      >
+        Normale
+      </text>
+    </>
+  );
   // Circles
   const allCircles = data.map((d, i) => {
     return (
@@ -191,7 +220,7 @@ export const LineChart = ({
           {title}
         </span>
       </div>
-      <svg width={width} height={height}>
+      <svg width={width} height={height} className="overflow-visible">
         <g
           width={boundsWidth}
           height={boundsHeight}
@@ -206,6 +235,7 @@ export const LineChart = ({
           />
           {xGrid}
           {normalValuesLine}
+          {isNormalLabelEnabled && normalValuesLabel}
           <LineItem path={linePath} color="#B3E2F6" />
           {allCircles}
           {yAxis}
