@@ -17,6 +17,8 @@ export const Circle = ({
   cy,
   r,
 }: CircleProps) => {
+  console.log(cx, cy, r);
+
   return (
     <g>
       <defs>
