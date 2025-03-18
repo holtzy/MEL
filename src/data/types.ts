@@ -84,7 +84,7 @@ export type MapObservation = {
     DATE_MODIF: number;
     DATE_MODIF_SYS: number;
     DATE_OBSERVATION: number;
-    EVOLUTION: string;
+    EVOLUTION: number;
     ID_CARTE: string;
     OBJECTID: string;
     SEUIL: number;

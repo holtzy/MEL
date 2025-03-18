@@ -1,3 +1,4 @@
+import { ChangeLevelPill } from "../map/ChangeLevelPill";
 import { Circle } from "../map/Circle";
 import { CHANGE_LEVELS, LEVELS, changeScale, colorScale } from "../map/utils";
 
@@ -19,12 +20,7 @@ export const MapLegend = () => {
       <div className="flex gap-4 mt-4 text-sm">
         {CHANGE_LEVELS.map((levelName, index) => (
           <div key={index} className="flex items-center gap-2">
-            <div
-              className="h-6 w-6 border rounded-full text-md flex items-center justify-center"
-              style={{ backgroundColor: "#F7F5F0" }}
-            >
-              {changeScale(levelName)}
-            </div>
+            <ChangeLevelPill levelName={levelName} />
             {levelName}
           </div>
         ))}
