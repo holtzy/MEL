@@ -57,8 +57,6 @@ export const MapRenderer = ({ data }: MapProps) => {
 
   const height = chartSize.width / ASPECT_RATIO;
 
-  console.log("data", data);
-
   return (
     <div ref={chartRef} className="relative w-full">
       <img src="map-bg.svg" className="block w-full" />

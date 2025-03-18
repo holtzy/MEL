@@ -1,6 +1,6 @@
 import { ChangeLevelPill } from "../map/ChangeLevelPill";
 import { Circle } from "../map/Circle";
-import { CHANGE_LEVELS, LEVELS, changeScale, colorScale } from "../map/utils";
+import { CHANGE_LEVELS, LEVELS, colorScale } from "../map/utils";
 
 export const MapLegend = () => {
   return (
