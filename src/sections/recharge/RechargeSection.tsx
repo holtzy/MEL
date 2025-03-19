@@ -11,6 +11,7 @@ import { Barplot } from "@/viz/BarChart/Barplot";
 import { RechargeObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
+import { YearTypePill } from "@/components/YearTypePill";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
@@ -91,7 +92,7 @@ export const RechargeSection = ({ width }: { width: number }) => {
             })}
           </SelectContent>
         </Select>
-        <span className="text-sm text-slate-600">{"Année " + yearType}</span>
+        <YearTypePill yearType={yearType} />
       </div>
 
       <div className="flex items-center gap-2 mt-4">

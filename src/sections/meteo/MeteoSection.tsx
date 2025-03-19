@@ -9,6 +9,7 @@ import {
 import { MeteoObservation } from "@/data/types";
 import { LineChart } from "@/viz/LineChart/LineChart";
 import { BandChart } from "@/viz/BandChart/BandChart";
+import { YearTypePill } from "@/components/YearTypePill";
 
 const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 
@@ -137,7 +138,7 @@ export const MeteoSection = ({ width }: { width: number }) => {
             })}
           </SelectContent>
         </Select>
-        <span className="text-sm text-slate-600">{"Année " + yearType}</span>
+        <YearTypePill yearType={yearType} />
       </div>
 
       <LineChart
