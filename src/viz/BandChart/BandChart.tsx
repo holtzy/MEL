@@ -180,7 +180,6 @@ export const BandChart = ({
         y1={0}
         y2={boundsHeight}
         stroke="lightgray"
-        strokeDasharray="4 4"
       />
     );
   });

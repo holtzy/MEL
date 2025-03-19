@@ -118,15 +118,7 @@ export const AreaChart = ({
   const xGrid = xScale.domain().map((d) => {
     const xPos = xScale(d)! + xScale.bandwidth();
     return (
-      <line
-        key={d}
-        x1={xPos}
-        x2={xPos}
-        y1={0}
-        y2={height}
-        stroke="lightgray"
-        strokeDasharray="4 4"
-      />
+      <line key={d} x1={xPos} x2={xPos} y1={0} y2={height} stroke="lightgray" />
     );
   });
 
