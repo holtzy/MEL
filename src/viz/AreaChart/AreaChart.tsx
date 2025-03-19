@@ -1,12 +1,22 @@
 import * as d3 from "d3";
-import { geologicalMonthsInFrench, getMonthInFrench } from "@/lib/utils";
+import {
+  geologicalMonthsInFrench,
+  getMonthAndYearInFrench,
+  getMonthInFrench,
+} from "@/lib/utils";
 import { AreaItem } from "./AreaItem";
 import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { NiveauxObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
+import { useState } from "react";
+import {
+  InteractionData,
+  Tooltip,
+  TooltipConnectionLine,
+} from "../Tooltip/Tooltip";
 
-const MARGIN = { top: 30, right: 0, bottom: 26, left: 40 };
+const MARGIN = { top: 30, right: 30, bottom: 26, left: 40 };
 
 type AreaChartProps = {
   width: number;
@@ -27,6 +37,9 @@ export const AreaChart = ({
   max,
   unit,
 }: AreaChartProps) => {
+  const [interactionData, setInteractionData] =
+    useState<InteractionData | null>(null);
+
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
@@ -122,8 +135,67 @@ export const AreaChart = ({
     );
   });
 
+  // From the mouse position, find which item of the dataset should be highlighted
+  const getClosestDataItem = (cursorPixelPosition: number) => {
+    const index = Math.floor(cursorPixelPosition / xScale.step());
+    if (index >= 0 && index < data.length) {
+      return data[index];
+    }
+    return null;
+  };
+
+  const onMouseMove = (e: React.MouseEvent<SVGRectElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const closestDataItem = getClosestDataItem(mouseX);
+
+    if (closestDataItem) {
+      const { MESURE, DATE_OBSERVATION, NORMALE } = closestDataItem;
+
+      // Find info about previous year
+      const selectedDate = new Date(DATE_OBSERVATION);
+      const previousYearDataItem = previousYearData.find((d) => {
+        const iterationDate = new Date(d.DATE_OBSERVATION);
+        return (
+          iterationDate.getFullYear() === selectedDate.getFullYear() - 1 &&
+          iterationDate.getMonth() === selectedDate.getMonth()
+        );
+      });
+
+      const targetXPos =
+        (xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0) +
+        xScale.bandwidth() / 2;
+
+      setInteractionData({
+        xPos: targetXPos,
+        yPos: yScale(MESURE ?? 0),
+        title: getMonthAndYearInFrench(DATE_OBSERVATION),
+        text: (
+          <div className="text-sm">
+            <div>
+              {"Niveau actuel: " +
+                (MESURE ? Math.round(MESURE * 100) / 100 + unit : "-")}
+            </div>
+            <div>
+              {"Année passée: " +
+                (previousYearDataItem
+                  ? Math.round(previousYearDataItem.MESURE * 100) / 100 + unit
+                  : "-")}
+            </div>
+            <div>
+              {"Moyenne: " +
+                (NORMALE ? Math.round(NORMALE * 100) / 100 + unit : "-")}
+            </div>
+          </div>
+        ),
+        tooltipYPos: -15,
+      });
+    }
+  };
+
   return (
-    <div>
+    <div className="relative">
       <svg width={width} height={height}>
         <Pattern />
         <g
@@ -159,8 +231,23 @@ export const AreaChart = ({
           <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
 
           {yAxis}
+
+          <TooltipConnectionLine interactionData={interactionData} />
+          <rect
+            x={0}
+            y={0}
+            width={boundsWidth}
+            height={boundsHeight}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => setInteractionData(null)}
+            visibility={"hidden"}
+            pointerEvents={"all"}
+            cursor={"pointer"}
+          />
         </g>
       </svg>
+
+      <Tooltip interactionData={interactionData} />
     </div>
   );
 };
