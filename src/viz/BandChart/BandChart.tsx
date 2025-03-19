@@ -4,7 +4,7 @@ import { MeteoObservation } from "@/data/types";
 import { RectangleItem } from "./RectangleItem";
 import { MonthXAxis } from "../MonthXAxis";
 
-const MARGIN = { top: 70, right: 0, bottom: 40, left: 40 };
+const MARGIN = { top: 70, right: 30, bottom: 40, left: 40 };
 const BAND_HEIGHT = 10;
 
 type BandChartProps = {

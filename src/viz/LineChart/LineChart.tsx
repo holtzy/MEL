@@ -14,7 +14,7 @@ import {
   TooltipConnectionLine,
 } from "../Tooltip/Tooltip";
 
-const MARGIN = { top: 70, right: 0, bottom: 0, left: 40 };
+const MARGIN = { top: 70, right: 30, bottom: 0, left: 40 };
 
 type LineChartProps = {
   width: number;
