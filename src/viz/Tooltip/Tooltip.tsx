@@ -20,7 +20,7 @@ export const Tooltip = ({ interactionData }: TooltipProps) => {
 
   return (
     <div
-      className="absolute bg-button-background px-4 py-3 rounded-2xl border border-black/60"
+      className="absolute bg-button-background mr-1 px-4 py-3 rounded-2xl border border-black/60"
       style={{
         left: interactionData.xPos,
         top: interactionData.tooltipYPos,

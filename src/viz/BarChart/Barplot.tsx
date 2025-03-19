@@ -1,6 +1,6 @@
 import { ReactNode, useMemo, useState } from "react";
 import * as d3 from "d3";
-import { InteractionData, Tooltip, TooltipConnectionLine } from "./Tooltip";
+
 import {
   geologicalMonthsInFrench,
   getMonthAndYearInFrench,
@@ -10,6 +10,11 @@ import { BarItem } from "./BarItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { RechargeObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
+import {
+  InteractionData,
+  Tooltip,
+  TooltipConnectionLine,
+} from "../Tooltip/Tooltip";
 
 const MARGIN = { top: 30, right: 30, bottom: 30, left: 40 };
 const BAR_PADDING = 0.3;
@@ -126,6 +131,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
           (xScale(getMonthInFrench(DATE_OBSERVATION)) ?? 0) +
           xScale.bandwidth() / 2,
         yPos: yScale(MESURE ?? 0), // top of the blue bar
+        tooltipYPos: -15,
         title: getMonthAndYearInFrench(DATE_OBSERVATION),
         text: MESURE ? Math.round(MESURE * 100) / 100 + " mm de recharge" : "-",
       });
@@ -160,14 +166,11 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
             pointerEvents={"all"}
             cursor={"pointer"}
           />
-          <TooltipConnectionLine
-            interactionData={interactionData}
-            height={boundsHeight}
-          />
+          <TooltipConnectionLine interactionData={interactionData} />
         </g>
       </svg>
 
-      <Tooltip interactionData={interactionData} height={boundsHeight} />
+      <Tooltip interactionData={interactionData} />
     </div>
   );
 };
