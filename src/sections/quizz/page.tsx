@@ -9,7 +9,7 @@ export const QuizzSection = ({ width }: { width: number }) => {
 
   return (
     <div className="m-2" style={{ width }}>
-      <div className="flex gap-2 mt-10">
+      <div className="flex gap-2 mt-2">
         {questions.map((_, i) => {
           return (
             <div
