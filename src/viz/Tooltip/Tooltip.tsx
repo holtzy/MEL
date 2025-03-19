@@ -27,7 +27,9 @@ export const Tooltip = ({ interactionData }: TooltipProps) => {
         pointerEvents: "none",
       }}
     >
-      <span className="text-bold block">{interactionData.title}</span>
+      <span style={{ fontWeight: 800 }} className="text-bold block">
+        {interactionData.title}
+      </span>
       <div className="text-normal block">{interactionData.text}</div>
     </div>
   );

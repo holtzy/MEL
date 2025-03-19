@@ -40,15 +40,18 @@ export const HalfCircleChart = ({
     year: "numeric",
   }).format(dateInDateFormat);
 
+  const formattedValue = Math.round(value)
+    .toLocaleString("en-US")
+    .replace(/,/g, " ");
+
   return (
     <div className="flex flex-col items-center gap-2">
       <span className="font-bold text-md">{formattedDate}</span>
       <div className="flex items-center gap-1">
-        <span className="">{Math.round(value) + "m3/j"} </span>
+        <span className="">{formattedValue + " m3/j"} </span>
         <InformationPopover content={<p>TODO</p>} />
       </div>
       <svg width={width} height={height}>
-        {/* <rect width={width} height={height} fill="lightblue" /> */}
         <path
           d={arcPath}
           transform={`translate(${width / 2},${height})`}

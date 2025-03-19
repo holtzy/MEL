@@ -166,7 +166,7 @@ export const MeteoSection = ({ width }: { width: number }) => {
         height={180}
         min={0}
         max={160}
-        title={"Evapotranspiration"}
+        title={"Évapotranspiration"}
         unit="mm"
       />
       <BandChart
