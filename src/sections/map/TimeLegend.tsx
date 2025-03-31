@@ -5,7 +5,7 @@ import { Play, Square } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 const SLIDER_HEIGHT = 8;
-const TIME_INTERVAL = 100; // for the play animation
+const TIME_INTERVAL = 300; // for the play animation
 const LEFT_MARGIN = 100;
 const RIGHT_MARGIN = 50;
 
@@ -85,12 +85,12 @@ export const TimeLegend = ({
     if (isPlaying) {
       interval = setInterval(() => {
         const nextDate = new Date(selectedDate);
-        nextDate.setMonth(selectedDate.getMonth() + 1); // Increment month
+        nextDate.setMonth(selectedDate.getMonth() + 1);
         if (nextDate > new Date(2024, 11, 31)) {
-          clearInterval(interval); // Stop the interval when the end is reached
-          setIsPlaying(false); // Stop playing
+          clearInterval(interval);
+          setIsPlaying(false);
         } else {
-          setSelectedDate(nextDate); // Update date
+          setSelectedDate(nextDate);
         }
       }, TIME_INTERVAL);
     } else {
@@ -100,7 +100,7 @@ export const TimeLegend = ({
     return () => {
       clearInterval(interval);
     };
-  }, [isPlaying, selectedDate]); // Add `selectedDate` to dependencies
+  }, [isPlaying, selectedDate]);
 
   const leftSection = (
     <div style={{ width: LEFT_MARGIN }} className="flex gap-2 items-center">
@@ -197,7 +197,11 @@ export const TimeLegend = ({
 
   return (
     <>
-      <div className="flex items-center">
+      <h3 className="font-semibold bricolageFont">
+        Sélectionnez le mois et l’année :
+      </h3>
+
+      <div className="flex items-center mt-4">
         {leftSection}
         {sliderBar}
         <div className="pl-8" style={{ width: RIGHT_MARGIN }}>

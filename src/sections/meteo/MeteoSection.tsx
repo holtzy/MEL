@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../..//components/ui/select";
 import { MeteoObservation } from "@/data/types";
 import { LineChart } from "@/viz/LineChart/LineChart";
 import { BandChart } from "@/viz/BandChart/BandChart";
 import { YearTypePill } from "@/components/YearTypePill";
-
-const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+import { YearSelectButton } from "@/components/YearSelectButton";
 
 const TEMPERATURE_URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/4/query?where=INDICATEUR%3D%27Température%27&outFields=*&returnGeometry=false&f=json";
@@ -124,20 +116,7 @@ export const MeteoSection = ({ width }: { width: number }) => {
 
       <div className="flex items-center gap-2 my-2">
         <span>Selectionnez l'année: </span>
-        <Select onValueChange={(v) => setYear(Number(v))} value={String(year)}>
-          <SelectTrigger>
-            <SelectValue>{year - 1 + " - " + year}</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {YEARS.map((year, i) => {
-              return (
-                <SelectItem key={i} value={String(year)}>
-                  {year - 1 + " - " + year}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
+        <YearSelectButton setYear={setYear} year={year} />
         <YearTypePill yearType={yearType} />
       </div>
 
@@ -177,6 +156,13 @@ export const MeteoSection = ({ width }: { width: number }) => {
         max={1.4}
         title={"Humidité"}
       />
+
+      <div className="flex justify-between">
+        <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
+          Source et notes: insérer des choses ici.
+        </p>
+        <div>Yo</div>
+      </div>
     </>
   );
 };

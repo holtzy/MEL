@@ -1,24 +1,19 @@
-import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../..//components/ui/select";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../..//components/ui/button";
 import { Barplot } from "@/viz/BarChart/Barplot";
 import { RechargeObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
 import { YearTypePill } from "@/components/YearTypePill";
-
-const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+import { YearSelectButton } from "@/components/YearSelectButton";
+import { DownloadButton } from "@/components/DownloadButton";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/7/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
 export const RechargeSection = ({ width }: { width: number }) => {
+  const contentRef = useRef(null);
+
   const [year, setYear] = useState(2024);
   const [zone, setZone] = useState("Craie");
 
@@ -78,20 +73,7 @@ export const RechargeSection = ({ width }: { width: number }) => {
 
       <div className="flex items-center gap-2 mt-6">
         <span>Selectionnez l'année: </span>
-        <Select onValueChange={(v) => setYear(Number(v))} value={String(year)}>
-          <SelectTrigger>
-            <SelectValue>{year - 1 + " - " + year}</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {YEARS.map((year, i) => {
-              return (
-                <SelectItem key={i} value={String(year)}>
-                  {year - 1 + " - " + year}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
+        <YearSelectButton setYear={setYear} year={year} />
         <YearTypePill yearType={yearType} />
       </div>
 
@@ -142,19 +124,29 @@ export const RechargeSection = ({ width }: { width: number }) => {
         <span>Normale</span> <InformationPopover content={<p>TODO</p>} />
       </div>
 
-      <Barplot
-        data={filteredData}
-        width={width}
-        height={400}
-        annotation={
-          zone === "Carbonifère" ? (
-            <p>
-              Pour la nappe du Carbonifère, la recharge via les pluies est nulle
-              sur le territoire français.
-            </p>
-          ) : undefined
-        }
-      />
+      <div ref={contentRef}>
+        <Barplot
+          data={filteredData}
+          width={width}
+          height={400}
+          annotation={
+            zone === "Carbonifère" ? (
+              <p>
+                Pour la nappe du Carbonifère, la recharge via les pluies est
+                nulle sur le territoire français.
+              </p>
+            ) : undefined
+          }
+        />
+      </div>
+
+      <div
+        className="flex justify-between items-center text-sm mt-8"
+        style={{ fontSize: 11, color: "#212121" }}
+      >
+        <p>Source et notes: insérer des choses ici.</p>
+        <DownloadButton contentRef={contentRef} />
+      </div>
     </>
   );
 };

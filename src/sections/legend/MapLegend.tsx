@@ -6,7 +6,7 @@ export const MapLegend = () => {
   return (
     <>
       <div className="mt-4 inline-block">
-        <h3 className="font-semibold">Niveaux d'eau :</h3>
+        <h3 className="font-semibold bricolageFont">Niveaux d'eau :</h3>
         <p className="mt-2">Ce mois-ci :</p>
         <div className="flex gap-4 mt-4 text-sm">
           <NiveauLegend isSmall={true} label={"niveaux alarmants"} />
@@ -27,7 +27,7 @@ export const MapLegend = () => {
       </div>
 
       <div className="mt-12">
-        <h3 className="font-semibold mt-12">États d'alerte :</h3>
+        <h3 className="font-semibold mt-12 bricolageFont">États d'alerte :</h3>
       </div>
 
       <div className="inline-block">

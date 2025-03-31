@@ -98,6 +98,10 @@ export const PrelevementSection = ({ width }: { width: number }) => {
           date={lastYearDataPoint[0]?.DATE_OBSERVATION}
         />
       </div>
+
+      <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
+        Source et notes: insérer des choses ici.
+      </p>
     </>
   );
 };

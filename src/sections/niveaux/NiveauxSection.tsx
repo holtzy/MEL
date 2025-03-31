@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
+
 import { AreaChart } from "@/viz/AreaChart/AreaChart";
 import { NiveauxObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
 import { YearTypePill } from "@/components/YearTypePill";
-
-const YEARS = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
+import { YearSelectButton } from "@/components/YearSelectButton";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/5/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
@@ -82,23 +75,7 @@ export const NiveauxSection = ({ width }: { width: number }) => {
       <div className="my-8">
         <div className="flex items-center gap-2 ">
           <span>Selectionnez l'année: </span>
-          <Select
-            onValueChange={(v) => setYear(Number(v))}
-            value={String(year)}
-          >
-            <SelectTrigger>
-              <SelectValue>{year - 1 + " - " + year}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {YEARS.map((year, i) => {
-                return (
-                  <SelectItem key={i} value={String(year)}>
-                    {year - 1 + " - " + year}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <YearSelectButton setYear={setYear} year={year} />
           <YearTypePill yearType={yearType} />
         </div>
 
@@ -143,6 +120,7 @@ export const NiveauxSection = ({ width }: { width: number }) => {
         min={15}
         max={18}
         unit={"mNGF"}
+        infoText={<p>TODO: info section</p>}
       />
 
       <p
@@ -161,6 +139,7 @@ export const NiveauxSection = ({ width }: { width: number }) => {
         min={0}
         max={10}
         unit="m3/s"
+        infoText={<p>TODO: info section</p>}
       />
       <p
         className="font-bold bricolageFont"
@@ -178,7 +157,12 @@ export const NiveauxSection = ({ width }: { width: number }) => {
         min={-70}
         max={-50}
         unit={"mNGF"}
+        infoText={<p>TODO: info section</p>}
       />
+
+      <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
+        Source et notes: insérer des choses ici.
+      </p>
     </>
   );
 };

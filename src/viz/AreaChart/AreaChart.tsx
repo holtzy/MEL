@@ -9,12 +9,13 @@ import { LineItem } from "./LineItem";
 import { MonthXAxis } from "../MonthXAxis";
 import { NiveauxObservation } from "@/data/types";
 import { Pattern } from "@/components/Pattern";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   InteractionData,
   Tooltip,
   TooltipConnectionLine,
 } from "../Tooltip/Tooltip";
+import { InformationPopover } from "@/components/InformationPopover";
 
 const MARGIN = { top: 30, right: 30, bottom: 26, left: 40 };
 
@@ -26,6 +27,7 @@ type AreaChartProps = {
   min: number;
   max: number;
   unit: string;
+  infoText: ReactNode;
 };
 
 export const AreaChart = ({
@@ -36,6 +38,7 @@ export const AreaChart = ({
   min,
   max,
   unit,
+  infoText,
 }: AreaChartProps) => {
   const [interactionData, setInteractionData] =
     useState<InteractionData | null>(null);
@@ -100,10 +103,9 @@ export const AreaChart = ({
     return null;
   }
 
-  // Create the Y axis
+  // Create the Y axis horizontal lines
   const ticks = yScale.ticks(4);
   const yAxis = ticks.map((value, i) => {
-    const hasUnit = i === ticks.length - 1;
     return (
       <g key={i}>
         <line
@@ -114,17 +116,27 @@ export const AreaChart = ({
           stroke="#808080"
           opacity={0.2}
         />
-        <text
-          x={-MARGIN.left}
-          y={yScale(value) - 10}
-          textAnchor="start"
-          alignmentBaseline="central"
-          fontSize={15}
-          fill="black"
-        >
-          {value + (hasUnit ? unit : "")}
-        </text>
       </g>
+    );
+  });
+
+  // Create the Y axis Labels, needs to be in HTML, not SVG, because of the information popover
+  const yAxisLabels = ticks.map((value, i) => {
+    const hasUnit = i === ticks.length - 1;
+    return (
+      <div
+        key={i}
+        className="absolute flex items-center gap-1"
+        style={{
+          left: 0 - MARGIN.left,
+          top: yScale(value) - 24,
+          fontSize: 15,
+          color: "black",
+        }}
+      >
+        <span>{value + (hasUnit ? unit : "")}</span>
+        {hasUnit && <InformationPopover content={infoText} />}
+      </div>
     );
   });
 
@@ -196,6 +208,17 @@ export const AreaChart = ({
 
   return (
     <div className="relative">
+      <div
+        className="absolute inset-0"
+        style={{
+          width: boundsWidth,
+          height: boundsHeight,
+          transform: `translate(${MARGIN.left}px, ${MARGIN.top}px)`,
+        }}
+      >
+        {yAxisLabels}
+      </div>
+
       <svg width={width} height={height}>
         <Pattern />
         <g

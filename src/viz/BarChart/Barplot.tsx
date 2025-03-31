@@ -87,7 +87,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
     return (
       <g key={i}>
         <line
-          x1={-20}
+          x1={-MARGIN.left}
           x2={0}
           y1={yScale(value)}
           y2={yScale(value)}
@@ -95,7 +95,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
           opacity={0.2}
         />
         <text
-          x={0 - 20}
+          x={0 - MARGIN.left}
           y={yScale(value) - 10}
           textAnchor="start"
           alignmentBaseline="central"

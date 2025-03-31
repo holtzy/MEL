@@ -1,6 +1,5 @@
 import { scaleOrdinal } from "d3";
 
-
 //
 //
 // NIVEAUX D'EAU DANS LES NAPPES
@@ -58,10 +57,6 @@ export const levelScale = scaleOrdinal<number, (typeof LEVELS)[number]>()
 //
 //
 export const CHANGE_LEVELS = ["stables", "baissé", "monté", "mixtes"] as const;
-
-export const changeScale = scaleOrdinal<string>()
-    .domain(CHANGE_LEVELS)
-    .range(["=", "▽", "△", "★"]);
 
 export const evolutionScale = scaleOrdinal<number, (typeof CHANGE_LEVELS)[number]>()
     .domain([1, 2, 3, 4]) // 0 is "no data"

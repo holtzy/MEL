@@ -32,7 +32,7 @@ const xScaleEvolution = scaleOrdinal<string, number>()
 
 const yScaleEvolution = scaleOrdinal<string, number>()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-  .range([0.458, 0.73, 0.458, 0.75, 0.56]);
+  .range([0.461, 0.735, 0.46, 0.753, 0.564]);
 
 //
 // Component
@@ -56,7 +56,7 @@ export const MapRenderer = ({ data }: MapProps) => {
               key={i}
               cx={xScale(d.CHAMP_CAPTANT) * chartSize.width}
               cy={yScale(d.CHAMP_CAPTANT) * height}
-              r={20}
+              r={40}
               level={levelScale(d.CARACT)}
               alert={alertScale(d.SEUIL)}
             />
