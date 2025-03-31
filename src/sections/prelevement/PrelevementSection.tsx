@@ -1,12 +1,15 @@
+import { DownloadButton } from "@/components/DownloadButton";
 import { PrelevementObservation } from "@/data/types";
 import { hexToRgba } from "@/lib/utils";
 import { HalfCircleChart } from "@/viz/HalfCircle/HalfCircleChart";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/6/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
 
 export const PrelevementSection = ({ width }: { width: number }) => {
+  const contentRef = useRef(null);
+
   const [data, setData] = useState<PrelevementObservation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,7 +81,7 @@ export const PrelevementSection = ({ width }: { width: number }) => {
         </div>
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex gap-8" ref={contentRef}>
         <HalfCircleChart
           width={width / 2}
           height={150}
@@ -99,9 +102,13 @@ export const PrelevementSection = ({ width }: { width: number }) => {
         />
       </div>
 
-      <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
-        Source et notes: insérer des choses ici.
-      </p>
+      <div
+        className="flex justify-between items-center text-sm mt-8"
+        style={{ fontSize: 11, color: "#212121" }}
+      >
+        <p>Source et notes: insérer des choses ici.</p>
+        <DownloadButton contentRef={contentRef} />
+      </div>
     </>
   );
 };

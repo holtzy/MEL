@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { AreaChart } from "@/viz/AreaChart/AreaChart";
 import { NiveauxObservation } from "@/data/types";
@@ -6,6 +6,7 @@ import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
 import { YearTypePill } from "@/components/YearTypePill";
 import { YearSelectButton } from "@/components/YearSelectButton";
+import { DownloadButton } from "@/components/DownloadButton";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/5/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
@@ -21,6 +22,8 @@ const filterData = (data: NiveauxObservation[], year: number) => {
 };
 
 export const NiveauxSection = ({ width }: { width: number }) => {
+  const contentRef = useRef(null);
+
   const [year, setYear] = useState(2024);
 
   const [data, setData] = useState<NiveauxObservation[]>([]);
@@ -104,65 +107,71 @@ export const NiveauxSection = ({ width }: { width: number }) => {
         </div>
       </div>
 
-      <p
-        className="font-bold bricolageFont"
-        style={{ fontSize: 19, marginTop: 30 }}
-      >
-        Nappe de la Craie
-      </p>
-      <AreaChart
-        data={filteredData.filter((d) => d.ENDROIT === "Craie")}
-        previousYearData={filteredDataPreviousYear.filter(
-          (d) => d.ENDROIT === "Craie"
-        )}
-        width={width}
-        height={300}
-        min={15}
-        max={18}
-        unit={"mNGF"}
-        infoText={<p>TODO: info section</p>}
-      />
+      <div ref={contentRef}>
+        <p
+          className="font-bold bricolageFont"
+          style={{ fontSize: 19, marginTop: 30 }}
+        >
+          Nappe de la Craie
+        </p>
+        <AreaChart
+          data={filteredData.filter((d) => d.ENDROIT === "Craie")}
+          previousYearData={filteredDataPreviousYear.filter(
+            (d) => d.ENDROIT === "Craie"
+          )}
+          width={width}
+          height={300}
+          min={15}
+          max={18}
+          unit={"mNGF"}
+          infoText={<p>TODO: info section</p>}
+        />
 
-      <p
-        className="font-bold bricolageFont"
-        style={{ fontSize: 19, marginTop: 30 }}
-      >
-        Rivière Lys
-      </p>
-      <AreaChart
-        data={filteredData.filter((d) => d.ENDROIT === "Lys")}
-        previousYearData={filteredDataPreviousYear.filter(
-          (d) => d.ENDROIT === "Lys"
-        )}
-        width={width}
-        height={300}
-        min={0}
-        max={10}
-        unit="m3/s"
-        infoText={<p>TODO: info section</p>}
-      />
-      <p
-        className="font-bold bricolageFont"
-        style={{ fontSize: 19, marginTop: 30 }}
-      >
-        Nappe du Carbonifère
-      </p>
-      <AreaChart
-        data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
-        previousYearData={filteredDataPreviousYear.filter(
-          (d) => d.ENDROIT === "Carbonifère"
-        )}
-        width={width}
-        height={300}
-        min={-70}
-        max={-50}
-        unit={"mNGF"}
-        infoText={<p>TODO: info section</p>}
-      />
+        <p
+          className="font-bold bricolageFont"
+          style={{ fontSize: 19, marginTop: 30 }}
+        >
+          Rivière Lys
+        </p>
+        <AreaChart
+          data={filteredData.filter((d) => d.ENDROIT === "Lys")}
+          previousYearData={filteredDataPreviousYear.filter(
+            (d) => d.ENDROIT === "Lys"
+          )}
+          width={width}
+          height={300}
+          min={0}
+          max={10}
+          unit="m3/s"
+          infoText={<p>TODO: info section</p>}
+        />
+        <p
+          className="font-bold bricolageFont"
+          style={{ fontSize: 19, marginTop: 30 }}
+        >
+          Nappe du Carbonifère
+        </p>
+        <AreaChart
+          data={filteredData.filter((d) => d.ENDROIT === "Carbonifère")}
+          previousYearData={filteredDataPreviousYear.filter(
+            (d) => d.ENDROIT === "Carbonifère"
+          )}
+          width={width}
+          height={300}
+          min={-70}
+          max={-50}
+          unit={"mNGF"}
+          infoText={<p>TODO: info section</p>}
+        />
+      </div>
 
-      <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
-        Source et notes: insérer des choses ici.
-      </p>
+      <div
+        className="flex justify-between items-center text-sm mt-8"
+        style={{ fontSize: 11, color: "#212121" }}
+      >
+        <p>Source et notes: insérer des choses ici.</p>
+        <DownloadButton contentRef={contentRef} />
+      </div>
     </>
   );
 };

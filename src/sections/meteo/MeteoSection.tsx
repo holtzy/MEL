@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MeteoObservation } from "@/data/types";
 import { LineChart } from "@/viz/LineChart/LineChart";
 import { BandChart } from "@/viz/BandChart/BandChart";
 import { YearTypePill } from "@/components/YearTypePill";
 import { YearSelectButton } from "@/components/YearSelectButton";
+import { DownloadButton } from "@/components/DownloadButton";
 
 const TEMPERATURE_URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/4/query?where=INDICATEUR%3D%27Température%27&outFields=*&returnGeometry=false&f=json";
@@ -25,6 +26,8 @@ const filterData = (data: MeteoObservation[], year: number) => {
 };
 
 export const MeteoSection = ({ width }: { width: number }) => {
+  const contentRef = useRef(null);
+
   const [year, setYear] = useState(2024);
 
   const [dataTemperature, setDataTemperature] = useState<MeteoObservation[]>(
@@ -120,48 +123,51 @@ export const MeteoSection = ({ width }: { width: number }) => {
         <YearTypePill yearType={yearType} />
       </div>
 
-      <LineChart
-        data={filteredDataPrecipitation}
-        width={width}
-        height={180}
-        min={0}
-        max={120}
-        title={"Précipitations"}
-        unit="mm"
-        isNormalLabelEnabled
-      />
-      <LineChart
-        data={filteredDataTemperature}
-        width={width}
-        height={180}
-        min={0}
-        max={38}
-        title={"Température"}
-        unit="°C"
-      />
-      <LineChart
-        data={filteredDataEvapotranspiration}
-        width={width}
-        height={180}
-        min={0}
-        max={160}
-        title={"Évapotranspiration"}
-        unit="mm"
-      />
-      <BandChart
-        data={filteredDataHumidity}
-        width={width}
-        height={220} // 40 more than other charts because it has 40 px dedicated to the axis labels
-        min={0}
-        max={1.4}
-        title={"Humidité"}
-      />
+      <div ref={contentRef}>
+        <LineChart
+          data={filteredDataPrecipitation}
+          width={width}
+          height={180}
+          min={0}
+          max={120}
+          title={"Précipitations"}
+          unit="mm"
+          isNormalLabelEnabled
+        />
+        <LineChart
+          data={filteredDataTemperature}
+          width={width}
+          height={180}
+          min={0}
+          max={38}
+          title={"Température"}
+          unit="°C"
+        />
+        <LineChart
+          data={filteredDataEvapotranspiration}
+          width={width}
+          height={180}
+          min={0}
+          max={160}
+          title={"Évapotranspiration"}
+          unit="mm"
+        />
+        <BandChart
+          data={filteredDataHumidity}
+          width={width}
+          height={220} // 40 more than other charts because it has 40 px dedicated to the axis labels
+          min={0}
+          max={1.4}
+          title={"Humidité"}
+        />
+      </div>
 
-      <div className="flex justify-between">
-        <p className="mt-8" style={{ fontSize: 11, color: "#212121" }}>
-          Source et notes: insérer des choses ici.
-        </p>
-        <div>Yo</div>
+      <div
+        className="flex justify-between items-center text-sm mt-8"
+        style={{ fontSize: 11, color: "#212121" }}
+      >
+        <p>Source et notes: insérer des choses ici.</p>
+        <DownloadButton contentRef={contentRef} />
       </div>
     </>
   );
