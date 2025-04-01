@@ -10,12 +10,16 @@ export const DownloadButton = ({
     if (contentRef.current) {
       html2canvas(contentRef.current).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.download = "downloaded-image.png";
-        link.href = imgData;
-        console.log("just before click!");
 
-        link.click();
+        // Open in a new tab
+        const newTab = window.open();
+        if (!newTab) {
+          return;
+        }
+        newTab.document.write(
+          '<img src="' + imgData + '" style="max-width: 100%;">'
+        );
+        newTab.document.title = "Download Image";
       });
     }
   };

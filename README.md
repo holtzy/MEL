@@ -33,6 +33,7 @@ Do not forget to remove the legend
     width="100%"
     height="900"
     style="border:none;">
+    sandbox="allow-scripts allow-downloads allow-same-origin"
 </iframe>
 
 TODO
