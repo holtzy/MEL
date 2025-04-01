@@ -81,7 +81,7 @@ export const QuizzSection = ({ width }: { width: number }) => {
       {isAnswerShown && questionId < 4 && (
         <div
           style={{ backgroundColor: "#F7F5F0" }}
-          className="mt-5 cursor-pointer rounded-2xl border border-black inline-block px-12 py-2"
+          className="mt-5 cursor-pointer rounded-2xl border border-black inline-block px-12 py-2 bricolageFont"
           onClick={() => {
             setQuestionId(questionId + 1);
             setIsAnswerShown(false);
@@ -111,13 +111,13 @@ export const VraiFauxButton = ({
   return (
     <div
       className={cn(
-        "relative cursor-pointer rounded-xl border border-black flex items-center px-12 py-3",
+        "relative cursor-pointer rounded-xl border border-black flex items-center px-12 py-3 bricolageFont",
         isRightAnswered ? "bg-[#84D0F0]" : "bg-button-background"
       )}
       onClick={onClick}
     >
       {isWrongAnswered && (
-        <div className="rounded-xl absolute inset-0 bg-[repeating-linear-gradient(#e9e5d8_0px,_#e9e5d8_5px,_black_5px,_black_6px)]" />
+        <div className="bricolageFont rounded-xl absolute inset-0 bg-[repeating-linear-gradient(#e9e5d8_0px,_#e9e5d8_5px,_black_5px,_black_6px)]" />
       )}
       <p className="relative">{label}</p>
     </div>
