@@ -112,6 +112,7 @@ export const MeteoSection = ({ width }: { width: number }) => {
   return (
     <>
       <h2>Le rôle de la météo</h2>
+
       <span className="subtitle">
         Valeurs de l'évapotranspiration, température, précipitations et
         l’humidité du sol au cours des 12 derniers mois

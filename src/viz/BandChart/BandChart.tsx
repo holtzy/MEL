@@ -131,10 +131,10 @@ export const BandChart = ({
         <line
           x1={-MARGIN.left}
           x2={0}
-          y1={0}
-          y2={0}
-          stroke="#808080"
-          opacity={0.2}
+          y1={0.5}
+          y2={0.5}
+          stroke="#212121"
+          opacity={0.5}
         />
         <text
           x={-MARGIN.left}
@@ -151,10 +151,10 @@ export const BandChart = ({
         <line
           x1={-MARGIN.left}
           x2={0}
-          y1={boundsHeight}
-          y2={boundsHeight}
-          stroke="#808080"
-          opacity={0.2}
+          y1={boundsHeight + 0.5}
+          y2={boundsHeight + 0.5}
+          stroke="#212121"
+          opacity={0.5}
         />
         <text
           x={-MARGIN.left}
@@ -180,6 +180,7 @@ export const BandChart = ({
         y1={0}
         y2={boundsHeight}
         stroke="lightgray"
+        shapeRendering={"crispEdges"}
       />
     );
   });
@@ -201,19 +202,21 @@ export const BandChart = ({
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
           {allBackgroundRectangles}
-          <line
-            x1={0}
-            x2={boundsWidth}
-            y1={boundsHeight}
-            y2={boundsHeight}
-            stroke="black"
-          />
+
           <MonthXAxis xScale={xScale} y={boundsHeight + 20} />
           {xGrid}
           {allRectangles}
           {allSegments}
           {allNormalValuesLines}
           {yAxis}
+          <line
+            x1={0}
+            x2={boundsWidth}
+            y1={boundsHeight + 0.5} // +.5 to avoid thick and blurry line, I do not understand why shaperendering="crispEdges" did not make the job.
+            y2={boundsHeight + 0.5}
+            stroke="#212121"
+            strokeWidth={0.5}
+          />
         </g>
       </svg>
     </div>

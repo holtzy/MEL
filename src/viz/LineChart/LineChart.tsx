@@ -146,10 +146,10 @@ export const LineChart = ({
         <line
           x1={-MARGIN.left}
           x2={0}
-          y1={yScale(value)}
-          y2={yScale(value)}
-          stroke="#808080"
-          opacity={0.2}
+          y1={Math.floor(yScale(value)) + 0.5}
+          y2={Math.floor(yScale(value)) + 0.5}
+          stroke="#212121"
+          opacity={0.5}
         />
         <text
           x={-MARGIN.left}
@@ -218,13 +218,6 @@ export const LineChart = ({
           height={boundsHeight}
           transform={`translate(${[MARGIN.left, MARGIN.top].join(",")})`}
         >
-          <line
-            x1={0}
-            x2={boundsWidth}
-            y1={boundsHeight}
-            y2={boundsHeight}
-            stroke="black"
-          />
           {xGrid}
           {normalValuesLine}
           {isNormalLabelEnabled && normalValuesLabel}
@@ -242,6 +235,15 @@ export const LineChart = ({
             visibility={"hidden"}
             pointerEvents={"all"}
             cursor={"pointer"}
+          />
+
+          <line
+            x1={0}
+            x2={boundsWidth}
+            y1={boundsHeight + 0.5}
+            y2={boundsHeight + 0.5}
+            stroke="#212121"
+            strokeWidth={0.5}
           />
         </g>
       </svg>
