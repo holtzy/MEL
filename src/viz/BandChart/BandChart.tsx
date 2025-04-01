@@ -170,20 +170,26 @@ export const BandChart = ({
     </>
   );
 
-  const xGrid = xScale.domain().map((d) => {
-    const xPos = xScale(d)! + xScale.bandwidth();
-    return (
-      <line
-        key={d}
-        x1={xPos}
-        x2={xPos}
-        y1={0}
-        y2={boundsHeight}
-        stroke="lightgray"
-        shapeRendering={"crispEdges"}
-      />
-    );
-  });
+  const xGrid = xScale
+    .domain()
+    .slice(0, -1)
+    .map((d, i) => {
+      const xPos = xScale(d)! + xScale.bandwidth();
+
+      return (
+        <line
+          key={i}
+          x1={xPos}
+          x2={xPos}
+          y1={0}
+          y2={boundsHeight}
+          stroke="#212121"
+          strokeOpacity={0.25}
+          strokeWidth={0.5}
+          shapeRendering={"crispEdges"}
+        />
+      );
+    });
 
   return (
     <div className="relative">
