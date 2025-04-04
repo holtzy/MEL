@@ -159,7 +159,7 @@ export const LineChart = ({
           fontSize={15}
           fill="black"
         >
-          {value + (hasUnit ? unit : "")}
+          {value + " " + (hasUnit ? unit : "")}
         </text>
       </g>
     );

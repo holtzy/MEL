@@ -135,8 +135,10 @@ export const AreaChart = ({
           color: "black",
         }}
       >
-        <span>{value + (hasUnit ? unit : "")}</span>
-        {hasUnit && <InformationPopover content={infoText} />}
+        <span>{value + " " + (hasUnit ? unit : "")}</span>
+        {hasUnit && unit !== "m3/s" && (
+          <InformationPopover content={infoText} />
+        )}
       </div>
     );
   });
