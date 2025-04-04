@@ -88,11 +88,11 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
       <g key={i}>
         <line
           x1={-MARGIN.left}
-          x2={0}
-          y1={yScale(value)}
-          y2={yScale(value)}
-          stroke="#808080"
-          opacity={0.2}
+          x2={hasUnit ? 10 : -MARGIN.left / 2}
+          y1={Math.floor(yScale(value)) + 0.5}
+          y2={Math.floor(yScale(value)) + 0.5}
+          stroke="#212121"
+          opacity={0.5}
         />
         <text
           x={0 - MARGIN.left}
