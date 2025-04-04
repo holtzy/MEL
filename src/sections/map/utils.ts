@@ -56,11 +56,11 @@ export const levelScale = scaleOrdinal<number, (typeof LEVELS)[number]>()
 // CHANGEMENTS
 //
 //
-export const CHANGE_LEVELS = ["stables", "baissé", "monté", "mixtes"] as const;
+export const CHANGE_LEVELS = ["stables", "baissé", "monté", "mitigés"] as const;
 
 export const evolutionScale = scaleOrdinal<number, (typeof CHANGE_LEVELS)[number]>()
     .domain([1, 2, 3, 4]) // 0 is "no data"
-    .range(["baissé", "stables", "monté", "mixtes"]);
+    .range(["baissé", "stables", "monté", "mitigés"]);
 
 
 
