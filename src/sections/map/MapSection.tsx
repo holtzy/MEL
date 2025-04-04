@@ -68,7 +68,7 @@ export const MapSection = () => {
     <>
       <div className="w-full">
         <div className="w-full flex justify-center">
-          <div className="w-full " style={{ maxWidth: 800 }}>
+          <div className="w-full " style={{ maxWidth: 826 }}>
             <h2>L'état des lieux</h2>
             <span className="subtitle">
               Niveaux d’eau dans les champs captants de la Craie et du
@@ -100,3 +100,6 @@ export const MapSection = () => {
     </>
   );
 };
+
+// Container is full width jusqu'a 925. Puis variable. Puis 826 max.
+// 826 pendant pa
