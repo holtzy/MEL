@@ -145,7 +145,7 @@ export const LineChart = ({
       <g key={i}>
         <line
           x1={-MARGIN.left}
-          x2={0}
+          x2={hasUnit || value === 0 ? 0 : -MARGIN.left / 2}
           y1={Math.floor(yScale(value)) + 0.5}
           y2={Math.floor(yScale(value)) + 0.5}
           stroke="#212121"
