@@ -10,7 +10,7 @@ type MapProps = {
   data: MapObservation[];
 };
 
-const ASPECT_RATIO = 1920 / 1080;
+const ASPECT_RATIO = 1520 / 1080;
 
 //
 // Position of the bubbles

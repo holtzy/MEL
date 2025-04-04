@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { TimeLegend } from "./TimeLegend";
 import { MapObservation } from "@/data/types";
 import { MapRenderer } from "./MapRenderer";
+import { max, min } from "d3";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/2/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
@@ -57,18 +57,13 @@ export const MapSection = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  const startDate = min(data.map((d) => d.DATE_OBSERVATION));
+  const endDate = max(data.map((d) => d.DATE_OBSERVATION));
+
   return (
     <>
       <div className="w-full">
         <MapRenderer data={filteredData} />
-      </div>
-
-      <div className="mt-10 mx-auto w-[700px]">
-        <TimeLegend
-          width={700}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
       </div>
     </>
   );
