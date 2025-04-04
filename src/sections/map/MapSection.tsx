@@ -70,10 +70,10 @@ export const MapSection = () => {
         <div className="w-full flex justify-center">
           <div className="w-full " style={{ maxWidth: 826 }}>
             <h2>L'état des lieux</h2>
-            <span className="subtitle">
+            <div className="subtitle">
               Niveaux d’eau dans les champs captants de la Craie et du
               Carbonifère, débits sur le cours d’eau de la Lys{" "}
-            </span>
+            </div>
 
             <MapLegend />
 
