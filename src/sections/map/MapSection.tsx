@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { MapObservation } from "@/data/types";
 import { MapRenderer } from "./MapRenderer";
-import { max, min } from "d3";
 import { MapLegend } from "./MapLegend";
 import { YearSelectButton } from "@/components/YearSelectButton";
 import { MonthSelectButton } from "@/components/MonthSelectButton";
