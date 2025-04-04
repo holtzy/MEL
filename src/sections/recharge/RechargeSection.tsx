@@ -6,7 +6,6 @@ import { Pattern } from "@/components/Pattern";
 import { InformationPopover } from "@/components/InformationPopover";
 import { YearTypePill } from "@/components/YearTypePill";
 import { YearSelectButton } from "@/components/YearSelectButton";
-import { DownloadButton } from "@/components/DownloadButton";
 
 const URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/7/query?where=1%3D1&outFields=*&returnGeometry=false&f=json";
@@ -141,11 +140,10 @@ export const RechargeSection = ({ width }: { width: number }) => {
       </div>
 
       <div
-        className="flex justify-between items-center text-sm mt-8"
+        className="flex text-sm mt-8"
         style={{ fontSize: 11, color: "#212121" }}
       >
         <p>Source et notes: insérer des choses ici.</p>
-        <DownloadButton contentRef={contentRef} />
       </div>
     </>
   );

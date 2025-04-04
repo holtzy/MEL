@@ -1,4 +1,3 @@
-import { DownloadButton } from "@/components/DownloadButton";
 import { PrelevementObservation } from "@/data/types";
 import { hexToRgba } from "@/lib/utils";
 import { HalfCircleChart } from "@/viz/HalfCircle/HalfCircleChart";
@@ -103,11 +102,10 @@ export const PrelevementSection = ({ width }: { width: number }) => {
       </div>
 
       <div
-        className="flex justify-between items-center text-sm mt-8"
+        className="flex text-sm mt-8"
         style={{ fontSize: 11, color: "#212121" }}
       >
         <p>Source et notes: insérer des choses ici.</p>
-        <DownloadButton contentRef={contentRef} />
       </div>
     </>
   );

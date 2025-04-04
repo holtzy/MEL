@@ -4,7 +4,6 @@ import { LineChart } from "@/viz/LineChart/LineChart";
 import { BandChart } from "@/viz/BandChart/BandChart";
 import { YearTypePill } from "@/components/YearTypePill";
 import { YearSelectButton } from "@/components/YearSelectButton";
-import { DownloadButton } from "@/components/DownloadButton";
 
 const TEMPERATURE_URL =
   "https://gis.lillemetropole.fr/server2/rest/services/RESSOURCE_EAU/Météo_des_nappes/FeatureServer/4/query?where=INDICATEUR%3D%27Température%27&outFields=*&returnGeometry=false&f=json";
@@ -164,11 +163,10 @@ export const MeteoSection = ({ width }: { width: number }) => {
       </div>
 
       <div
-        className="flex justify-between items-center text-sm mt-8"
+        className="flex text-sm mt-8"
         style={{ fontSize: 11, color: "#212121" }}
       >
         <p>Source et notes: insérer des choses ici.</p>
-        <DownloadButton contentRef={contentRef} />
       </div>
     </>
   );

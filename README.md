@@ -8,6 +8,9 @@ https://storymaps.arcgis.com/stories/04e3a8477321491b97eb13a533634eb7/edit
 Dev:
 npm run dev
 
+TODO list
+https://www.notion.so/parabolestudio/Chart-development-12f5c2fe53818055b2b8eaab6448058e
+
 Build:
 npm run build
 
