@@ -15,11 +15,11 @@ type MapProps = {
 //
 const xScale = scaleOrdinal<string, number>()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-  .range([0.625, 0.618, 0.562, 0.522, 0.23]);
+  .range([0.61, 0.598, 0.553, 0.519, 0.273]);
 
 const yScale = scaleOrdinal<string, number>()
   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-  .range([0.51, 0.69, 0.601, 0.68, 0.62]);
+  .range([0.51, 0.69, 0.59, 0.68, 0.62]);
 
 //
 // Position of the little pills on top of each label
@@ -63,7 +63,7 @@ export const MapRenderer = ({ data }: MapProps) => {
               key={i}
               cx={xScale(d.CHAMP_CAPTANT) * chartSize.width}
               cy={yScale(d.CHAMP_CAPTANT) * height}
-              r={40}
+              r={35}
               level={levelScale(d.CARACT)}
               alert={alertScale(d.SEUIL)}
             />
