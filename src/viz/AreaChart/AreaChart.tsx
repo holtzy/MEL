@@ -210,7 +210,7 @@ export const AreaChart = ({
   return (
     <div className="relative">
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           width: boundsWidth,
           height: boundsHeight,
