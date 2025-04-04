@@ -63,8 +63,7 @@ export const MapSection = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const startDate = min(data.map((d) => d.DATE_OBSERVATION));
-  const endDate = max(data.map((d) => d.DATE_OBSERVATION));
+  console.log("data", filteredData);
 
   return (
     <>
