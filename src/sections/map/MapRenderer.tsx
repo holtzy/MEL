@@ -10,8 +10,6 @@ type MapProps = {
   data: MapObservation[];
 };
 
-const ASPECT_RATIO = 1520 / 1080;
-
 //
 // Position of the bubbles
 //
@@ -41,11 +39,20 @@ export const MapRenderer = ({ data }: MapProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartSize = useDimensions(chartRef);
 
-  const height = chartSize.width / ASPECT_RATIO;
+  const height = 700;
 
   return (
-    <div ref={chartRef} className="relative w-full">
-      <img src="map-bg.svg" className="block w-full" />
+    <div ref={chartRef} className="relative w-full" style={{ height }}>
+      <picture className="absolute inset-0 w-full h-full">
+        <source srcSet="map-bg-lg.svg" media="(min-width: 1024px)" />
+        <source srcSet="map-bg-md.svg" media="(min-width: 768px)" />
+        <img
+          src="map-bg-sm.svg"
+          className="block w-full h-full object-contain"
+          alt="Map background"
+        />
+      </picture>
+
       <svg
         className="absolute inset-0"
         style={{ width: chartSize.width, height }}
