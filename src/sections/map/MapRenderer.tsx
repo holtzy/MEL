@@ -39,13 +39,16 @@ export const MapRenderer = ({ data }: MapProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartSize = useDimensions(chartRef);
 
+  // IMPORTANT
+  // We're working with iframes. So we have to provide a fixed height that must be
+  // respected for all screen sizes. It's a struggle to work with.
   const height = 700;
 
   return (
     <div ref={chartRef} className="relative w-full" style={{ height }}>
       <picture className="absolute inset-0 w-full h-full">
-        <source srcSet="map-bg-lg.svg" media="(min-width: 1024px)" />
-        <source srcSet="map-bg-md.svg" media="(min-width: 768px)" />
+        <source srcSet="map-bg-lg.svg" media="(min-width: 1300px)" />
+        <source srcSet="map-bg-md.svg" media="(min-width: 500px)" />
         <img
           src="map-bg-sm.svg"
           className="block w-full h-full object-contain"

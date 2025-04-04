@@ -62,8 +62,6 @@ export const MapSection = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  console.log("data", filteredData);
-
   return (
     <>
       <div className="w-full">
