@@ -120,7 +120,15 @@ export const RechargeSection = ({ width }: { width: number }) => {
             />
           </svg>
         </div>
-        <span>Normale</span> <InformationPopover content={<p>TODO</p>} />
+        <span>Normale</span>{" "}
+        <InformationPopover
+          content={
+            <p>
+              Moyenne mensuelle de 1954 au 01/12/2024 / en mm, sur la période
+              1991-2020 (parallélisme avec les normales Météo France)
+            </p>
+          }
+        />
       </div>
 
       <div ref={contentRef}>
@@ -148,10 +156,6 @@ export const RechargeSection = ({ width }: { width: number }) => {
           constituent les normales. L’indication du type d’année (humide, sèche
           etc.) est définie statistiquement par le cumul de recharge pour
           l’année hydrologique considérée.
-        </p>
-        <p>
-          ℹ️ Moyenne mensuelle de 1954 au 01/12/2024 / en mm, sur la période
-          1991-2020 (parallélisme avec les normales Météo France)
         </p>
       </div>
     </>

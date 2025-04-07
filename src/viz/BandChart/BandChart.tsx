@@ -202,7 +202,7 @@ export const BandChart = ({
           >
             {title}
           </span>
-          <InformationPopover content={"hello"} />
+          <InformationPopover content={"Exprimé en % d'humidité."} />
         </div>
       </div>
       <svg width={width} height={height}>

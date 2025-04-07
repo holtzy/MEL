@@ -49,7 +49,13 @@ export const HalfCircleChart = ({
       <span className="font-bold text-md">{formattedDate}</span>
       <div className="flex items-center gap-1">
         <span className="">{formattedValue + " m3/j"} </span>
-        <InformationPopover content={<p>TODO</p>} />
+        <InformationPopover
+          content={
+            <p>{`L’équivalent de ${Math.round(
+              value / 2500
+            )} piscines Olympiques.`}</p>
+          }
+        />
       </div>
       <svg width={width} height={height}>
         <path

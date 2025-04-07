@@ -102,7 +102,16 @@ export const NiveauxSection = ({ width }: { width: number }) => {
               />
             </svg>
           </div>
-          <span>Normale</span> <InformationPopover content={<p>TODO</p>} />
+          <span>Normale</span>{" "}
+          <InformationPopover
+            content={
+              <p>
+                Pour la Lys, les moyennes mensuelles de 1954 à 2024 constituent
+                les normales. Pour la nappe de la Craie, les normales sont
+                définies sur la période 1991-2020.
+              </p>
+            }
+          />
         </div>
       </div>
 
@@ -160,7 +169,12 @@ export const NiveauxSection = ({ width }: { width: number }) => {
           min={-70}
           max={-50}
           unit={"mNGF"}
-          infoText={<p>TODO: info section</p>}
+          infoText={
+            <p>
+              mNGF = Nivellement Général de la France correspondant à l’altitude
+              par rapport au niveau de la mer
+            </p>
+          }
         />
       </div>
 
@@ -170,15 +184,6 @@ export const NiveauxSection = ({ width }: { width: number }) => {
           l’écologie (cours d’eau). L’indication du type d’année (humide, sèche
           etc.) est définie statistiquement par le cumul de recharge pour
           l’année hydrologique considérée.
-        </p>
-        <p>
-          ℹ️ Pour la Lys, les moyennes mensuelles de 1954 à 2024 constituent les
-          normales. Pour la nappe de la Craie, les normales sont définies sur la
-          période 1991-2020.
-        </p>
-        <p>
-          ℹ️ mNGF = Nivellement Général de la France correspondant à l’altitude
-          par rapport au niveau de la mer
         </p>
       </div>
     </>

@@ -15,7 +15,7 @@ export const InformationPopover = ({ content }: InformationPopoverProps) => {
           className="cursor-pointer pointer-events-auto"
         />
       </PopoverTrigger>
-      <PopoverContent>{content}</PopoverContent>
+      <PopoverContent className="text-sm">{content}</PopoverContent>
     </Popover>
   );
 };

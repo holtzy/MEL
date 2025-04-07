@@ -103,7 +103,6 @@ export const PrelevementSection = ({ width }: { width: number }) => {
 
       <div className="text-sm mt-8" style={{ fontSize: 11, color: "#212121" }}>
         <p>Sources : SOURCEO/MEL</p>
-        <p>ℹ️ L’équivalent de X piscines Olympiques.</p>
       </div>
     </>
   );
