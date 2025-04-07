@@ -48,7 +48,6 @@ export const PrelevementSection = ({ width }: { width: number }) => {
   const lastDataPoint = data.sort(
     (a, b) => a.DATE_OBSERVATION - b.DATE_OBSERVATION
   )[data.length - 1];
-  console.log("lastDataPoint", lastDataPoint);
 
   const lastDataPointDate = new Date(lastDataPoint.DATE_OBSERVATION);
 

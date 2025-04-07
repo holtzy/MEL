@@ -14,16 +14,19 @@ type MapProps = {
 // So we need to deal with a FIXED HEIGHT for the map, whatever the screen size.
 // Se we decided to use 3 different map SVGs, and will use fixed dimensions for them.
 const HEIGHT = 700;
-const BREAK_POINTS_BIG = 1300;
+const BREAK_POINTS_XL = 1300;
+const BREAK_POINTS_LG = 800;
 const BREAK_POINTS_SMALL = 500;
 
-const SMALL_MAP_ASPECT_RATIO = 498.28 / 1080;
-const MEDIUM_MAP_ASPECT_RATIO = 754.37 / 1080;
-const BIG_MAP_ASPECT_RATIO = 1920 / 1080;
+const SM_MAP_ASPECT_RATIO = 498.28 / 1080;
+const MD_MAP_ASPECT_RATIO = 754.37 / 1080;
+const LG_MAP_ASPECT_RATIO = 1274 / 1080;
+const XL_MAP_ASPECT_RATIO = 1920 / 1080;
 
-const MAP_WIDTH_SMALL = SMALL_MAP_ASPECT_RATIO * HEIGHT;
-const MAP_WIDTH_MEDIUM = MEDIUM_MAP_ASPECT_RATIO * HEIGHT;
-const MAP_WIDTH_BIG = BIG_MAP_ASPECT_RATIO * HEIGHT;
+const MAP_WIDTH_SM = SM_MAP_ASPECT_RATIO * HEIGHT;
+const MAP_WIDTH_MD = MD_MAP_ASPECT_RATIO * HEIGHT;
+const MAP_WIDTH_LG = LG_MAP_ASPECT_RATIO * HEIGHT;
+const MAP_WIDTH_XL = XL_MAP_ASPECT_RATIO * HEIGHT;
 
 // Bubble positions are slightly different for each map background
 const LOCATIONS = [
@@ -34,14 +37,16 @@ const LOCATIONS = [
   "Lys",
 ];
 const POSITIONS_X = {
-  small: [298, 282, 246, 218, 29],
-  medium: [453, 427, 371, 330, 34],
-  big: [776, 765, 700, 649, 284],
+  sm: [298, 282, 246, 218, 29],
+  md: [453, 427, 371, 330, 34],
+  lg: [539, 523, 457, 408, 64],
+  xl: [776, 765, 700, 649, 284],
 };
 const POSITIONS_Y = {
-  small: [344, 416, 366, 416, 377],
-  medium: [340, 447, 379, 446, 392],
-  big: [356, 480, 418, 477, 429],
+  sm: [344, 416, 366, 416, 377],
+  md: [340, 447, 379, 446, 392],
+  lg: [354, 474, 409, 483, 414],
+  xl: [356, 480, 418, 477, 429],
 };
 
 //
@@ -63,21 +68,25 @@ export const MapRenderer = ({ data }: MapProps) => {
   const containerSize = useDimensions(containerRef); // Used to know what map to display
 
   const screenSize =
-    containerSize.width > BREAK_POINTS_BIG
-      ? "big"
+    containerSize.width > BREAK_POINTS_XL
+      ? "xl"
+      : containerSize.width > BREAK_POINTS_LG
+      ? "lg"
       : containerSize.width < BREAK_POINTS_SMALL
-      ? "small"
-      : "medium";
+      ? "sm"
+      : "md";
 
   const mapWidth =
-    containerSize.width > BREAK_POINTS_BIG
-      ? MAP_WIDTH_BIG
+    containerSize.width > BREAK_POINTS_XL
+      ? MAP_WIDTH_XL
+      : containerSize.width > BREAK_POINTS_LG
+      ? MAP_WIDTH_LG
       : containerSize.width < BREAK_POINTS_SMALL
-      ? MAP_WIDTH_SMALL
-      : MAP_WIDTH_MEDIUM;
+      ? MAP_WIDTH_SM
+      : MAP_WIDTH_MD;
 
   const circleRadius =
-    containerSize.width > BREAK_POINTS_BIG
+    containerSize.width > BREAK_POINTS_LG
       ? 30
       : containerSize.width < BREAK_POINTS_SMALL
       ? 10
@@ -99,7 +108,8 @@ export const MapRenderer = ({ data }: MapProps) => {
     >
       <div className="relative">
         <picture className="h-full">
-          <source srcSet="map-bg-lg.svg" media="(min-width: 1300px)" />
+          <source srcSet="map-bg-xl.svg" media="(min-width: 1300px)" />
+          <source srcSet="map-bg-lg.svg" media="(min-width: 800px)" />
           <source srcSet="map-bg-md.svg" media="(min-width: 500px)" />
           <img src="map-bg-sm.svg" className="h-full" alt="Map background" />
         </picture>
