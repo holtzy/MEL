@@ -162,11 +162,21 @@ export const MeteoSection = ({ width }: { width: number }) => {
         />
       </div>
 
-      <div
-        className="flex text-sm mt-8"
-        style={{ fontSize: 11, color: "#212121" }}
-      >
-        <p>Source et notes: insérer des choses ici.</p>
+      <div className="text-sm mt-8" style={{ fontSize: 11, color: "#212121" }}>
+        <p>
+          Source et notes : Données de Météo France (précipitations,
+          température, évapotranspiration sur la station de Lille-Lesquin -
+          indice d’humidité des sols sur le territoire de la MEL). Traitement
+          pour les normales : Météo France (précipitations, température), MEL
+          (évapotranspiration, indice d’humidité des sols).
+        </p>
+        <p>
+          Les normales sont définies sur la période 1991-2020. L’indication du
+          type d’année (humide, sèche etc.) est définie statistiquement par le
+          cumul de pluies pour l’année hydrologique considérée. Pour l’année en
+          cours, la caractérisation peut varier mensuellement selon la
+          pluviométrie mesurée.
+        </p>
       </div>
     </>
   );

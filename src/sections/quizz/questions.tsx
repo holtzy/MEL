@@ -43,7 +43,7 @@ export const questions = [
     question: (
       <>
         Dans le Nord, il pleut tellement de toute manière qu'on ne manquera
-        jamais d'eau
+        jamais d'eau.
       </>
     ),
     goodAnswer: false,
@@ -59,7 +59,7 @@ export const questions = [
   },
   {
     question: (
-      <>Les nappes phréatiques se rechargent rapidement après une pluie</>
+      <>Les nappes phréatiques se rechargent rapidement après une pluie.</>
     ),
     goodAnswer: false,
     explanation: (
@@ -74,7 +74,7 @@ export const questions = [
   },
   {
     question: (
-      <>La neige contribue plus que la pluie au remplissage des nappes</>
+      <>La neige contribue plus que la pluie au remplissage des nappes.</>
     ),
     goodAnswer: true,
     explanation: (

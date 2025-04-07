@@ -139,11 +139,20 @@ export const RechargeSection = ({ width }: { width: number }) => {
         />
       </div>
 
-      <div
-        className="flex text-sm mt-8"
-        style={{ fontSize: 11, color: "#212121" }}
-      >
-        <p>Source et notes: insérer des choses ici.</p>
+      <div className="text-sm mt-8" style={{ fontSize: 11, color: "#212121" }}>
+        <p>
+          Sources et notes : HydroPortail - Ministère de l’écologie (débit cours
+          d’eau station Delettes et normales), MEL/modèle BRGM (recharge de la
+          Craie). Pour la nappe de la Craie, les normales sont définies sur la
+          période 1991-2020. Pour la Lys, les moyennes mensuelles de 1954 à 2024
+          constituent les normales. L’indication du type d’année (humide, sèche
+          etc.) est définie statistiquement par le cumul de recharge pour
+          l’année hydrologique considérée.
+        </p>
+        <p>
+          ℹ️ Moyenne mensuelle de 1954 au 01/12/2024 / en mm, sur la période
+          1991-2020 (parallélisme avec les normales Météo France)
+        </p>
       </div>
     </>
   );

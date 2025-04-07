@@ -164,11 +164,22 @@ export const NiveauxSection = ({ width }: { width: number }) => {
         />
       </div>
 
-      <div
-        className="flex text-sm mt-8"
-        style={{ fontSize: 11, color: "#212121" }}
-      >
-        <p>Source et notes: insérer des choses ici.</p>
+      <div className="text-sm mt-8" style={{ fontSize: 11, color: "#212121" }}>
+        <p>
+          Sources et notes : MEL (nappes), HydroPortail - Ministère de
+          l’écologie (cours d’eau). L’indication du type d’année (humide, sèche
+          etc.) est définie statistiquement par le cumul de recharge pour
+          l’année hydrologique considérée.
+        </p>
+        <p>
+          ℹ️ Pour la Lys, les moyennes mensuelles de 1954 à 2024 constituent les
+          normales. Pour la nappe de la Craie, les normales sont définies sur la
+          période 1991-2020.
+        </p>
+        <p>
+          ℹ️ mNGF = Nivellement Général de la France correspondant à l’altitude
+          par rapport au niveau de la mer
+        </p>
       </div>
     </>
   );
