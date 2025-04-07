@@ -3,6 +3,7 @@ import { geologicalMonthsInFrench, getMonthInFrench } from "@/lib/utils";
 import { MeteoObservation } from "@/data/types";
 import { RectangleItem } from "./RectangleItem";
 import { MonthXAxis } from "../MonthXAxis";
+import { InformationPopover } from "@/components/InformationPopover";
 
 const MARGIN = { top: 70, right: 30, bottom: 40, left: 40 };
 const BAND_HEIGHT = 10;
@@ -193,13 +194,16 @@ export const BandChart = ({
 
   return (
     <div className="relative">
-      <div className="absolute inset-0 translate-y-6">
-        <span
-          className="bricolageFont"
-          style={{ fontSize: 19, fontWeight: 800 }}
-        >
-          {title}
-        </span>
+      <div className="absolute inset-0 translate-y-6 ">
+        <div className="flex gap-2 items-center">
+          <span
+            className="bricolageFont"
+            style={{ fontSize: 19, fontWeight: 800 }}
+          >
+            {title}
+          </span>
+          <InformationPopover content={"hello"} />
+        </div>
       </div>
       <svg width={width} height={height}>
         <g
