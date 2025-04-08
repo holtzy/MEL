@@ -111,7 +111,11 @@ export const MapRenderer = ({ data }: MapProps) => {
           <source srcSet="map-bg-xl.svg" media="(min-width: 1300px)" />
           <source srcSet="map-bg-lg.svg" media="(min-width: 800px)" />
           <source srcSet="map-bg-md.svg" media="(min-width: 500px)" />
-          <img src="map-bg-sm.svg" className="h-full" alt="Map background" />
+          <img
+            src="map-bg-sm.svg"
+            style={{ height: HEIGHT }}
+            alt="Map background"
+          />
         </picture>
 
         <svg
