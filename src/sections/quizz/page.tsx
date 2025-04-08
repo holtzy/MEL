@@ -8,7 +8,7 @@ export const QuizzSection = ({ width }: { width: number }) => {
   const [isGoodAnswer, setIsGoodAnswer] = useState<null | boolean>(null);
 
   return (
-    <div className="m-2" style={{ width }}>
+    <div className="p-2" style={{ width }}>
       <div className="flex gap-2 mt-2">
         {questions.map((_, i) => {
           return (
