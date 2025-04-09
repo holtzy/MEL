@@ -168,7 +168,10 @@ export const MapRenderer = ({ data }: MapProps) => {
                   top: yScaleEvolution(d.CHAMP_CAPTANT),
                 }}
               >
-                <ChangeLevelPill levelName={evolutionScale(d.EVOLUTION)} />
+                <ChangeLevelPill
+                  evolutionType={evolutionScale(d.EVOLUTION)}
+                  level={levelScale(d.CARACT)}
+                />
               </div>
             );
           })}
