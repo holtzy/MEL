@@ -3,8 +3,8 @@ import { Circle } from "./Circle";
 import { useRef } from "react";
 import { useDimensions } from "@/lib/use-dimensions";
 import { scaleOrdinal } from "d3";
-import { alertScale, levelScale } from "./utils";
-// import { ChangeLevelPill } from "./ChangeLevelPill";
+import { alertScale, evolutionScale, levelScale } from "./utils";
+import { ChangeLevelPill } from "./ChangeLevelPill";
 
 type MapProps = {
   data: MapObservation[];
@@ -49,16 +49,18 @@ const POSITIONS_Y = {
   xl: [356, 480, 418, 477, 429],
 };
 
-//
-// Position of the little pills on top of each label
-//
-// const xScaleEvolution = scaleOrdinal<string, number>()
-//   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-//   .range([0.715, 0.675, 0.453, 0.514, 0.155]);
-
-// const yScaleEvolution = scaleOrdinal<string, number>()
-//   .domain(["Carbonifère", "Autres craie", "Emmerin", "Ansereuilles", "Lys"])
-//   .range([0.461, 0.735, 0.46, 0.753, 0.564]);
+const POSITIONS_X_PILL = {
+  sm: [258, 234, 177, 219, 64],
+  md: [393, 356, 267, 331, 95],
+  lg: [659, 609, 335, 408, 134],
+  xl: [902, 852, 579, 650, 203],
+};
+const POSITIONS_Y_PILL = {
+  sm: [290, 490, 328, 438, 386],
+  md: [262, 568, 318, 489, 409],
+  lg: [334, 525, 333, 538, 439],
+  xl: [334, 525, 334, 538, 406],
+};
 
 //
 // Component
@@ -99,6 +101,14 @@ export const MapRenderer = ({ data }: MapProps) => {
   const yScale = scaleOrdinal<string, number>()
     .domain(LOCATIONS)
     .range(POSITIONS_Y[screenSize]);
+
+  const xScaleEvolution = scaleOrdinal<string, number>()
+    .domain(LOCATIONS)
+    .range(POSITIONS_X_PILL[screenSize]);
+
+  const yScaleEvolution = scaleOrdinal<string, number>()
+    .domain(LOCATIONS)
+    .range(POSITIONS_Y_PILL[screenSize]);
 
   return (
     <div
@@ -143,22 +153,27 @@ export const MapRenderer = ({ data }: MapProps) => {
             />
           ))}
         </svg>
-      </div>
 
-      {/* {data.map((d, i) => {
-        return (
-          <div
-            key={i}
-            className="absolute inset-0"
-            style={{
-              left: xScaleEvolution(d.CHAMP_CAPTANT) * containerSize.width,
-              top: yScaleEvolution(d.CHAMP_CAPTANT) * HEIGHT,
-            }}
-          >
-            <ChangeLevelPill levelName={evolutionScale(d.EVOLUTION)} />
-          </div>
-        );
-      })} */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ width: mapWidth, height: HEIGHT }}
+        >
+          {data.map((d, i) => {
+            return (
+              <div
+                key={i}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: xScaleEvolution(d.CHAMP_CAPTANT),
+                  top: yScaleEvolution(d.CHAMP_CAPTANT),
+                }}
+              >
+                <ChangeLevelPill levelName={evolutionScale(d.EVOLUTION)} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
