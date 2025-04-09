@@ -23,7 +23,7 @@ export const MapLegend = () => {
       <div className="flex gap-4 mt-4 text-sm">
         {CHANGE_LEVELS.map((levelName, index) => (
           <div key={index} className="flex items-center gap-2">
-            <ChangeLevelPill levelName={levelName} />
+            <ChangeLevelPill evolutionType={levelName} />
             {levelName}
           </div>
         ))}

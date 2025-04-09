@@ -4,14 +4,14 @@ import { scaleOrdinal } from "d3";
 
 type ChangeLevelPillProps = {
   evolutionType: (typeof CHANGE_LEVELS)[number];
-  level: (typeof LEVELS)[number];
+  level?: (typeof LEVELS)[number];
 };
 
 export const ChangeLevelPill = ({
   evolutionType,
   level,
 }: ChangeLevelPillProps) => {
-  const fillColor = colorScale(level);
+  const fillColor = level ? colorScale(level) : "#F7F5F0";
 
   const strokeColorScale = scaleOrdinal<string>()
     .domain(LEVELS)
@@ -25,7 +25,7 @@ export const ChangeLevelPill = ({
       "#FFFFFF",
     ]);
 
-  const strokeColor = strokeColorScale(level);
+  const strokeColor = level ? strokeColorScale(level) : "#212121";
 
   return (
     <div
