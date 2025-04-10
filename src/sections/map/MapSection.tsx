@@ -79,7 +79,12 @@ export const MapSection = () => {
               <h3 className="font-semibold mt-12 bricolageFont">La période</h3>
             </div>
             <div className="flex items-center gap-2 mt-2 mb-10">
-              <span>Selectionnez l’année et le mois : </span>
+              <div className="block sm:hidden">
+                <span>Date : </span>
+              </div>
+              <div className="hidden sm:block">
+                <span>Selectionnez l’année et le mois : </span>
+              </div>
               <YearSelectButton
                 setYear={setSelectedYear}
                 year={selectedYear}

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { ChangeLevelPill } from "../map/ChangeLevelPill";
 import { Circle } from "../map/Circle";
 import { CHANGE_LEVELS, LEVELS, colorScale } from "../map/utils";
@@ -32,7 +33,12 @@ export const MapLegend = () => {
       <div className="mt-12">
         <h3 className="font-semibold mt-12 bricolageFont">États d'alerte :</h3>
       </div>
-      <NiveauAlerteRow />
+      <div className="block sm:hidden">
+        <NiveauAlerteRow isSmallScreen />
+      </div>
+      <div className="hidden sm:flex gap-4 mt-4 text-sm">
+        <NiveauAlerteRow isSmallScreen={false} />
+      </div>
     </>
   );
 };
@@ -86,7 +92,8 @@ const NiveauPill = ({ level }: { level: string }) => {
   );
 };
 
-const NiveauAlerteRow = () => {
+const NiveauAlerteRow = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
+  const r = isSmallScreen ? 22 : 30;
   return (
     <div className="inline-block">
       <div className="flex gap-12 mt-4 text-sm">
@@ -95,24 +102,24 @@ const NiveauAlerteRow = () => {
           <div className="block border-b mb-4 ">
             <p className="text-center">sécheresse</p>
           </div>
-          <div className="flex gap-6">
+          <div className={cn("flex", isSmallScreen ? "gap-0" : "gap-6")}>
             <div className="flex flex-col items-center justify-center">
               <svg width={60} height={60} className="overflow-visible">
-                <Circle alert="Non" cx={30} cy={30} r={30} />
+                <Circle alert="Non" cx={30} cy={30} r={r} />
               </svg>
               <span>Non</span>
             </div>
 
             <div className="flex flex-col items-center justify-center">
               <svg width={60} height={60} className="overflow-visible">
-                <Circle alert="Vigilance" cx={30} cy={30} r={30} />
+                <Circle alert="Vigilance" cx={30} cy={30} r={r} />
               </svg>
               <span>Vigilance</span>
             </div>
 
             <div className="flex flex-col items-center justify-center">
               <svg width={60} height={60} className="overflow-visible">
-                <Circle alert="Alerte" cx={30} cy={30} r={30} />
+                <Circle alert="Alerte" cx={30} cy={30} r={r} />
               </svg>
               <span>Alerte</span>
             </div>
@@ -124,10 +131,10 @@ const NiveauAlerteRow = () => {
           <div className="block border-b mb-4 ">
             <p className="text-center">arrêté préfectoral</p>
           </div>
-          <div className="flex gap-6">
+          <div className={cn("flex", isSmallScreen ? "gap-2" : "gap-6")}>
             <div className="flex flex-col items-center justify-center">
               <svg width={60} height={60} className="overflow-visible">
-                <Circle alert="Non" cx={30} cy={30} r={30} />
+                <Circle alert="Non" cx={30} cy={30} r={r} />
               </svg>
               <span>Non</span>
             </div>
@@ -138,7 +145,7 @@ const NiveauAlerteRow = () => {
                   alert="Non"
                   cx={30}
                   cy={30}
-                  r={30}
+                  r={r}
                   isPrefectoral={true}
                 />
               </svg>

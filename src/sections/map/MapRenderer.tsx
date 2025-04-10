@@ -91,7 +91,7 @@ export const MapRenderer = ({ data }: MapProps) => {
     containerSize.width > BREAK_POINTS_LG
       ? 30
       : containerSize.width < BREAK_POINTS_SMALL
-      ? 10
+      ? 14
       : 20;
 
   const xScale = scaleOrdinal<string, number>()
@@ -171,7 +171,9 @@ export const MapRenderer = ({ data }: MapProps) => {
                 <ChangeLevelPill
                   evolutionType={evolutionScale(d.EVOLUTION)}
                   level={levelScale(d.CARACT)}
-                  size={containerSize.width < 500 ? "small" : "big"}
+                  size={
+                    containerSize.width < BREAK_POINTS_SMALL ? "small" : "big"
+                  }
                 />
               </div>
             );
