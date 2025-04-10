@@ -118,7 +118,13 @@ export const MeteoSection = ({ width }: { width: number }) => {
       </span>
 
       <div className="flex items-center gap-2 my-2">
-        <span>Selectionnez l'année: </span>
+        <div className="block sm:hidden">
+          <span>Année : </span>
+        </div>
+        <div className="hidden sm:block">
+          <span>Selectionnez l’année: </span>
+        </div>
+
         <YearSelectButton setYear={setYear} year={year} />
         <YearTypePill yearType={yearType} />
       </div>

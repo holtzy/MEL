@@ -76,20 +76,27 @@ export const NiveauxSection = ({ width }: { width: number }) => {
 
       <div className="my-8">
         <div className="flex items-center gap-2 ">
-          <span>Selectionnez l'année: </span>
+          <div className="block sm:hidden">
+            <span>Année : </span>
+          </div>
+          <div className="hidden sm:block">
+            <span>Selectionnez l’année: </span>
+          </div>
           <YearSelectButton setYear={setYear} year={year} />
           <YearTypePill yearType={yearType} />
         </div>
 
         <div className="flex items-center gap-2 my-2">
-          <span>Clé de lecture</span>
+          <div className="hidden sm:block">
+            <span>Clé de lecture</span>
+          </div>
           <div className="w-8 h-6 bg-[#009EE0]" />
-          <span>Année sélectionnée</span>
+          <span className="text-xs sm:text-sm">Année sélectionnée</span>
           <div
             className="w-8 h-6  border border-[#B3E2F6]"
             style={{ backgroundColor: "rgba(179, 226, 246, 0.18)" }}
           />
-          <span>Année précédente</span>
+          <span className="text-xs sm:text-sm">Année précédente</span>
           <div className="w-8 h-6 border border-black">
             <svg>
               <Pattern />
@@ -102,7 +109,7 @@ export const NiveauxSection = ({ width }: { width: number }) => {
               />
             </svg>
           </div>
-          <span>Normale</span>{" "}
+          <span className="text-xs sm:text-sm">Normale</span>{" "}
           <InformationPopover
             content={
               <p>

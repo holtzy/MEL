@@ -71,13 +71,24 @@ export const RechargeSection = ({ width }: { width: number }) => {
       </span>
 
       <div className="flex items-center gap-2 mt-6">
-        <span>Selectionnez l'année: </span>
+        <div className="block sm:hidden">
+          <span>Année : </span>
+        </div>
+        <div className="hidden sm:block">
+          <span>Selectionnez l’année: </span>
+        </div>
         <YearSelectButton setYear={setYear} year={year} />
         <YearTypePill yearType={yearType} />
       </div>
 
       <div className="flex items-center gap-2 mt-4">
-        <span>Selectionnez la source: </span>
+        <div className="block sm:hidden">
+          <span>Source : </span>
+        </div>
+        <div className="hidden sm:block">
+          <span>Selectionnez la source: </span>
+        </div>
+
         <Button
           onClick={() => {
             setZone("Lys");
@@ -105,7 +116,9 @@ export const RechargeSection = ({ width }: { width: number }) => {
       </div>
 
       <div className="flex items-center gap-2 mt-6">
-        <span>Clé de lecture:</span>
+        <div className="hidden sm:block">
+          <span>Clé de lecture:</span>
+        </div>
         <div className="w-8 h-6 bg-[#009EE0]" />
         <span className="mr-4">Année sélectionnée</span>
         <div className="w-8 h-6 border border-black">
