@@ -65,8 +65,8 @@ export const MapSection = () => {
   return (
     <>
       <div className="w-full">
-        <div className="px-6 md:px-[1.6rem] w-full">
-          <div className="w-full max-w-[calc(100%-3.2rem)] mx-auto">
+        <div className="w-full flex justify-center">
+          <div className="w-full " style={{ maxWidth: 826 }}>
             <h2>L'état des lieux</h2>
             <div className="subtitle">
               Niveaux d’eau dans les champs captants de la Craie et du
