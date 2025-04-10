@@ -132,7 +132,12 @@ export const NiveauxSection = ({ width }: { width: number }) => {
           min={15}
           max={18}
           unit={"mNGF"}
-          infoText={<p>TODO: info section</p>}
+          infoText={
+            <p>
+              mNGF = Nivellement Général de la France correspondant à l’altitude
+              par rapport au niveau de la mer
+            </p>
+          }
         />
 
         <p
@@ -151,7 +156,12 @@ export const NiveauxSection = ({ width }: { width: number }) => {
           min={0}
           max={10}
           unit="m3/s"
-          infoText={<p>TODO: info section</p>}
+          infoText={
+            <p>
+              mNGF = Nivellement Général de la France correspondant à l’altitude
+              par rapport au niveau de la mer
+            </p>
+          }
         />
         <p
           className="font-bold bricolageFont"
