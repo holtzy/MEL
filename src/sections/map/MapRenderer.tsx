@@ -171,6 +171,7 @@ export const MapRenderer = ({ data }: MapProps) => {
                 <ChangeLevelPill
                   evolutionType={evolutionScale(d.EVOLUTION)}
                   level={levelScale(d.CARACT)}
+                  size={containerSize.width < 500 ? "small" : "big"}
                 />
               </div>
             );
