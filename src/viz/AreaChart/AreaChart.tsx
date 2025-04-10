@@ -154,7 +154,7 @@ export const AreaChart = ({
           x1={xPos}
           x2={xPos}
           y1={0}
-          y2={height}
+          y2={boundsHeight}
           stroke="lightgray"
         />
       );
