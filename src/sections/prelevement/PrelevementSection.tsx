@@ -68,7 +68,9 @@ export const PrelevementSection = ({ width }: { width: number }) => {
 
       <div className="my-8">
         <div className="flex items-center gap-2 my-2">
-          <span>Clé de lecture</span>
+          <div className="hidden sm:block">
+            <span>Clé de lecture:</span>
+          </div>{" "}
           <div className="w-8 h-6 bg-[#009EE0]" />
           <span>Mois dernier</span>
           <div
@@ -79,10 +81,10 @@ export const PrelevementSection = ({ width }: { width: number }) => {
         </div>
       </div>
 
-      <div className="flex gap-8" ref={contentRef}>
+      <div className="flex" ref={contentRef}>
         <HalfCircleChart
           width={width / 2}
-          height={150}
+          height={Math.min(150, width / 4)}
           value={lastDataPoint?.VOLUME_PRELEVE}
           min={0}
           max={200000}
@@ -91,7 +93,7 @@ export const PrelevementSection = ({ width }: { width: number }) => {
         />
         <HalfCircleChart
           width={width / 2}
-          height={150}
+          height={Math.min(150, width / 4)}
           value={lastYearDataPoint[0]?.VOLUME_PRELEVE}
           min={0}
           max={200000}
