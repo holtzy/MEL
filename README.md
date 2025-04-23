@@ -28,7 +28,7 @@ Then, install all the necessary dependencies using `npm install`.
 
 Then, run `npm run dev` and the project will run locally. You can open a browser and go to `http://localhost:5173/MEL/` to see it live.
 
-Once you're happy with your changes, run `npm run deploy`. This will create a folder called `public` that is a static version of the website, thus hostable on Github.
+Once you're happy with your changes, run `npm run build`. This will create a folder called `public` that is a static version of the website, thus hostable on Github.
 
 ## Iframe insertion
 
