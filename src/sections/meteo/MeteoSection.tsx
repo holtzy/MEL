@@ -113,8 +113,8 @@ export const MeteoSection = ({ width }: { width: number }) => {
       <h2>Le rôle de la météo</h2>
 
       <span className="subtitle">
-        Valeurs de l'évapotranspiration, température, précipitations et
-        l’humidité du sol au cours des 12 derniers mois
+        Valeurs de l'évapotranspiration, de la température, des précipitations
+        et de l’humidité du sol au cours des 12 derniers mois
       </span>
 
       <div className="flex items-center gap-2 my-2">
