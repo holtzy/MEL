@@ -17,7 +17,7 @@ export const questions = [
     goodAnswer: false,
     explanation: (
       <p>
-        <b>Faux!</b>
+        <b>Faux !</b>
         <br />
         Cela dépend de la période où il pleut. S’il pleut alors que les sols
         sont secs, l’eau ruisselle sans recharger les nappes. La recharge
@@ -31,11 +31,11 @@ export const questions = [
     goodAnswer: false,
     explanation: (
       <p>
-        <b>Faux!</b>
+        <b>Faux !</b>
         <br />
         L’eau du robinet provient des usines de traitement d’eau potable, issues
-        des cours d’eau ou des nappes souterraines. Les stations d’épuration
-        renvoient l’eau traitée dans les cours d’eau.
+        de certains cours d’eau comme la Lys ou des nappes souterraines. Les
+        stations d’épuration renvoient l’eau traitée dans les cours d’eau.
       </p>
     ),
   },
@@ -49,11 +49,11 @@ export const questions = [
     goodAnswer: false,
     explanation: (
       <p>
-        <b>Faux!</b>
+        <b>Faux !</b>
         <br />
         Les ressources en eau sont limitées et varient selon les usages et les
         saisons. Même dans les régions pluvieuses, elles ne sont pas
-        inépuisables, notamment avec le changement climatique.
+        inépuisables, notamment en raison des effets du changement climatique.
       </p>
     ),
   },
@@ -64,7 +64,7 @@ export const questions = [
     goodAnswer: false,
     explanation: (
       <p>
-        <b>Faux!</b>
+        <b>Faux !</b>
         <br />
         La recharge des nappes dépend des conditions géologiques. Dans certains
         cas, elle peut prendre des années, voire des décennies, surtout si la
@@ -79,7 +79,7 @@ export const questions = [
     goodAnswer: true,
     explanation: (
       <p>
-        <b>Vrai!</b>
+        <b>Vrai !</b>
         <br />
         La neige fond lentement, humidifie progressivement les sols et favorise
         une meilleure infiltration de l’eau vers les nappes souterraines.
