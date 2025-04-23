@@ -6,7 +6,7 @@ Github is also used to host those interactive graphs. This means that if you go 
 
 ## Useful links
 
-The final project (story) is visible [here](https://storymaps.arcgis.com/stories/04e3a8477321491b97eb13a533634eb7). If you have admin rights, you can go [here](https://storymaps.arcgis.com/stories/04e3a8477321491b97eb13a533634eb7/edit) to edit it.
+The final project (story) is visible online. If you have admin rights, you can go [here](https://storymaps.arcgis.com/stories/04e3a8477321491b97eb13a533634eb7/edit) to edit it.
 
 The todo list is available [here](https://www.notion.so/parabolestudio/Chart-development-12f5c2fe53818055b2b8eaab6448058e). The designs to follow are [here](https://www.figma.com/design/zhHt8VHDxZhKSXCnUECIvl/Grand-cycle-de-l'eau-%7C-Final-design?node-id=1-5&p=f&t=ew0loWKbNrwSTr84-0)
 
