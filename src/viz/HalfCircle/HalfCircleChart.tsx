@@ -1,10 +1,12 @@
 import { InformationPopover } from "@/components/InformationPopover";
+import { hexToRgba } from "@/lib/utils";
 import * as d3 from "d3";
 
 type HalfCircleChartProps = {
   width: number;
   height: number;
   value: number;
+  previousYearValue?: number;
   min: number;
   max: number;
   style: Object;
@@ -16,6 +18,7 @@ export const HalfCircleChart = ({
   height,
   max,
   value,
+  previousYearValue,
   date,
   style,
 }: HalfCircleChartProps) => {
@@ -31,8 +34,16 @@ export const HalfCircleChart = ({
     .startAngle(-Math.PI / 2) // Start from 0 radians (right side)
     .endAngle(Math.PI / 2); // End at π radians (left side)
 
+  const arcGeneratorPreviousYear = d3
+    .arc()
+    .innerRadius(0) // Full pie slice (no hole in the middle)
+    .outerRadius(scaleArea(previousYearValue)) // Set the outer radius
+    .startAngle(-Math.PI / 2) // Start from 0 radians (right side)
+    .endAngle(Math.PI / 2); // End at π radians (left side)
+
   // @ts-expect-error
   const arcPath = arcGenerator(width / 2);
+  const arcPathPreviousYear = arcGeneratorPreviousYear(width / 2);
 
   const dateInDateFormat = new Date(date);
   const formattedDate = new Intl.DateTimeFormat("fr-FR", {
@@ -63,6 +74,13 @@ export const HalfCircleChart = ({
           transform={`translate(${width / 2},${height})`}
           style={style}
         />
+        {previousYearValue && (
+          <path
+            d={arcPathPreviousYear}
+            transform={`translate(${width / 2},${height})`}
+            style={{ fill: hexToRgba("#B3E2F6", 0.18), stroke: "#B3E2F6" }}
+          />
+        )}
       </svg>
     </div>
   );

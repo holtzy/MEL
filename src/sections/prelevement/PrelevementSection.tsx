@@ -86,6 +86,7 @@ export const PrelevementSection = ({ width }: { width: number }) => {
           width={width / 2}
           height={Math.min(150, width / 4)}
           value={lastDataPoint?.VOLUME_PRELEVE}
+          previousYearValue={lastYearDataPoint[0]?.VOLUME_PRELEVE}
           min={0}
           max={200000}
           style={{ fill: "#009EE0", stroke: "#009EE0" }}
