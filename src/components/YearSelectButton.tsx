@@ -15,7 +15,7 @@ type YearSelectButtonProps = {
 export const YearSelectButton = ({
   setYear,
   year,
-  startYear = 1990,
+  startYear = 1992,
 }: YearSelectButtonProps) => {
   const currentYear = new Date().getFullYear();
   const allYears = Array.from(
