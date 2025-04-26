@@ -162,13 +162,8 @@ export const NiveauxSection = ({ width }: { width: number }) => {
           height={300}
           min={0}
           max={10}
-          unit="m3/s"
-          infoText={
-            <p>
-              mNGF = Nivellement Général de la France correspondant à l’altitude
-              par rapport au niveau de la mer
-            </p>
-          }
+          unit="mm"
+          infoText={""}
         />
         <p
           className="font-bold bricolageFont"
