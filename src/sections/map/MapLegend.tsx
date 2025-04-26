@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { ChangeLevelPill } from "../map/ChangeLevelPill";
 import { Circle } from "../map/Circle";
 import { CHANGE_LEVELS, LEVELS, colorScale } from "../map/utils";
+import { CrossesPattern } from "./CrossesPattern";
 
 export const MapLegend = () => {
   return (
@@ -39,6 +40,7 @@ export const MapLegend = () => {
       <div className="hidden sm:flex gap-4 mt-4 text-sm">
         <NiveauAlerteRow isSmallScreen={false} />
       </div>
+      <CrossesPattern />
     </>
   );
 };
