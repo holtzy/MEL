@@ -1,6 +1,6 @@
 export const CrossesPattern = () => {
   return (
-    <svg>
+    <svg height={0}>
       <defs>
         <pattern
           id="crosses"
