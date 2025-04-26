@@ -36,13 +36,14 @@ export const HalfCircleChart = ({
 
   const arcGeneratorPreviousYear = d3
     .arc()
-    .innerRadius(0) // Full pie slice (no hole in the middle)
-    .outerRadius(scaleArea(previousYearValue)) // Set the outer radius
-    .startAngle(-Math.PI / 2) // Start from 0 radians (right side)
-    .endAngle(Math.PI / 2); // End at π radians (left side)
+    .innerRadius(0)
+    .outerRadius(scaleArea(previousYearValue || 0))
+    .startAngle(-Math.PI / 2)
+    .endAngle(Math.PI / 2);
 
   // @ts-expect-error
   const arcPath = arcGenerator(width / 2);
+  // @ts-expect-error
   const arcPathPreviousYear = arcGeneratorPreviousYear(width / 2);
 
   const dateInDateFormat = new Date(date);
