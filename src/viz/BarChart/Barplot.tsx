@@ -33,6 +33,9 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
+  const location = data[0].ENDROIT;
+  const unit = location === "Lys" ? "m3/s" : "mm";
+
   // X axis
   const xScale = useMemo(() => {
     return d3
@@ -102,7 +105,7 @@ export const Barplot = ({ width, height, data, annotation }: BarplotProps) => {
           fontSize={15}
           fill="black"
         >
-          {value + (hasUnit ? " mm" : "")}
+          {value + " " + (hasUnit ? unit : "")}
         </text>
       </g>
     );
