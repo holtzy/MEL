@@ -76,7 +76,9 @@ export const MapSection = () => {
             <MapLegend />
 
             <div className="mt-12">
-              <h3 className="font-semibold mt-12 bricolageFont">La période</h3>
+              <h3 className="font-semibold mt-12 bricolageFont">
+                La période :
+              </h3>
             </div>
             <div className="flex items-center gap-2 mt-2 mb-10">
               <div className="block sm:hidden">
