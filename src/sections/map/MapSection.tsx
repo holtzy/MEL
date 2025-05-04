@@ -17,7 +17,7 @@ const filterData = (
     const observationDate = new Date(d.DATE_OBSERVATION);
     return (
       observationDate.getFullYear() === selectedYear &&
-      observationDate.getMonth() === selectedMonth
+      observationDate.getMonth() === selectedMonth - 1
     );
   });
 };
@@ -28,7 +28,7 @@ export const MapSection = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [selectedYear, setSelectedYear] = useState<number>(2024);
-  const [selectedMonth, setSelectedMonth] = useState<number>(1);
+  const [selectedMonth, setSelectedMonth] = useState<number>(1); // 1 is for January, not 0 based
 
   const filteredData = filterData(data, selectedYear, selectedMonth);
 
