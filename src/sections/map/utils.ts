@@ -73,5 +73,20 @@ export const evolutionScale = scaleOrdinal<number, (typeof CHANGE_LEVELS)[number
 export const ALERT_LEVELS = ["Non", "Vigilance", "Alerte"] as const;
 
 export const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
-    .domain([1, 2])
-    .range(["Non", "Vigilance"]);
+    .domain([0, 1, 2, 3, 4, 5, 6])
+    .range(["Non", "Non", "Vigilance", "Alerte", "Alerte", "Alerte", "Alerte"]);
+
+
+//
+//
+// ARRETE PREFECTORAL
+//
+//
+
+export const arreteScale = scaleOrdinal<number, boolean>()
+    .domain([0, 1])
+    .range([false, true]);
+
+
+
+

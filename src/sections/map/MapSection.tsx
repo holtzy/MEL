@@ -24,6 +24,7 @@ const filterData = (
 
 export const MapSection = () => {
   const [data, setData] = useState<MapObservation[]>([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

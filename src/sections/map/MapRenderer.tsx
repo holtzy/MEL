@@ -3,7 +3,7 @@ import { Circle } from "./Circle";
 import { useRef } from "react";
 import { useDimensions } from "@/lib/use-dimensions";
 import { scaleOrdinal } from "d3";
-import { alertScale, evolutionScale, levelScale } from "./utils";
+import { alertScale, arreteScale, evolutionScale, levelScale } from "./utils";
 import { ChangeLevelPill } from "./ChangeLevelPill";
 
 type MapProps = {
@@ -150,6 +150,7 @@ export const MapRenderer = ({ data }: MapProps) => {
               r={circleRadius}
               level={levelScale(d.CARACT)}
               alert={alertScale(d.SEUIL)}
+              isPrefectoral={arreteScale(d.ARRETE)}
             />
           ))}
         </svg>
