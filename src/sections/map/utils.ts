@@ -74,7 +74,7 @@ export const ALERT_LEVELS = ["Non", "Vigilance", "Alerte"] as const;
 
 export const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
     .domain([0, 1, 2, 3, 4, 5, 6])
-    .range(["Non", "Non", "Vigilance", "Alerte", "Alerte", "Alerte", "Alerte"]);
+    .range(["Non", "Non", "Vigilance", "Vigilance", "Alerte", "Alerte", "Alerte"]);
 
 
 //
