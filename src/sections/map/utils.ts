@@ -85,8 +85,60 @@ export const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
 
 export const arreteScale = scaleOrdinal<number, boolean>()
     .domain([0, 1, 2])
-    .range([false, true, true]);
+    .range([false, true, false]);
 
 
+
+
+// MAIL de DIDIER MAES
+// CARACT :
+// 0 - Donnée non disponible
+// 1 - Très inférieur à la normale
+// 2 - Très bas
+// 3 - Inférieur à la normale
+// 4 - Bas
+// 5 - Modérément bas
+// 6 - Autour de la moyenne
+// 7 - Normal
+// 8 - Supérieur à la normale
+// 9 - Modérément haut
+// 10 - Haut
+// 11 - Très supérieur à la normale
+// 12 - Très haut
+
+// CARACT pour la LYS (message de Aurélie BOUVET du 20/02, harmonisation  du champ CARACT) :
+// 11 > 12 [très supérieur] => [Très haut]
+// 08 > 10 [supérieur] => [haut]
+// 07 > 06 [normal] => [Autour de la moyenne]
+// 03 > 04 [inférieur] => [Bas]
+// 01 > 02 [très inférieur] => [Très bas]
+
+// EVOLUTION :
+// 0 - Donnée non disponible
+// 1 - En baisse
+// 2 - Stable
+// 3 - Mitigé
+// 4 - En hausse
+
+// SEUIL :
+// 0 - Donnée non disponible
+// 1 - Non
+// 2 - Vigilance
+// 3 - Vigilance renforcée
+// 4 - Alerte
+// 5 - Alerte renforcée
+// 6 - Crise
+
+// ARRETE :
+// 0 - n.c
+// 1 - Oui
+// 2 - Non
+
+// SEUIL_ARRETE :
+// 0 - n.c
+// 1 - Hors sécheresse
+// 2 - Vigilance
+// 3 - Vigilance renforcée
+// 4 - Alerte
 
 
