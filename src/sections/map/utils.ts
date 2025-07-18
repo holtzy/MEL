@@ -84,8 +84,8 @@ export const alertScale = scaleOrdinal<number, (typeof ALERT_LEVELS)[number]>()
 //
 
 export const arreteScale = scaleOrdinal<number, boolean>()
-    .domain([0, 1])
-    .range([false, true]);
+    .domain([0, 1, 2])
+    .range([false, true, true]);
 
 
 
