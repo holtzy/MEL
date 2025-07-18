@@ -60,7 +60,7 @@ export const CHANGE_LEVELS = ["stables", "baissé", "monté", "mitigés"] as con
 
 export const evolutionScale = scaleOrdinal<number, (typeof CHANGE_LEVELS)[number]>()
     .domain([1, 2, 3, 4]) // 0 is "no data"
-    .range(["baissé", "stables", "monté", "mitigés"]);
+    .range(["baissé", "stables", "mitigés", "monté"]);
 
 
 
